@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5">
+    <title>Bottin Annuaire Web Libre 2025 - Version Finale</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📖</text></svg>">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📖</text></svg>">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+	<link rel="stylesheet" href="style.css">
+</head>
+<body class="theme-original">
+
+    <!-- En-tête amélioré -->
+    <header class="header">
+        <div class="container">
+            <div class="header-top">
+                <h1><i class="fas fa-address-book"></i> Bottin Annuaire Web Libre 2025</h1>
+                <p class="subtitle">Annuaire collaboratif des organisations web libres et solidaires - Version Finale</p>
+            </div>
+            
+            <div class="header-stats">
+                <div class="header-stat">
+                    <span class="stat-number" id="statTotal">0</span>
+                    <span class="stat-label">Total</span>
+                </div>
+                <div class="header-stat">
+                    <span class="stat-number" id="statCategories">0</span>
+                    <span class="stat-label">Catégories</span>
+                </div>
+                <div class="header-stat">
+                    <span class="stat-number" id="statThemes">0</span>
+                    <span class="stat-label">Thèmes</span>
+                </div>
+                <div class="header-stat">
+                    <span class="stat-number" id="filteredCount">0</span>
+                    <span class="stat-label">Filtrées</span>
+                </div>
+            </div>
+            
+            <div class="controls">
+                <div class="search-section">
+                    <div class="search-input-wrapper">
+                        <i class="fas fa-search"></i>
+                        <input id="searchInput" type="text" placeholder="Rechercher organisations...">
+                        <button id="btnAdvancedSearch" class="btn btn-secondary btn-with-icon">
+                            <i class="fas fa-sliders-h"></i> Avancée
+                        </button>
+                    </div>
+                    <button id="btnClearFilters" class="btn btn-secondary btn-with-icon">
+                        <i class="fas fa-times"></i> Effacer filtres
+                    </button>
+                    <select id="themeSelect" class="theme-select">
+                        <option value="theme-dark">🌙 Sombre</option>
+                        <option value="theme-light">☀️ Clair</option>
+                        <option value="theme-techno">💻 Techno</option>
+                        <option value="theme-pastel">🎨 Pastel</option>
+                        <option value="theme-gradient">🌈 Gradient</option>
+                        <option value="theme-minimal">⚪ Minimal</option>
+                        <option value="theme-luxe">👑 Luxe</option>
+                        <option value="theme-nature-user">🌿 Nature</option>
+                        <option value="theme-retro">📼 Rétro</option>
+                        <option value="theme-futuriste">🚀 Futuriste</option>
+                        <option value="theme-original">🔵 Original</option>
+                        <option value="theme-verre">🔍 Verre Transparent</option>
+                        <option value="theme-cyberpunk">🔮 Cyberpunk Néon</option>
+                        <option value="theme-jeu">🎮 Jeu Vidéo</option>
+                        <option value="theme-neon">💡 Néon Simple</option>
+                        <option value="theme-cyberpunk-v2">🌌 Cyberpunk V2</option>
+                        <option value="theme-nature-zen">☯️ Nature Zen</option>
+                        <option value="theme-solarise">☀️ Solarisé</option>
+                        <option value="theme-coucher">🌅 Coucher de Soleil</option>
+                        <option value="theme-pourpre">👑 Pourpre Royal</option>
+                        <option value="theme-fete-foraine">🎡 Fête foraine</option>
+                    </select>
+                </div>
+                
+                <!-- Recherche avancée -->
+                <div id="advancedSearch" class="advanced-search">
+                    <h3><i class="fas fa-cogs"></i> Recherche avancée</h3>
+                    <p>Filtrer par année :</p>
+                    <div class="quick-dates">
+                        <button onclick="filterByDate('2025')" class="btn-small">2025</button>
+                        <button onclick="filterByDate('2024')" class="btn-small">2024</button>
+                        <button onclick="filterByDate('2023')" class="btn-small">2023</button>
+                        <button onclick="filterByDate('2022')" class="btn-small">2022</button>
+                        <button onclick="filterByDate('2021')" class="btn-small">2021</button>
+                        <button onclick="filterByDate('2020')" class="btn-small">2020</button>
+                    </div>
+                </div>
+                
+                <!-- Filtres actifs -->
+                <div id="activeFilters" class="active-filters"></div>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container two-columns">
+            <!-- Colonne principale -->
+            <section class="left-column">
+                <div class="section-header">
+                    <h2><i class="fas fa-list"></i> Organisations & Entreprises</h2>
+                    <div class="stats">
+                        <span id="filteredCountBadge" class="badge">0 entrées</span>
+                        <div class="action-buttons">
+                            <button id="btnImportJSON" class="btn btn-secondary btn-with-icon">
+                                <i class="fas fa-file-import"></i> Import JSON
+                            </button>
+                            <input type="file" id="jsonFileInput" accept=".json">
+                            <button id="btnAddEntry" class="btn btn-secondary btn-with-icon">
+                                <i class="fas fa-plus"></i> Ajouter
+                            </button>
+                            <select id="sortSelect">
+                                <option value="name-asc">🔤 A-Z</option>
+                                <option value="name-desc">🔤 Z-A</option>
+                                <option value="category-asc">🏷️ Catégorie A-Z</option>
+                                <option value="category-desc">🏷️ Catégorie Z-A</option>
+                                <option value="date-desc">📅 Récent</option>
+                                <option value="date-asc">📅 Ancien</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div id="entriesContainer" class="entries-grid"></div>
+            </section>
+
+            <!-- Colonne latérale -->
+            <aside class="right-column">
+                <section>
+                    <h2><i class="fas fa-chart-bar"></i> Top 10 thématiques</h2>
+                    <div id="themesTop10" class="themes-grid"></div>
+                </section>
+
+                <section>
+                    <h2><i class="fas fa-tags"></i> Toutes les catégories</h2>
+                    <div id="categoriesContainer" class="categories-grid"></div>
+                </section>
+
+                <section>
+                    <h2><i class="fas fa-palette"></i> Toutes les thématiques</h2>
+                    <div id="allThemesContainer" class="categories-grid"></div>
+                </section>
+
+                <section>
+                    <h2><i class="fas fa-database"></i> Gestion des données</h2>
+                    <div class="export-options">
+                        <div class="export-row">
+                            <label for="datasFormatSelect">Format datas.js:</label>
+						<select id="datasFormatSelect">
+							<option value="compact">Compact</option>
+							<option value="normal">Normal</option>
+							<option value="pretty">Lisible</option>
+						</select>
+                        </div>
+                        <div class="export-buttons">
+                            <button id="btnExportJSON" class="btn btn-secondary btn-with-icon">
+                                <i class="fas fa-file-export"></i> Export JSON
+                            </button>
+                            <button id="btnExportFullJSON" class="btn btn-secondary btn-with-icon">
+                                <i class="fas fa-file-alt"></i> Export Complet
+                            </button>
+                            <button id="btnExportDatasJS" class="btn btn-secondary btn-with-icon">
+                                <i class="fas fa-file-code"></i> datas.js (V1)
+                            </button>
+                            <button id="btnExportTopThemes" class="btn btn-secondary btn-with-icon">
+                                <i class="fas fa-chart-pie"></i> toptheme.js
+                            </button>
+                            <button id="btnResetTheme" class="btn btn-secondary btn-with-icon">
+                                <i class="fas fa-sync-alt"></i> Réinit. thème
+                            </button>
+                            <button class="btn btn-secondary btn-with-icon" id="btnDownloadAll">
+                                <i class="fas fa-download"></i> Tout télécharger
+                            </button>
+                            <button class="btn btn-danger btn-with-icon" id="btnResetData">
+                                <i class="fas fa-trash-alt"></i> Réinit. données
+                            </button>
+                        </div>
+                    </div>
+                </section>
+            </aside>
+        </div>
+    </main>
+
+    <!-- Bouton retour en haut -->
+    <button id="backToTop" class="back-to-top" title="Retour en haut">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Modale pour ajouter/modifier une entrée -->
+    <div id="addEntryModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">➕ Ajouter une nouvelle entrée</h2>
+                <button id="modalClose" class="modal-close">×</button>
+            </div>
+            <div class="modal-body">
+                <form id="entryForm" class="modal-form">
+                    <div class="form-group">
+                        <label for="entryName">
+                            <i class="fas fa-font"></i> Nom de l'organisation *
+                        </label>
+                        <input type="text" id="entryName" placeholder="Ex: Mon Organisation" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="entryCategory">
+                            <i class="fas fa-tag"></i> Catégorie
+                        </label>
+                        <input type="text" id="entryCategory" placeholder="Ex: Technologie, Éducation, etc.">
+                        <small class="form-help">Laisser vide pour "Non catégorisé"</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="entryDescription">
+                            <i class="fas fa-align-left"></i> Description
+                        </label>
+                        <textarea id="entryDescription" placeholder="Description de l'organisation..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="entryUrl">
+                            <i class="fas fa-link"></i> URL *
+                        </label>
+                        <input type="url" id="entryUrl" placeholder="https://example.com" required>
+                        <small class="form-help">Doit commencer par http:// ou https://</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="entryDate">
+                            <i class="fas fa-calendar-alt"></i> Date (année)
+                        </label>
+                        <input type="text" id="entryDate" placeholder="Ex: 2025">
+                        <small class="form-help">Laisser vide pour "2025" par défaut</small>
+                    </div>
+                </form>
+            </div>
+            <div class="form-actions">
+                <button type="button" id="cancelEntry" class="btn btn-secondary">Annuler</button>
+                <button type="button" id="saveEntry" class="btn">Enregistrer</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <h3><i class="fas fa-address-book"></i> Bottin Annuaire Web Libre 2025</h3>
+                    <p>Version Finale - 21 thèmes CSS optimisés</p>
+                    <p class="footer-note">
+                        <i class="fas fa-info-circle"></i> 
+                        Les données sont stockées localement dans votre navigateur. 
+                        Pensez à exporter vos données régulièrement.
+                    </p>
+                </div>
+                <div class="footer-links">
+                    <p><i class="fas fa-code"></i> Développé avec HTML, CSS et JavaScript</p>
+                    <p><i class="fas fa-heart"></i> Projet ouvert et participatif</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="datas.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
