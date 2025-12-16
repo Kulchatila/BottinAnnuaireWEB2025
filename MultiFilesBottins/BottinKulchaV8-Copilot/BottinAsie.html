@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Bottin Annuaire Légales 2025</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="theme-dark1">
+  <!-- HEADER -->
+  <header class="header">
+    <div class="logo">
+  <div class="logo-icon"><link rel="shortcut icon" type="image/x-icon" href="./favicon.ico"><i class="fas fa-book"></i></div>
+  <h1 class="logo-title">Bottin Annuaire Légales 2025</h1>
+</div>
+
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <h2 class="hero-title">Annuaire Franco-Asiatique Complet</h2>
+    <p class="hero-subtitle">Base de données exhaustive de plus de 650 organisations francophones en Asie</p>
+    <div class="stats-grid">
+      <div class="stat-card">
+        <span class="stat-number" id="totalCount">0</span>
+        <span class="stat-label">Organisations</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-number" id="categoryCount">0</span>
+        <span class="stat-label">Catégories</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- FILTRES -->
+  <section class="filters-section">
+    <input type="text" id="searchInput" placeholder="Rechercher une organisation...">
+    <div id="filterTags"></div>
+    <div class="controls">
+      <label for="themeSelector">🎨 Thème :</label>
+      <select id="themeSelector">
+        <option value="theme-light1">Clair 1</option>
+        <option value="theme-light2">Clair 2</option>
+        <option value="theme-color1">Coloré 1</option>
+        <option value="theme-color2">Coloré 2</option>
+        <option value="theme-dark1" selected>Sombre 1</option>
+        <option value="theme-dark2">Sombre 2</option>
+      </select>
+    </div>
+  </section>
+
+  <!-- CONTENU -->
+<main class="main-content">
+  <div class="container two-columns">
+    <!-- Colonne gauche : items -->
+    <div class="left-column">
+      <h2 id="entreprises">Organisations & Entreprises</h2>
+      <div id="entriesContainer" class="entries-grid"></div>
+    </div>
+
+	<!-- Colonne droite : thématiques + infos + exports -->
+<!-- Colonne droite -->
+<div class="right-column">
+  <!-- Infos globales -->
+  <div class="side-stats">
+    <div><strong>Organisations:</strong> <span id="sideTotalCount">0</span></div>
+    <div><strong>Catégories:</strong> <span id="sideCategoryCount">0</span></div>
+  </div>
+
+  <!-- Exports -->
+  <div class="exports">
+    <label for="datasFormatSelect"><strong>Format datas.js:</strong></label>
+    <select id="datasFormatSelect">
+      <option value="compact" selected>Compact (1 ligne/entrée)</option>
+      <option value="pretty">Lisible (multilignes)</option>
+    </select>
+    <div class="export-buttons">
+      <button id="btnExportJSON" class="btn">Export JSON</button>
+      <button id="btnExportDatasJS" class="btn btn-secondary">Export datas.js</button>
+    </div>
+  </div>
+
+  <!-- Top 10 thématiques -->
+  <h2 id="themesTopStart">Top 10 Thématiques</h2>
+  <div id="themesTop10"></div>
+
+  <!-- Toutes les thématiques -->
+  <h2>Toutes les Thématiques</h2>
+  <div id="categoriesContainer"></div>
+</div>
+
+
+  </div>
+</main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <p>© 2025 - Bottin Annuaire Légales</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="datas.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

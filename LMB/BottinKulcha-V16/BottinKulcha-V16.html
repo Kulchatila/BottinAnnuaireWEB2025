@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+  <title>Bottin Annuaire Web Libre 2025</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="theme-dark">
+  
+  <header class="header">
+    <div class="container">
+      <h1>📚 Bottin Annuaire Web Libre 2025</h1>
+      <div class="controls">
+        <input id="searchInput" type="text" placeholder="Rechercher organisations...">
+        <button id="btnClearFilters" class="btn btn-secondary">🗑️ Effacer filtres</button>
+        <select id="themeSelect">
+          <option value="theme-dark">🌙 Sombre</option>
+          <option value="theme-light">☀️ Clair</option>
+          <option value="theme-techno">💻 Techno</option>
+          <option value="theme-pastel">🎨 Pastel</option>
+          <option value="theme-gradient">🌈 Gradient</option>
+          <option value="theme-minimal">⚪ Minimal</option>
+          <option value="theme-luxe">👑 Luxe</option>
+          <option value="theme-nature-user">🌿 Nature</option>
+          <option value="theme-retro">📼 Rétro</option>
+          <option value="theme-futuriste">🚀 Futuriste</option>
+          <option value="theme-original">🔵 Original</option>
+          <option value="theme-verre">🔍 Verre Transparent</option>
+          <option value="theme-cyberpunk">🔮 Cyberpunk Néon</option>
+          <option value="theme-jeu">🎮 Jeu Vidéo</option>
+          <option value="theme-neon">💡 Néon Simple</option>
+          <option value="theme-cyberpunk-v2">🌌 Cyberpunk V2</option>
+          <option value="theme-nature-zen">☯️ Nature Zen</option>
+          <option value="theme-solarise">☀️ Solarisé</option>
+          <option value="theme-coucher">🌅 Coucher de Soleil</option>
+          <option value="theme-pourpre">👑 Pourpre Royal</option>
+		  <option value="fete-foraine">🎡 Fête foraine</option>
+        </select>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <div class="container two-columns">
+      <section class="left-column">
+        <div class="section-header">
+          <h2>📋 Organisations & Entreprises</h2>
+          <div class="stats">
+            <span id="filteredCount" class="badge">0 entrées</span>
+            <div class="action-buttons">
+              <button id="btnImportJSON" class="btn btn-secondary">📁 Import JSON</button>
+              <input type="file" id="jsonFileInput" accept=".json" hidden>
+              <button id="btnAddEntry" class="btn btn-secondary">➕ Ajouter</button>
+              <select id="sortSelect">
+                <option value="name-asc">🔤 A-Z</option>
+                <option value="name-desc">🔤 Z-A</option>
+                <option value="category-asc">🏷️ Catégorie A-Z</option>
+                <option value="category-desc">🏷️ Catégorie Z-A</option>
+                <option value="date-desc">📅 Récent</option>
+                <option value="date-asc">📅 Ancien</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div id="entriesContainer" class="entries-grid"></div>
+      </section>
+
+      <aside class="right-column">
+        <section>
+          <h2>📊 Statistiques</h2>
+          <div class="stats-grid">
+            <div class="stat-item"><div class="stat-value" id="statTotal">0</div><div class="stat-label">Total</div></div>
+            <div class="stat-item"><div class="stat-value" id="statCategories">0</div><div class="stat-label">Catégories</div></div>
+            <div class="stat-item"><div class="stat-value" id="statThemes">0</div><div class="stat-label">Thèmes</div></div>
+          </div>
+        </section>
+
+        <section>
+          <h2>🏆 Top 10 thématiques</h2>
+          <div id="themesTop10" class="themes-grid"></div>
+        </section>
+
+        <section>
+          <h2>🏷️ Toutes les catégories</h2>
+          <div id="categoriesContainer" class="categories-grid"></div>
+        </section>
+
+        <section>
+          <h2>🎨 Toutes les thématiques</h2>
+          <div id="allThemesContainer" class="categories-grid"></div>
+        </section>
+
+        <section>
+          <h2>📤 Exports</h2>
+          <div class="export-options">
+            <div class="export-row">
+              <label for="datasFormatSelect">Format datas.js:</label>
+              <select id="datasFormatSelect">
+                <option value="compact">Compact</option>
+                <option value="pretty">Lisible</option>
+              </select>
+            </div>
+            <div class="export-buttons">
+              <button id="btnExportJSON" class="btn btn-secondary">💾 Export JSON</button>
+                    <button id="btnExportFullJSON" class="btn btn-secondary" onclick="exportFullInfoJSON()">📊 Export Complet</button>
+              <button id="btnExportDatasJS" class="btn btn-secondary">📄 Export datas.js (V1)</button>
+              <button id="btnExportTopThemes" class="btn btn-secondary">🏷️ Export toptheme.js</button>
+              <button id="btnResetTheme" class="btn btn-secondary">🔄 Réinitialiser thème</button>
+            </div>
+          </div>
+        </section>
+      </aside>
+    </div>
+  </main>
+
+  <!-- Bouton retour en haut -->
+  <button id="backToTop" class="back-to-top" title="Retour en haut">↑</button>
+
+  <!-- Modale pour ajouter une entrée -->
+  <div id="addEntryModal" class="modal-overlay">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>➕ Ajouter une nouvelle entrée</h2>
+        <button id="modalClose" class="modal-close">×</button>
+      </div>
+      <form id="entryForm" class="modal-form">
+        <div class="form-group">
+          <label for="entryName">Nom de l'organisation *</label>
+          <input type="text" id="entryName" placeholder="Ex: Mon Organisation" required>
+        </div>
+        <div class="form-group">
+          <label for="entryCategory">Catégorie</label>
+          <input type="text" id="entryCategory" placeholder="Ex: Technologie, Éducation, etc.">
+        </div>
+        <div class="form-group">
+          <label for="entryDescription">Description</label>
+          <textarea id="entryDescription" placeholder="Description de l'organisation..."></textarea>
+        </div>
+        <div class="form-group">
+          <label for="entryUrl">URL *</label>
+          <input type="url" id="entryUrl" placeholder="https://example.com" required>
+        </div>
+        <div class="form-group">
+          <label for="entryDate">Date (optionnelle)</label>
+          <input type="text" id="entryDate" placeholder="Ex: 01/01/2025 - Laisser vide pour 2025">
+        </div>
+        <div class="form-actions">
+          <button type="button" id="cancelEntry" class="btn btn-secondary">Annuler</button>
+          <button type="button" id="saveEntry" class="btn">Enregistrer</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <p>© 2025 - Bottin Annuaire Web Libre - 20 thèmes CSS optimisés</p>
+    </div>
+  </footer>
+  <script src="datas.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

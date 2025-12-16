@@ -1,0 +1,2677 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bottin Annuaire Légales 2025 - Mode Sombre</title>
+    
+    <style>
+        /* RESET ET VARIABLES */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        :root {
+            /* Couleurs - Mode Sombre Haut Contraste */
+            --bg-primary: #000000;
+            --bg-secondary: #0a0a0a;
+            --bg-tertiary: #141414;
+            --bg-card: #1a1a1a;
+            
+            --text-primary: #ffffff;
+            --text-secondary: #e0e0e0;
+            --text-tertiary: #b0b0b0;
+            
+            --accent-primary: #00ffaa;
+            --accent-secondary: #00cc88;
+            --accent-danger: #ff4444;
+            --accent-warning: #ffaa00;
+            --accent-info: #00aaff;
+            
+            --border-primary: #333333;
+            --border-secondary: #444444;
+            --border-accent: #00ffaa;
+            
+            /* Typographie */
+            --font-main: 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+            --font-mono: 'Consolas', 'Monaco', monospace;
+            
+            /* Espacements */
+            --space-xs: 0.25rem;
+            --space-sm: 0.5rem;
+            --space-md: 1rem;
+            --space-lg: 1.5rem;
+            --space-xl: 2rem;
+            --space-2xl: 3rem;
+            
+            /* Animations */
+            --transition-fast: 0.2s;
+            --transition-normal: 0.3s;
+            --transition-slow: 0.5s;
+        }
+
+        /* BASE */
+        html {
+            font-size: 16px;
+            scroll-behavior: smooth;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+        }
+
+        body {
+            font-family: var(--font-main);
+            background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+            min-height: 100vh;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* TYPOGRAPHIE */
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: var(--space-md);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(90deg, var(--accent-primary), var(--accent-info));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        h2 {
+            font-size: 2rem;
+            color: var(--text-primary);
+            border-bottom: 3px solid var(--accent-primary);
+            padding-bottom: var(--space-sm);
+            position: relative;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: var(--accent-secondary);
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            color: var(--text-secondary);
+        }
+
+        p {
+            margin-bottom: var(--space-md);
+            color: var(--text-secondary);
+        }
+
+        a {
+            color: var(--accent-primary);
+            text-decoration: none;
+            transition: all var(--transition-normal) ease;
+            font-weight: 500;
+        }
+
+        a:hover {
+            color: var(--text-primary);
+            text-decoration: underline;
+            text-decoration-color: var(--accent-primary);
+        }
+
+        /* LAYOUT */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 var(--space-lg);
+        }
+
+        /* HEADER */
+        .header {
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid var(--border-accent);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: var(--space-md) 0;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: var(--space-md);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+        }
+
+        .logo-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.5rem;
+            color: var(--bg-primary);
+        }
+
+        /* NAVIGATION */
+        .nav {
+            display: flex;
+            gap: var(--space-lg);
+            flex-wrap: wrap;
+        }
+
+        .nav-link {
+            color: var(--text-secondary);
+            padding: var(--space-sm) var(--space-md);
+            border-radius: 6px;
+            transition: all var(--transition-normal) ease;
+            font-weight: 500;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--accent-primary);
+            background: rgba(0, 255, 170, 0.1);
+        }
+
+        /* BOUTONS */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-sm);
+            padding: var(--space-sm) var(--space-lg);
+            background: var(--accent-primary);
+            color: var(--bg-primary);
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition-normal) ease;
+            font-size: 0.9rem;
+        }
+
+        .btn:hover {
+            background: var(--accent-secondary);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 255, 170, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--accent-primary);
+            border: 2px solid var(--accent-primary);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(0, 255, 170, 0.1);
+        }
+
+        /* SECTION HERO */
+        .hero {
+            padding: var(--space-2xl) 0;
+            text-align: center;
+            background: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+            border-bottom: 1px solid var(--border-primary);
+        }
+
+        .hero-title {
+            font-size: clamp(2rem, 5vw, 3rem);
+            margin-bottom: var(--space-md);
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            max-width: 800px;
+            margin: 0 auto var(--space-xl);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-lg);
+            margin-top: var(--space-xl);
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            border: 2px solid var(--border-secondary);
+            border-radius: 12px;
+            padding: var(--space-lg);
+            transition: all var(--transition-normal) ease;
+        }
+
+        .stat-card:hover {
+            border-color: var(--accent-primary);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 255, 170, 0.15);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--accent-primary);
+            line-height: 1;
+            display: block;
+        }
+
+        .stat-label {
+            color: var(--text-tertiary);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-top: var(--space-xs);
+        }
+
+        /* SECTION FILTRES */
+        .filters-section {
+            background: var(--bg-tertiary);
+            padding: var(--space-xl) 0;
+            border-bottom: 1px solid var(--border-primary);
+        }
+
+        .search-container {
+            max-width: 800px;
+            margin: 0 auto var(--space-xl);
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: var(--space-lg) var(--space-xl) var(--space-lg) 3.5rem;
+            background: var(--bg-card);
+            border: 2px solid var(--border-secondary);
+            border-radius: 50px;
+            color: var(--text-primary);
+            font-size: 1.1rem;
+            transition: all var(--transition-normal) ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 0 3px rgba(0, 255, 170, 0.2);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: var(--space-xl);
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-tertiary);
+            font-size: 1.2rem;
+        }
+
+        .filter-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-sm);
+            justify-content: center;
+        }
+
+        .filter-tag {
+            padding: var(--space-sm) var(--space-lg);
+            background: var(--bg-card);
+            border: 2px solid var(--border-secondary);
+            border-radius: 25px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all var(--transition-normal) ease;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .filter-tag:hover,
+        .filter-tag.active {
+            background: var(--accent-primary);
+            color: var(--bg-primary);
+            border-color: var(--accent-primary);
+        }
+
+        /* CONTENU PRINCIPAL */
+        .main-content {
+            padding: var(--space-2xl) 0;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-xl);
+            flex-wrap: wrap;
+            gap: var(--space-md);
+        }
+
+        .category-badge {
+            display: inline-block;
+            padding: var(--space-xs) var(--space-lg);
+            background: rgba(0, 255, 170, 0.1);
+            border: 2px solid var(--accent-primary);
+            border-radius: 20px;
+            color: var(--accent-primary);
+            font-size: 0.9rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* GRID DES ENTREPRISES */
+        .entries-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: var(--space-lg);
+            margin-bottom: var(--space-2xl);
+        }
+
+        .entry-card {
+            background: var(--bg-card);
+            border: 2px solid var(--border-secondary);
+            border-radius: 12px;
+            padding: var(--space-lg);
+            transition: all var(--transition-normal) ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .entry-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-primary), transparent);
+            opacity: 0;
+            transition: opacity var(--transition-normal) ease;
+        }
+
+        .entry-card:hover {
+            border-color: var(--accent-primary);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 255, 170, 0.2);
+        }
+
+        .entry-card:hover::before {
+            opacity: 1;
+        }
+
+        .entry-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: var(--space-md);
+            gap: var(--space-sm);
+        }
+
+        .entry-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            line-height: 1.3;
+            flex: 1;
+        }
+
+        .entry-category {
+            background: rgba(0, 170, 255, 0.1);
+            color: var(--accent-info);
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            white-space: nowrap;
+        }
+
+        .entry-description {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            flex: 1;
+            margin-bottom: var(--space-lg);
+        }
+
+        .entry-url {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-xs);
+            color: var(--accent-primary);
+            font-size: 0.9rem;
+            font-weight: 600;
+            padding: var(--space-sm) var(--space-md);
+            background: rgba(0, 255, 170, 0.1);
+            border-radius: 6px;
+            transition: all var(--transition-normal) ease;
+            margin-top: auto;
+        }
+
+        .entry-url:hover {
+            background: rgba(0, 255, 170, 0.2);
+            transform: translateX(5px);
+        }
+
+        .entry-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: var(--space-md);
+            padding-top: var(--space-md);
+            border-top: 1px solid var(--border-secondary);
+            font-size: 0.8rem;
+            color: var(--text-tertiary);
+        }
+
+        /* SECTION THÈMES */
+        .themes-section {
+            background: var(--bg-tertiary);
+            padding: var(--space-2xl) 0;
+            border-top: 1px solid var(--border-primary);
+            border-bottom: 1px solid var(--border-primary);
+        }
+
+        .themes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--space-lg);
+            margin-top: var(--space-xl);
+        }
+
+        .theme-card {
+            background: linear-gradient(145deg, var(--bg-card), var(--bg-tertiary));
+            border: 2px solid var(--border-secondary);
+            border-radius: 12px;
+            padding: var(--space-xl);
+            transition: all var(--transition-normal) ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .theme-card:hover {
+            border-color: var(--accent-primary);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 255, 170, 0.15);
+        }
+
+        .theme-rank {
+            position: absolute;
+            top: var(--space-lg);
+            right: var(--space-lg);
+            width: 36px;
+            height: 36px;
+            background: var(--accent-primary);
+            color: var(--bg-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1rem;
+        }
+
+        /* PAGINATION */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: var(--space-sm);
+            margin-top: var(--space-xl);
+            padding: var(--space-lg) 0;
+        }
+
+        .pagination-btn {
+            padding: var(--space-sm) var(--space-lg);
+            background: var(--bg-card);
+            border: 2px solid var(--border-secondary);
+            border-radius: 6px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all var(--transition-normal) ease;
+            font-weight: 500;
+            min-width: 44px;
+            text-align: center;
+        }
+
+        .pagination-btn:hover {
+            background: var(--accent-primary);
+            color: var(--bg-primary);
+            border-color: var(--accent-primary);
+        }
+
+        .pagination-btn.active {
+            background: var(--accent-primary);
+            color: var(--bg-primary);
+            border-color: var(--accent-primary);
+            font-weight: 700;
+        }
+
+        /* FOOTER */
+        .footer {
+            background: var(--bg-secondary);
+            border-top: 2px solid var(--border-accent);
+            padding: var(--space-2xl) 0 var(--space-xl);
+            margin-top: var(--space-2xl);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--space-xl);
+            margin-bottom: var(--space-xl);
+        }
+
+        .footer-section h4 {
+            color: var(--text-primary);
+            margin-bottom: var(--space-md);
+            font-size: 1.25rem;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: var(--space-sm);
+        }
+
+        .footer-links a {
+            color: var(--text-tertiary);
+            transition: color var(--transition-normal) ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-primary);
+            padding-left: var(--space-sm);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: var(--space-lg);
+            border-top: 1px solid var(--border-secondary);
+            color: var(--text-tertiary);
+            font-size: 0.9rem;
+        }
+
+        /* CONTROLES UTILITAIRES */
+        .controls {
+            display: flex;
+            gap: var(--space-md);
+            margin-top: var(--space-lg);
+            flex-wrap: wrap;
+        }
+
+        /* MESSAGES ET ÉTATS */
+        .message {
+            padding: var(--space-md);
+            border-radius: 8px;
+            margin-bottom: var(--space-md);
+            border: 2px solid;
+            background: rgba(0, 255, 170, 0.05);
+            border-color: var(--accent-primary);
+            color: var(--accent-primary);
+        }
+
+        .message.error {
+            background: rgba(255, 68, 68, 0.05);
+            border-color: var(--accent-danger);
+            color: var(--accent-danger);
+        }
+
+        /* ANIMATIONS */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        /* SCROLLBAR */
+        ::-webkit-scrollbar {
+            width: 12px;
+            height: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-secondary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--border-secondary);
+            border-radius: 6px;
+            border: 3px solid var(--bg-secondary);
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent-primary);
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 1024px) {
+            .entries-grid {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
+            
+            .themes-grid {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .nav {
+                justify-content: center;
+            }
+            
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .entries-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            h2 {
+                font-size: 1.75rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 var(--space-md);
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .filter-tags {
+                justify-content: flex-start;
+                overflow-x: auto;
+                padding-bottom: var(--space-sm);
+            }
+            
+            .pagination {
+                flex-wrap: wrap;
+            }
+        }
+
+        /* MODAL D'EXPORT */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: var(--space-xl);
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            border: 2px solid var(--border-accent);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-lg);
+        }
+
+        .modal-title {
+            color: var(--accent-primary);
+            font-size: 1.5rem;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            color: var(--text-tertiary);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: color var(--transition-fast) ease;
+        }
+
+        .close-modal:hover {
+            color: var(--accent-primary);
+        }
+
+        .json-display {
+            background: var(--bg-primary);
+            border: 1px solid var(--border-secondary);
+            border-radius: 6px;
+            padding: var(--space-md);
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            color: var(--accent-primary);
+            white-space: pre-wrap;
+            word-break: break-all;
+            max-height: 300px;
+            overflow-y: auto;
+            margin-bottom: var(--space-md);
+        }
+
+        /* SELECTEUR DE THÈMES */
+        .theme-selector {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-lg);
+        }
+
+        .theme-btn {
+            padding: var(--space-xs) var(--space-md);
+            background: var(--bg-card);
+            border: 2px solid var(--border-secondary);
+            border-radius: 20px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all var(--transition-normal) ease;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .theme-btn:hover,
+        .theme-btn.active {
+            background: var(--accent-info);
+            color: var(--bg-primary);
+            border-color: var(--accent-info);
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon">B</div>
+                    <h1>Bottin Annuaire Légales 2025</h1>
+                </div>
+                <nav class="nav">
+                    <a href="#entreprises" class="nav-link active">Organisations</a>
+                    <a href="#themes" class="nav-link">Thématiques</a>
+                    <a href="#export" class="nav-link" onclick="showExportModal()">Export</a>
+                    <a href="#stats" class="nav-link">Statistiques</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- SECTION HERO -->
+    <section class="hero">
+        <div class="container">
+            <h2 class="hero-title">Annuaire Franco-Asiatique Complet</h2>
+            <p class="hero-subtitle">
+                Base de données exhaustive de plus de 650 organisations francophones en Asie<br>
+                et entreprises françaises en Asie - Édition 2025
+            </p>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span class="stat-number" id="totalCount">0</span>
+                    <span class="stat-label">Organisations</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number" id="categoryCount">0</span>
+                    <span class="stat-label">Catégories</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number" id="countryCount">50+</span>
+                    <span class="stat-label">Pays couverts</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">2025</span>
+                    <span class="stat-label">Édition actualisée</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION FILTRES -->
+    <section class="filters-section">
+        <div class="container">
+            <div class="search-container">
+                <input type="text" class="search-input" id="searchInput" 
+                       placeholder="Rechercher une organisation, un secteur, un pays...">
+                <span class="search-icon">🔍</span>
+            </div>
+            
+            <div class="filter-tags" id="filterTags">
+                <!-- Filtres générés dynamiquement -->
+            </div>
+            
+            <!-- CONTROLES UTILITAIRES -->
+            <div class="controls">
+                <button class="btn" onclick="exportToJSON()">
+                    📥 Exporter en JSON
+                </button>
+                <button class="btn btn-secondary" onclick="clearFilters()">
+                    🗑️ Effacer les filtres
+                </button>
+                <button class="btn btn-secondary" onclick="toggleThemeSelector()">
+                    🎨 Sélecteur de thèmes
+                </button>
+            </div>
+            
+            <!-- SELECTEUR DE THÈMES (caché par défaut) -->
+            <div class="theme-selector" id="themeSelector" style="display: none;">
+                <!-- Thèmes générés dynamiquement -->
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTENU PRINCIPAL -->
+    <main class="main-content">
+        <div class="container">
+            <div class="section-header">
+                <h2 id="entreprises">Organisations & Entreprises</h2>
+                <div class="category-badge" id="filteredCount">Chargement...</div>
+            </div>
+            
+            <!-- SELECTEUR DE THÈMES POUR FILTRAGE -->
+            <div class="theme-selector" id="quickThemes">
+                <!-- Thèmes rapides générés dynamiquement -->
+            </div>
+            
+            <div id="entriesContainer" class="entries-grid">
+                <!-- Cartes générées dynamiquement -->
+            </div>
+            
+            <!-- PAGINATION -->
+            <div id="pagination" class="pagination">
+                <!-- Pagination générée dynamiquement -->
+            </div>
+        </div>
+    </main>
+
+    <!-- SECTION THÈMES -->
+    <section class="themes-section" id="themes">
+        <div class="container">
+            <div class="section-header">
+                <h2>Top 10 des Thématiques</h2>
+                <div class="category-badge">Principaux Secteurs</div>
+            </div>
+            
+            <div id="themesContainer" class="themes-grid">
+                <!-- Thèmes générés dynamiquement -->
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Bottin Annuaire Légales 2025</h4>
+                    <p>Base de données exhaustive des relations franco-asiatiques.<br>
+                    Édition mise à jour régulièrement.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Navigation</h4>
+                    <ul class="footer-links">
+                        <li><a href="#entreprises">Organisations</a></li>
+                        <li><a href="#themes">Thématiques</a></li>
+                        <li><a href="#export" onclick="showExportModal()">Export des données</a></li>
+                        <li><a href="#stats">Statistiques</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Fonctionnalités</h4>
+                    <ul class="footer-links">
+                        <li><a href="#" onclick="exportToJSON()">Export JSON</a></li>
+                        <li><a href="#" onclick="toggleThemeSelector()">Sélecteur de thèmes</a></li>
+                        <li><a href="#" onclick="clearFilters()">Effacer filtres</a></li>
+                        <li><a href="#" onclick="printPage()">Imprimer</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>© Bottin Annuaire Légales 2025 - Tous droits réservés | Version 1.0</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- MODAL D'EXPORT -->
+    <div class="modal" id="exportModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Export des Données</h3>
+                <button class="close-modal" onclick="closeExportModal()">×</button>
+            </div>
+            <p>Sélectionnez les options d'export :</p>
+            <div class="controls" style="margin-bottom: var(--space-lg);">
+                <button class="btn" onclick="exportCurrentView()">
+                    📋 Vue actuelle
+                </button>
+                <button class="btn" onclick="exportAllData()">
+                    📦 Toutes les données
+                </button>
+                <button class="btn btn-secondary" onclick="exportFilteredJSON()">
+                    🔍 Résultats filtrés
+                </button>
+            </div>
+            <div id="jsonOutput" class="json-display">
+                {/* Le JSON s'affichera ici */}
+            </div>
+            <button class="btn" onclick="copyToClipboard()" style="width: 100%;">
+                📋 Copier dans le presse-papier
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // ============================================
+        // DONNÉES D'EXEMPLE - À REMPLACER PAR VOS DONNÉES
+        // ============================================
+        
+        // REMPLACEZ CE TABLEAU PAR TOUT VOS ENTREES
+const sites = [
+  // ≡≡≡ UNIVERSITÉS & ÉDUCATION CHINOISES FRANCOPHONES ≡≡≡
+  {n:"Université des Langues Étrangères de Pékin (BFSU)", u:"https://www.bfsu.edu.cn", c:"Éducation", d:"La plus ancienne université de langues étrangères en Chine, avec département de français renommé."},
+  {n:"Université de Wuhan - Département de Français", u:"https://french.whu.edu.cn", c:"Éducation", d:"Département de français de l'une des meilleures universités chinoises."},
+  {n:"Université Sun Yat-sen - Faculté de Français", u:"https://french.sysu.edu.cn", c:"Éducation", d:"Programme de français de l'université prestigieuse du Sud de la Chine."},
+  {n:"Université Normale de la Chine de l'Est (ECNU)", u:"https://french.ecnu.edu.cn", c:"Éducation", d:"Département de français à Shanghai, centre d'excellence pour les études francophones."},
+  {n:"Université du Peuple de Chine - Institut de Français", u:"https://french.ruc.edu.cn", c:"Éducation", d:"Institut de français de l'université renommée pour les sciences sociales."},
+  {n:"Université des Études Internationales de Shanghai (SISU)", u:"https://french.shisu.edu.cn", c:"Éducation", d:"Université spécialisée en langues étrangères avec fort département de français."},
+  {n:"Université du Yunnan - Département de Français", u:"https://french.ynu.edu.cn", c:"Éducation", d:"Programme de français dans la région frontalière avec l'Asie du Sud-Est francophone."},
+  {n:"Université Normale du Guangxi", u:"https://french.gxnu.edu.cn", c:"Éducation", d:"Département de français dans la région autonome Zhuang, proche du Vietnam."},
+  
+  // ≡≡≡ INSTITUTS CONFUCIUS & ÉCHANGES CULTURELS ≡≡≡
+  {n:"Siège de l'Institut Confucius (Hanban)", u:"https://www.hanban.org", c:"Culture", d:"Organisation officielle chinoise pour la promotion de la langue chinoise à l'étranger."},
+  {n:"Alliance Française en Chine", u:"https://www.afchine.org", c:"Culture", d:"Réseau des Alliances Françaises en Chine pour l'apprentissage du français."},
+  {n:"Centre Culturel Français de Pékin", u:"https://www.ccfpekin.org", c:"Culture", d:"Institution culturelle française officielle en Chine."},
+  {n:"Institut Français de Shanghai", u:"https://www.shanghai.institutfrancais.cn", c:"Culture", d:"Centre culturel français à Shanghai."},
+  {n:"Institut Français de Canton", u:"https://www.canton.institutfrancais.cn", c:"Culture", d:"Centre culturel français à Guangzhou."},
+  
+  // ≡≡≡ MÉDIAS FRANCOPHONES BASÉS EN CHINE ≡≡≡
+  {n:"China Radio International (CRI) Français", u:"https://french.cri.cn", c:"Médias", d:"Service français de la radio internationale chinoise, basé à Pékin."},
+  {n:"CCTV Français", u:"https://fr.cctv.com", c:"Médias", d:"Chaîne française de la télévision centrale chinoise."},
+  {n:"Xinhua Français", u:"https://french.xinhuanet.com", c:"Médias", d:"Service français de l'agence de presse officielle chinoise Xinhua."},
+  {n:"China.org en Français", u:"https://french.china.org.cn", c:"Médias", d:"Portail d'information chinois en langue française."},
+  {n:"Le Quotidien du Peuple en Français", u:"https://french.peopledaily.com.cn", c:"Médias", d:"Édition française du journal officiel du Parti Communiste Chinois."},
+  {n:"China Today en Français", u:"https://www.chinatoday.com.cn/fr", c:"Médias", d:"Revue mensuelle chinoise en langue française."},
+  {n:"Beijing Information en Français", u:"https://www.beijinginformation.com/fr", c:"Médias", d:"Publication officielle de la municipalité de Pékin en français."},
+  
+  // ≡≡≡ ENTREPRISES CHINOISES AVEC SITES FRANÇAIS ≡≡≡
+  {n:"Air China - Site Français", u:"https://www.airchina.fr", c:"Transport", d:"Compagnie aérienne nationale chinoise, site en français."},
+  {n:"China Southern Airlines - Version Française", u:"https://www.csair.com/fr", c:"Transport", d:"Plus grande compagnie aérienne chinoise, site en français."},
+  {n:"China Eastern Airlines - Français", u:"https://fr.ceair.com", c:"Transport", d:"Compagnie aérienne basée à Shanghai, site français."},
+  {n:"Hainan Airlines - Site Francophone", u:"https://www.hnair.com/fr-fr", c:"Transport", d:"Compagnie aérienne chinoise, informations en français."},
+  {n:"Baidu - Traduction Français", u:"https://fanyi.baidu.com", c:"Technologie", d:"Service de traduction du moteur de recherche chinois Baidu, supporte le français."},
+  {n:"Alibaba - Site Français", u:"https://french.alibaba.com", c:"Commerce", d:"Plateforme de commerce électronique chinoise en langue française."},
+  {n:"Tencent - Présentation Française", u:"https://www.tencent.com/fr-fr", c:"Technologie", d:"Conglomérat technologique chinois, site en français."},
+  {n:"Huawei - Site France", u:"https://www.huawei.com/fr", c:"Technologie", d:"Entreprise technologique chinoise, site pour le marché français."},
+  {n:"Xiaomi - France", u:"https://www.mi.com/fr", c:"Technologie", d:"Fabricant chinois d'électronique, site français."},
+  {n:"BYD - Version Française", u:"https://www.byd.com/fr", c:"Automobile", d:"Constructeur automobile chinois de véhicules électriques, site en français."},
+  
+  // ≡≡≡ INSTITUTIONS GOUVERNEMENTALES CHINOISES FRANCOPHONES ≡≡≡
+  {n:"Ambassade de Chine en France", u:"https://www.amb-chine.fr", c:"Gouvernement", d:"Site officiel de l'ambassade de Chine en France, en français."},
+  {n:"Consulat Général de Chine à Paris", u:"https://www.consulat-chine-paris.fr", c:"Gouvernement", d:"Site du consulat chinois à Paris, en langue française."},
+  {n:"Ministère des Affaires Étrangères Chinois - Français", u:"https://www.fmprc.gov.cn/fra", c:"Gouvernement", d:"Site du ministère chinois des affaires étrangères en français."},
+  {n:"Office National du Tourisme de Chine (CNTO) - Français", u:"https://fr.cnto.org", c:"Tourisme", d:"Site officiel du tourisme chinois en langue française."},
+  {n:"China Customs - Information en Français", u:"https://www.customs.gov.cn/french", c:"Gouvernement", d:"Informations douanières chinoises en français."},
+  
+  // ≡≡≡ ORGANISATIONS INTERNATIONALES EN CHINE ≡≡≡
+  {n:"UNESCO Beijing Office", u:"https://www.unesco.org/fieldoffice/beijing/fr", c:"International", d:"Bureau de l'UNESCO à Pékin, site en français."},
+  {n:"Banque Mondiale - Chine", u:"https://www.worldbank.org/fr/country/china", c:"Finance", d:"Page de la Banque Mondiale sur la Chine, en français."},
+  {n:"FMI - Chine", u:"https://www.imf.org/fr/Countries/CHN", c:"Finance", d:"Page du Fonds Monétaire International sur la Chine, en français."},
+  {n:"OMS - Bureau Chine", u:"https://www.who.int/fr/countries/chn", c:"Santé", d:"Page de l'Organisation Mondiale de la Santé sur la Chine, en français."},
+  {n:"FAO - Chine", u:"https://www.fao.org/fr/country/chn", c:"Agriculture", d:"Page de la FAO sur la Chine, en français."},
+  
+  // ≡≡≡ UNIVERSITÉS FRANCOPHONES D'ASIE-PACIFIQUE ≡≡≡
+  {n:"Université Francophone du Pacifique (Fiji)", u:"https://www.ufp.ac.fj", c:"Éducation", d:"Université francophone dans le Pacifique Sud."},
+  {n:"Université de Nouvelle-Calédonie", u:"https://www.unc.nc", c:"Éducation", d:"Université française dans le Pacifique Sud, territoire français."},
+  {n:"Université de la Polynésie Française", u:"https://www.upf.pf", c:"Éducation", d:"Université française en Polynésie."},
+  {n:"Université Vanuatu - Département de Français", u:"https://www.univ.edu.vu/fr", c:"Éducation", d:"Université du Vanuatu, pays bilingue français-anglais."},
+  {n:"Université Royale de Phnom Penh - Département de Français", u:"https://www.rupp.edu.kh/fr", c:"Éducation", d:"Université cambodgienne avec programme de français."},
+  {n:"Université Nationale du Laos - Cours de Français", u:"https://www.nuol.edu.la/fr", c:"Éducation", d:"Université laotienne avec enseignement du français."},
+  {n:"Université de Hanoi - Département de Français", u:"https://www.hanu.edu.vn/fr", c:"Éducation", d:"Université vietnamienne avec programme de français."},
+  {n:"Université de Ho Chi Minh Ville - Français", u:"https://www.hcmus.edu.vn/fr", c:"Éducation", d:"Université vietnamienne avec cours de français."},
+  
+  // ≡≡≡ MÉDIAS FRANCOPHONES D'ASIE-PACIFIQUE ≡≡≡
+  {n:"Radio France Internationale (RFI) Asie", u:"https://www.rfi.fr/fr/asie-pacifique", c:"Médias", d:"Service de RFI pour l'Asie-Pacifique."},
+  {n:"France 24 - Édition Asie", u:"https://www.france24.com/fr/asie-pacifique", c:"Médias", d:"Chaîne d'information française, édition Asie-Pacifique."},
+  {n:"TV5 Monde Asie-Pacifique", u:"https://www.tv5monde.com/asie-pacifique", c:"Médias", d:"Chaîne francophone mondiale, édition Asie-Pacifique."},
+  {n:"Le Petit Journal Shanghai", u:"https://www.lepetitjournal.com/shanghai", c:"Médias", d:"Journal francophone pour la communauté française de Shanghai."},
+  {n:"Le Petit Journal Pékin", u:"https://www.lepetitjournal.com/pekin", c:"Médias", d:"Journal francophone pour la communauté française de Pékin."},
+  {n:"Le Courrier de Shanghai", u:"https://www.lecourrierdeShanghai.com", c:"Médias", d:"Publication francophone historique à Shanghai."},
+  {n:"Asialyst - Francophone", u:"https://www.asialyst.com/fr", c:"Médias", d:"Média francophone d'analyse sur l'Asie."},
+  
+  // ≡≡≡ CHAMBRES DE COMMERCE FRANCOPHONES EN ASIE ≡≡≡
+  {n:"Chambre de Commerce Française en Chine (CCIFC)", u:"https://www.ccifc.org", c:"Commerce", d:"Chambre de commerce française en Chine."},
+  {n:"Chambre de Commerce France-Chine", u:"https://www.france-chine.org", c:"Commerce", d:"Organisation pour les échanges commerciaux France-Chine."},
+  {n:"Chambre de Commerce Franco-Chinoise de Shanghai", u:"https://www.ccfcs.org.cn", c:"Commerce", d:"Chambre de commerce franco-chinoise à Shanghai."},
+  {n:"Chambre de Commerce Franco-Chinoise de Pékin", u:"https://www.ccfcbp.org", c:"Commerce", d:"Chambre de commerce franco-chinoise à Pékin."},
+  {n:"Chambre de Commerce Française au Vietnam", u:"https://www.ccifv.org", c:"Commerce", d:"Chambre de commerce française au Vietnam."},
+  {n:"Chambre de Commerce Française au Japon", u:"https://www.ccifj.or.jp/fr", c:"Commerce", d:"Chambre de commerce française au Japon."},
+  {n:"Chambre de Commerce Française en Corée", u:"https://www.ccfckorea.org/fr", c:"Commerce", d:"Chambre de commerce française en Corée du Sud."},
+  
+  // ≡≡≡ INSTITUTS DE RECHERCHE FRANCOPHONES EN ASIE ≡≡≡
+  {n:"Institut de Recherche sur l'Asie de l'Est (IFRAE)", u:"https://www.ifrae.cnrs.fr", c:"Recherche", d:"Institut français de recherche sur l'Asie de l'Est."},
+  {n:"Centre d'Études Français sur la Chine Contemporaine (CEFC)", u:"https://www.cefc.com.hk", c:"Recherche", d:"Centre de recherche français basé à Hong Kong."},
+  {n:"Institut Français de Recherche sur l'Asie de l'Est (IFRAE)", u:"https://ifrae.univ-lille.fr", c:"Recherche", d:"Institut de recherche français spécialisé sur l'Asie."},
+  {n:"École Française d'Extrême-Orient (EFEO)", u:"https://www.efeo.fr", c:"Recherche", d:"Institution française de recherche sur les civilisations asiatiques."},
+  {n:"Centre Asie du Sud-Est (CASE)", u:"https://case.cnrs.fr", c:"Recherche", d:"Centre de recherche français sur l'Asie du Sud-Est."},
+  {n:"Institut de Recherche sur le Japon (IRJ)", u:"https://irj.cnrs.fr", c:"Recherche", d:"Institut français de recherche sur le Japon."},
+  
+  // ≡≡≡ TOURISME & CULTURE FRANCOPHONE EN ASIE ≡≡≡
+  {n:"Atout France - Bureau Chine", u:"https://cn.rendezvousenfrance.com", c:"Tourisme", d:"Office du tourisme français en Chine."},
+  {n:"Musée Guimet - Arts Asiatiques", u:"https://www.guimet.fr", c:"Culture", d:"Musée national des arts asiatiques à Paris."},
+  {n:"Cité de la Céramique - Sèvres", u:"https://www.sevresciteceramique.fr", c:"Culture", d:"Institution française avec collection d'arts asiatiques."},
+  {n:"Musée Cernuschi - Arts de l'Asie", u:"https://www.cernuschi.paris.fr", c:"Culture", d:"Musée parisien consacré aux arts asiatiques."},
+  {n:"Société Asiatique", u:"https://www.societe-asiatique.fr", c:"Culture", d:"Plus ancienne société savante française sur l'Asie."},
+  
+  // ≡≡≡ ÉDITEURS & LIBRAIRIES FRANCOPHONES SUR L'ASIE ≡≡≡
+  {n:"Éditions You-Feng", u:"https://www.you-feng.com", c:"Édition", d:"Éditeur français spécialisé dans les livres sur la Chine et l'Asie."},
+  {n:"Librairie Le Phénix (Paris)", u:"https://www.librairielephenix.fr", c:"Librairie", d:"Librairie parisienne spécialisée sur l'Asie."},
+  {n:"Librairie You-Feng (Paris)", u:"https://www.librairiefrancaisechine.com", c:"Librairie", d:"Librairie spécialisée dans les livres sur la Chine."},
+  {n:"Publications de la Société d'Études Japonaises", u:"https://www.sej-etudesjaponaises.org", c:"Édition", d:"Revue française d'études japonaises."},
+  {n:"Revue Persée - Asie", u:"https://www.persee.fr/collection/asie", c:"Édition", d:"Collections de revues scientifiques françaises sur l'Asie."},
+  
+  // ≡≡≡ ASSOCIATIONS FRANCOPHONES EN ASIE ≡≡≡
+  {n:"Association des Français de Chine", u:"https://www.afc-chine.com", c:"Association", d:"Association des résidents français en Chine."},
+  {n:"Union des Français de l'Étranger (UFE) Asie", u:"https://www.ufe.org/asie", c:"Association", d:"Union des Français établis hors de France, section Asie."},
+  {n:"Association France-Asie", u:"https://www.france-asie.org", c:"Association", d:"Association française pour les échanges avec l'Asie."},
+  {n:"Société des Amis du Musée Guimet", u:"https://www.amis-guimet.fr", c:"Association", d:"Association des amis du musée des arts asiatiques."},
+  {n:"Association pour l'Étude de la Langue et de la Civilisation Japonaises", u:"https://www.aelcj.org", c:"Association", d:"Association française d'études japonaises."},
+  
+  // ≡≡≡ HÔPITAUX & SANTÉ FRANCOPHONES EN ASIE ≡≡≡
+  {n:"Hôpital Français de Pékin", u:"https://www.hopitalfrancaispekin.com", c:"Santé", d:"Hôpital francophone à Pékin."},
+  {n:"Hôpital International Saint-Michel (Shanghai)", u:"https://www.shsmh.com/fr", c:"Santé", d:"Hôpital international à Shanghai avec services en français."},
+  {n:"Clinique Française de Tokyo", u:"https://www.cftky.com/fr", c:"Santé", d:"Clinique médicale francophone à Tokyo."},
+  {n:"Centre Médical International de Bangkok", u:"https://www.bumrungrad.com/fr", c:"Santé", d:"Hôpital thaïlandais avec services en français."},
+  {n:"Hôpital Français de Hanoi", u:"https://www.hfh.com.vn/fr", c:"Santé", d:"Hôpital francophone au Vietnam."},
+  
+  // ≡≡≡ ÉCOLES FRANÇAISES EN ASIE ≡≡≡
+  {n:"Lycée Français de Pékin", u:"https://www.lfip.net.cn", c:"Éducation", d:"École française à Pékin."},
+  {n:"Lycée Français de Shanghai", u:"https://www.lyceeshanghai.com", c:"Éducation", d:"École française à Shanghai."},
+  {n:"Lycée Français International de Hong Kong", u:"https://www.lfis.edu.hk", c:"Éducation", d:"École française à Hong Kong."},
+  {n:"Lycée Français de Tokyo", u:"https://www.lftokyo.org", c:"Éducation", d:"École française à Tokyo."},
+  {n:"Lycée Français de Séoul", u:"https://www.lfseoul.org", c:"Éducation", d:"École française à Séoul."},
+  {n:"Lycée Français de Singapour", u:"https://www.lfs.edu.sg", c:"Éducation", d:"École française à Singapour."},
+  {n:"Lycée Français de Bangkok", u:"https://www.lfb.ac.th", c:"Éducation", d:"École française à Bangkok."},
+  {n:"Lycée Français de Hanoi", u:"https://www.lfhanoi.edu.vn", c:"Éducation", d:"École française à Hanoi."},
+  
+  // ≡≡≡ BANQUES & FINANCE FRANCOPHONE EN ASIE ≡≡≡
+  {n:"BNP Paribas Chine", u:"https://www.bnpparibas.com.cn/fr", c:"Finance", d:"Banque française en Chine, site en français."},
+  {n:"Société Générale Chine", u:"https://www.societegenerale.chine.fr", c:"Finance", d:"Banque française en Chine."},
+  {n:"Crédit Agricole CIB Asie", u:"https://www.ca-cib.com/asie-pacifique", c:"Finance", d:"Banque française en Asie-Pacifique."},
+  {n:"Natixis Asie", u:"https://www.natixis.com/natixis/asie-pacifique", c:"Finance", d:"Banque française en Asie."},
+  {n:"AXA Asie", u:"https://www.axa.com/fr/asie-pacifique", c:"Assurance", d:"Compagnie d'assurance française en Asie."},
+  
+  // ≡≡≡ TRANSPORTS FRANCOPHONES EN ASIE ≡≡≡
+  {n:"Air France Chine", u:"https://www.airfrance.com.cn", c:"Transport", d:"Compagnie aérienne française, site chinois."},
+  {n:"Air France Asie", u:"https://www.airfrance.asia", c:"Transport", d:"Compagnie aérienne française pour l'Asie."},
+  {n:"SNCF International - Asie", u:"https://www.sncf.com/fr/groupe/sncf-international/asie", c:"Transport", d:"Société ferroviaire française en Asie."},
+  {n:"CMA CGM Asie", u:"https://www.cma-cgm.com/fr/asie", c:"Transport", d:"Armateur français, activités en Asie."},
+  {n:"Groupe ADP - Aéroports en Asie", u:"https://www.adp.fr/fr/international/asie-pacifique", c:"Transport", d:"Gestionnaire d'aéroports français en Asie."},
+  
+  // ≡≡≡ ENTREPRISES FRANÇAISES EN CHINE/ASIE ≡≡≡
+  {n:"Carrefour Chine", u:"https://www.carrefour.cn/fr", c:"Commerce", d:"Enseigne française de grande distribution en Chine."},
+  {n:"Danone Chine", u:"https://www.danone.cn/fr", c:"Agroalimentaire", d:"Groupe alimentaire français en Chine."},
+  {n:"L'Oréal Chine", u:"https://www.lorealchina.com/fr", c:"Cosmétique", d:"Leader mondial des cosmétiques, site chinois en français."},
+  {n:"Sanofi Chine", u:"https://www.sanofi.cn/fr", c:"Pharmaceutique", d:"Laboratoire pharmaceutique français en Chine."},
+  {n:"Michelin Chine", u:"https://www.michelin.com.cn/fr", c:"Automobile", d:"Manufacturier de pneus français en Chine."},
+  {n:"Schneider Electric Chine", u:"https://www.se.com/cn/fr", c:"Énergie", d:"Entreprise française d'énergie en Chine."},
+  {n:"Saint-Gobain Chine", u:"https://www.saint-gobain.com.cn/fr", c:"Construction", d:"Manufacturier de matériaux de construction français en Chine."},
+  {n:"Veolia Chine", u:"https://www.veolia.com.cn/fr", c:"Environnement", d:"Entreprise française de gestion de l'eau et des déchets en Chine."},
+  {n:"TotalEnergies Chine", u:"https://www.totalenergies.cn/fr", c:"Énergie", d:"Compagnie énergétique française en Chine."},
+  {n:"Airbus Chine", u:"https://www.airbus.com.cn/fr", c:"Aéronautique", d:"Constructeur aéronautique européen en Chine."},
+  
+  // ≡≡≡ VOYAGE & HÔTELLERIE FRANCOPHONE EN ASIE ≡≡≡
+  {n:"Accor Hotels Asie-Pacifique", u:"https://www.accor.com/asie-pacifique/fr", c:"Hôtellerie", d:"Groupe hôtelier français en Asie."},
+  {n:"Club Med Asie", u:"https://www.clubmed.com/r/asie", c:"Tourisme", d:"Résort français en Asie."},
+  {n:"Airbnb Chine", u:"https://www.airbnb.com.cn/fr", c:"Hébergement", d:"Plateforme de location, version chinoise en français."},
+  {n:"Capitaine Train (ex-Trainline) Asie", u:"https://www.thetrainline.com/fr/asie", c:"Transport", d:"Service de réservation de trains, couverture Asie."},
+  
+  // ≡≡≡ TECHNOLOGIE & STARTUPS FRANCOPHONES EN ASIE ≡≡≡
+  {n:"Station F - Programme Asie", u:"https://www.stationf.co/asie", c:"Technologie", d:"Incubateur français avec programme Asie."},
+  {n:"French Tech Chine", u:"https://www.frenchtechchina.com", c:"Technologie", d:"Communauté des startups françaises en Chine."},
+  {n:"French Tech Tokyo", u:"https://www.frenchtechtokyo.com", c:"Technologie", d:"Communauté tech française au Japon."},
+  {n:"French Tech Singapore", u:"https://www.frenchtech.sg", c:"Technologie", d:"Hub tech français à Singapour."},
+  {n:"Capgemini Asie", u:"https://www.capgemini.com/fr-fr/asie-pacifique", c:"Technologie", d:"Entreprise de services numériques française en Asie."},
+  {n:"Atos Asie", u:"https://www.atos.net/fr/asie-pacifique", c:"Technologie", d:"Groupe français de services informatiques en Asie."},
+  {n:"Dassault Systèmes Asie", u:"https://www.3ds.com/fr/asie-pacifique", c:"Technologie", d:"Éditeur français de logiciels 3D en Asie."},
+  
+  // ≡≡≡ ARTS & CULTURE FRANCOPHONE EN ASIE ≡≡≡
+  {n:"Opéra de Shanghai - Coopération Française", u:"https://www.shanghai-opera.com/fr", c:"Arts", d:"Opéra de Shanghai avec partenariats français."},
+  {n:"Musée d'Art de Pékin - Collection Française", u:"https://www.namoc.org/fr", c:"Arts", d:"Musée d'art chinois avec œuvres françaises."},
+  {n:"Festival Croisements (France-Chine)", u:"https://www.festivalcroisements.com", c:"Culture", d:"Festival culturel français en Chine."},
+  {n:"Alliance Française Film Festival (Chine)", u:"https://www.afchine.org/festival-cinema", c:"Cinéma", d:"Festival du film français en Chine."},
+  {n:"Foire du Livre de Pékin - Pavillon Français", u:"https://www.bibf.net/fr", c:"Édition", d:"Foire du livre avec présence française."},
+  {n:"Salon du Livre Francophone de Shanghai", u:"https://www.salonlivreshanghai.com", c:"Édition", d:"Salon du livre francophone en Chine."},
+  
+  // ≡≡≡ GASTRONOMIE FRANÇAISE EN ASIE ≡≡≡
+  {n:"Guide Michelin Chine", u:"https://guide.michelin.com/cn/fr", c:"Gastronomie", d:"Guide gastronomique français en Chine."},
+  {n:"Le Cordon Bleu Asie", u:"https://www.cordonbleu.edu/asie/fr", c:"Gastronomie", d:"École de cuisine française en Asie."},
+  {n:"École de Cuisine Alain Ducasse - Japon", u:"https://www.ecolecuisine-alainducasse.com/japon", c:"Gastronomie", d:"École du chef français au Japon."},
+  {n:"Maison de la France Gourmande (Shanghai)", u:"https://www.maisonfrancegourmande.com", c:"Gastronomie", d:"Centre de promotion de la gastronomie française en Chine."},
+  {n:"Salon du Chocolat Shanghai", u:"https://www.salonduchocolat.com/shanghai/fr", c:"Gastronomie", d:"Événement français du chocolat en Chine."},
+  
+  // ≡≡≡ SPORTS & LOISIRS FRANCOPHONES EN ASIE ≡≡≡
+  {n:"Tour de France - Édition Chine", u:"https://www.letour.com/fr/chine", c:"Sport", d:"Événement cycliste français en Chine."},
+  {n:"Roland-Garros - Partenaires Chinois", u:"https://www.rolandgarros.com/fr-fr/chine", c:"Sport", d:"Tournoi de tennis français, partenaires chinois."},
+  {n:"Paris Saint-Germain - Chine", u:"https://www.psg.fr/chine", c:"Sport", d:"Club de football français, site chinois en français."},
+  {n:"Fédération Française de Football - Asie", u:"https://www.fff.fr/asie", c:"Sport", d:"Fédération française de football, activités en Asie."},
+  {n:"Club Alpin Français - Section Asie", u:"https://www.ffcam.fr/asie", c:"Sport", d:"Club d'alpinisme français en Asie."},
+  
+  // ≡≡≡ MODE & LUXE FRANÇAIS EN ASIE ≡≡≡
+  {n:"LVMH Chine", u:"https://www.lvmh.com/asie-pacifique/chine", c:"Mode", d:"Groupe de luxe français en Chine."},
+  {n:"Kering Chine", u:"https://www.kering.com/fr/asie-pacifique", c:"Mode", d:"Groupe de luxe français en Asie."},
+  {n:"Chanel Chine", u:"https://www.chanel.com/fr_CN", c:"Mode", d:"Maison de luxe française, site chinois en français."},
+  {n:"Hermès Chine", u:"https://www.hermes.com/cn/fr", c:"Mode", d:"Maison de luxe française en Chine."},
+  {n:"Cartier Chine", u:"https://www.cartier.cn/fr-fr", c:"Mode", d:"Joallier français en Chine."},
+  {n:"Dior Chine", u:"https://www.dior.com/fr_fr/chine", c:"Mode", d:"Maison de mode française en Chine."},
+  {n:"Yves Saint Laurent Chine", u:"https://www.ysl.com/fr-fr/chine", c:"Mode", d:"Marque française de luxe en Chine."},
+  {n:"Sephora Chine", u:"https://www.sephora.cn/fr", c:"Beauté", d:"Enseigne française de beauté en Chine."},
+  {n:"Printemps Paris - Chine", u:"https://www.printemps.com/fr/chine", c:"Commerce", d:"Grand magasin français, site chinois."},
+  {n:"Galeries Lafayette Chine", u:"https://www.galerieslafayette.com.cn/fr", c:"Commerce", d:"Grand magasin français en Chine."},
+  
+  // ≡≡≡ ÉCOLOGIE & DÉVELOPPEMENT DURABLE FRANCOPHONE EN ASIE ≡≡≡
+  {n:"WWF France - Programmes Asie", u:"https://www.wwf.fr/asie", c:"Écologie", d:"Fondation écologique française en Asie."},
+  {n:"Greenpeace France - Campagnes Asie", u:"https://www.greenpeace.fr/asie", c:"Écologie", d:"ONG environnementale française en Asie."},
+  {n:"Fondation Nicolas Hulot - Asie", u:"https://www.fondation-nature-homme.org/asie", c:"Écologie", d:"Fondation écologique française en Asie."},
+  {n:"Agence Française de Développement (AFD) - Asie", u:"https://www.afd.fr/fr/asie", c:"Développement", d:"Agence française de développement en Asie."},
+  {n:"Institut de Recherche pour le Développement (IRD) - Asie", u:"https://www.ird.fr/asie", c:"Recherche", d:"Institut français de recherche pour le développement en Asie."},
+  
+  // ≡≡≡ PHILANTHROPIE & HUMANITAIRE FRANCOPHONE EN ASIE ≡≡≡
+  {n:"Médecins Sans Frontières (MSF) Asie", u:"https://www.msf.fr/asie", c:"Humanitaire", d:"ONG médicale française en Asie."},
+  {n:"Médecins du Monde Asie", u:"https://www.medecinsdumonde.org/fr/asie", c:"Humanitaire", d:"ONG médicale française en Asie."},
+  {n:"Action Contre la Faim (ACF) Asie", u:"https://www.actioncontrelafaim.org/fr/asie", c:"Humanitaire", d:"ONG française de lutte contre la faim en Asie."},
+  {n:"Secours Populaire Français - Asie", u:"https://www.secourspopulaire.fr/asie", c:"Humanitaire", d:"Association humanitaire française en Asie."},
+  {n:"Croix-Rouge Française - Asie", u:"https://www.croix-rouge.fr/asie", c:"Humanitaire", d:"Association humanitaire française en Asie."},
+  
+  // ≡≡≡ DIPLOMATIE & COOPÉRATION FRANCOPHONE EN ASIE ≡≡≡
+  {n:"Ambassade de France en Chine", u:"https://cn.ambafrance.org", c:"Diplomatie", d:"Site officiel de l'ambassade de France en Chine."},
+  {n:"Consulat Général de France à Shanghai", u:"https://shanghai.consulfrance.org", c:"Diplomatie", d:"Consulat français à Shanghai."},
+  {n:"Institut Français de Chine", u:"https://www.institutfrancais-chine.com", c:"Coopération", d:"Institut français pour la coopération culturelle en Chine."},
+  {n:"Campus France Chine", u:"https://www.chine.campusfrance.org", c:"Éducation", d:"Agence française pour la promotion de l'enseignement supérieur en Chine."},
+  {n:"France Alumni Chine", u:"https://chine.francealumni.fr", c:"Éducation", d:"Réseau des anciens étudiants français en Chine."},
+  
+  // ≡≡≡ INDUSTRIE & INGÉNIERIE FRANÇAISE EN ASIE ≡≡≡
+  {n:"Safran Chine", u:"https://www.safran.cn/fr", c:"Aéronautique", d:"Groupe aéronautique français en Chine."},
+  {n:"Thales Chine", u:"https://www.thalesgroup.com/fr/chine", c:"Défense", d:"Groupe français de défense et électronique en Chine."},
+  {n:"Air Liquide Chine", u:"https://www.airliquide.com.cn/fr", c:"Industrie", d:"Groupe français de gaz industriels en Chine."},
+  {n:"Vinci Asie", u:"https://www.vinci.com/vinci.nsf/fr/asie-pacifique", c:"BTP", d:"Groupe français de BTP en Asie."},
+  {n:"Bouygues Construction Asie", u:"https://www.bouygues-construction.com/asie", c:"BTP", d:"Groupe français de construction en Asie."},
+  {n:"EDF Asie", u:"https://www.edf.fr/fr/asie-pacifique", c:"Énergie", d:"Électricien français en Asie."},
+  {n:"Engie Asie", u:"https://www.engie.com/fr/asie-pacifique", c:"Énergie", d:"Groupe énergétique français en Asie."},
+  {n:"Alstom Chine", u:"https://www.alstom.com/cn/fr", c:"Transport", d:"Constructeur ferroviaire français en Chine."},
+  
+  // ≡≡≡ AGRICULTURE & AGROALIMENTAIRE FRANÇAIS EN ASIE ≡≡≡
+  {n:"Invivo Asie", u:"https://www.invivo-group.com/fr/asie", c:"Agriculture", d:"Coopérative agricole française en Asie."},
+  {n:"Limagrain Asie", u:"https://www.limagrain.com/fr/asie", c:"Agriculture", d:"Coopérative semencière française en Asie."},
+  {n:"Avril Asie", u:"https://www.groupeavril.com/fr/asie", c:"Agroalimentaire", d:"Groupe agroalimentaire français en Asie."},
+  {n:"Sodiaal Asie", u:"https://www.sodiaal.fr/fr/asie", c:"Agroalimentaire", d:"Coopérative laitière française en Asie."},
+  {n:"Tereos Asie", u:"https://www.tereos.com/fr/asie", c:"Agroalimentaire", d:"Coopérative sucrière française en Asie."},
+  
+  // ≡≡≡ ASSURANCES & SERVICES FINANCIERS FRANÇAIS EN ASIE ≡≡≡
+  {n:"Groupama Asie", u:"https://www.groupama.com/fr/asie", c:"Assurance", d:"Groupe d'assurance français en Asie."},
+  {n:"CNP Assurances Asie", u:"https://www.cnp.fr/fr/asie", c:"Assurance", d:"Assureur français en Asie."},
+  {n:"Euler Hermes Asie", u:"https://www.eulerhermes.com/fr_FR/asie-pacifique.html", c:"Assurance", d:"Assureur-crédit français en Asie."},
+  {n:"Covéa Asie", u:"https://www.covea.fr/fr/asie", c:"Assurance", d:"Groupe mutualiste d'assurance français en Asie."},
+  
+  // ≡≡≡ CONSEIL & AUDIT FRANÇAIS EN ASIE ≡≡≡
+  {n:"Mazars Chine", u:"https://www.mazars.cn/Home/fr", c:"Conseil", d:"Cabinet d'audit et conseil français en Chine."},
+  {n:"Grant Thornton Chine", u:"https://www.grantthornton.cn/fr", c:"Conseil", d:"Cabinet d'audit international d'origine française en Chine."},
+  {n:"KPMG France - Chine", u:"https://www.kpmg.fr/chine", c:"Conseil", d:"Cabinet d'audit, présence française en Chine."},
+  {n:"EY France - Asie", u:"https://www.ey.com/fr_fr/asie-pacifique", c:"Conseil", d:"Cabinet d'audit, équipe française en Asie."},
+  {n:"PwC France - Asie", u:"https://www.pwc.fr/fr/asie-pacifique", c:"Conseil", d:"Cabinet d'audit, experts français en Asie."},
+  {n:"Deloitte France - Asie", u:"https://www.deloitte.fr/fr/asie-pacifique", c:"Conseil", d:"Cabinet d'audit, présence française en Asie."},
+  {n:"Accenture France - Asie", u:"https://www.accenture.com/fr-fr/asie-pacifique", c:"Conseil", d:"Cabinet de conseil en technologie, équipe française en Asie."},
+  {n:"Wavestone Asie", u:"https://www.wavestone.com/fr/asie", c:"Conseil", d:"Cabinet de conseil français en Asie."},
+  {n:"Kurt Salmon (Accenture) Asie", u:"https://www.accenture.com/fr-fr/asie-pacifique/industrie/commerce", c:"Conseil", d:"Cabinet de conseil en retail français en Asie."},
+  
+  // ≡≡≡ RECHERCHE SCIENTIFIQUE FRANÇAISE EN ASIE ≡≡≡
+  {n:"CNRS Asie", u:"https://www.cnrs.fr/fr/asie", c:"Recherche", d:"Centre national de la recherche scientifique français en Asie."},
+  {n:"INSERM Asie", u:"https://www.inserm.fr/fr/asie", c:"Recherche", d:"Institut français de recherche médicale en Asie."},
+  {n:"INRAE Asie", u:"https://www.inrae.fr/asie", c:"Recherche", d:"Institut français de recherche agronomique en Asie."},
+  {n:"IRD Asie du Sud-Est", u:"https://www.ird.fr/asie-du-sud-est", c:"Recherche", d:"Institut français de recherche pour le développement en Asie du Sud-Est."},
+  {n:"CIRAD Asie", u:"https://www.cirad.fr/asie", c:"Recherche", d:"Centre français de recherche agronomique pour le développement en Asie."},
+  {n:"IFPEN Asie", u:"https://www.ifpenergiesnouvelles.fr/asie", c:"Recherche", d:"Institut français du pétrole et des énergies nouvelles en Asie."},
+  {n:"CEA Asie", u:"https://www.cea.fr/fr/asie", c:"Recherche", d:"Commissariat à l'énergie atomique français en Asie."},
+  {n:"ONERA Asie", u:"https://www.onera.fr/fr/asie", c:"Recherche", d:"Office français d'études et de recherches aérospatiales en Asie."},
+  {n:"ANSES Asie", u:"https://www.anses.fr/fr/asie", c:"Recherche", d:"Agence française de sécurité sanitaire en Asie."},
+  {n:"BRGM Asie", u:"https://www.brgm.fr/fr/asie", c:"Recherche", d:"Service géologique national français en Asie."},
+  
+  // ≡≡≡ ARCHITECTURE & DESIGN FRANÇAIS EN ASIE ≡≡≡
+  {n:"Ateliers Jean Nouvel - Projets Asie", u:"https://www.jeannouvel.com/fr/asie", c:"Architecture", d:"Architecte français, projets en Asie."},
+  {n:"Christian de Portzamparc - Asie", u:"https://www.chdeportzamparc.com/fr/asie", c:"Architecture", d:"Architecte français, réalisations en Asie."},
+  {n:"Dominique Perrault Architecture - Asie", u:"https://www.perraultarchitecture.com/fr/asie", c:"Architecture", d:"Agence d'architecture française en Asie."},
+  {n:"Valode & Pistre - Asie", u:"https://www.valode-pistre.com/fr/asie", c:"Architecture", d:"Agence d'architecture française, projets asiatiques."},
+  {n:"AREP (SNCF) - Asie", u:"https://www.arep.fr/fr/asie", c:"Architecture", d:"Groupe d'architecture français, gares en Asie."},
+  
+  // ≡≡≡ ÉVÉNEMENTIEL & CONGRÈS FRANCOPHONES EN ASIE ≡≡≡
+  {n:"Reed Exhibitions Chine", u:"https://www.reedexpo.com.cn/fr", c:"Événementiel", d:"Organisateur de salons français en Chine."},
+  {n:"Comexposium Asie", u:"https://www.comexposium.com/fr/asie", c:"Événementiel", d:"Organisateur de salons français en Asie."},
+  {n:"GL events Chine", u:"https://www.glevents.com/fr/chine", c:"Événementiel", d:"Organisateur d'événements français en Chine."},
+  {n:"Viparis International - Asie", u:"https://www.viparis.com/fr/international/asie", c:"Événementiel", d:"Gestionnaire de lieux d'événements français en Asie."},
+  {n:"Palais des Congrès de Paris - Asie", u:"https://www.palaisdescongresdeparis.fr/fr/asie", c:"Événementiel", d:"Centre de congrès français, partenariats asiatiques."},
+  
+  // ≡≡≡ MUSÉES & PATRIMOINE FRANÇAIS EN ASIE ≡≡≡
+  {n:"Musée du Louvre - Coopération Chine", u:"https://www.louvre.fr/fr/chine", c:"Musée", d:"Musée français, projets avec la Chine."},
+  {n:"Musée d'Orsay - Asie", u:"https://www.musee-orsay.fr/fr/asie", c:"Musée", d:"Musée français, échanges avec l'Asie."},
+  {n:"Centre Pompidou - Shanghai", u:"https://www.centrepompidou.fr/fr/shanghai", c:"Musée", d:"Antenne du musée français à Shanghai."},
+  {n:"Fondation Louis Vuitton - Asie", u:"https://www.fondationlouisvuitton.fr/fr/asie", c:"Musée", d:"Fondation d'art française, expositions en Asie."},
+  {n:"Institut du Monde Arabe - Asie", u:"https://www.imarabe.org/fr/asie", c:"Culture", d:"Institut français, programmes culturels en Asie."},
+  
+  // ≡≡≡ THÉÂTRE & SPECTACLE FRANÇAIS EN ASIE ≡≡≡
+  {n:"Comédie-Française - Tournées Asie", u:"https://www.comedie-francaise.fr/fr/asie", c:"Théâtre", d:"Théâtre national français, tournées en Asie."},
+  {n:"Opéra National de Paris - Asie", u:"https://www.operadeparis.fr/fr/asie", c:"Opéra", d:"Opéra français, collaborations asiatiques."},
+  {n:"Théâtre du Châtelet - Asie", u:"https://www.chatelet.com/fr/asie", c:"Théâtre", d:"Théâtre parisien, productions en Asie."},
+  {n:"Festival d'Avignon - Asie", u:"https://www.festival-avignon.com/fr/asie", c:"Festival", d:"Festival de théâtre français, présence en Asie."},
+  {n:"Théâtre de la Ville - Asie", u:"https://www.theatredelaville-paris.com/fr/asie", c:"Théâtre", d:"Théâtre parisien, échanges avec l'Asie."},
+  
+  // ≡≡≡ ÉDITEURS DE JEUX VIDÉO FRANÇAIS EN ASIE ≡≡≡
+  {n:"Ubisoft Chine", u:"https://www.ubisoft.com.cn/fr-fr", c:"Jeux Vidéo", d:"Éditeur français de jeux vidéo, studio en Chine."},
+  {n:"Gameloft Chine", u:"https://www.gameloft.com/cn/fr", c:"Jeux Vidéo", d:"Studio français de jeux mobiles en Chine."},
+  {n:"Focus Home Interactive - Asie", u:"https://www.focus-entmt.com/fr/asie", c:"Jeux Vidéo", d:"Éditeur français de jeux vidéo en Asie."},
+  {n:"Nacon - Distribution Asie", u:"https://www.nacongaming.com/fr/asie", c:"Jeux Vidéo", d:"Éditeur français de jeux vidéo, distribution asiatique."},
+  {n:"Microids - Asie", u:"https://www.microids.com/fr/asie", c:"Jeux Vidéo", d:"Éditeur français de jeux vidéo en Asie."},
+  {n:"Ankama - Jeux en Chine", u:"https://www.ankama.com/fr/chine", c:"Jeux Vidéo", d:"Studio français de jeux en ligne en Chine."},
+  {n:"Voodoo - Asie", u:"https://www.voodoo.io/fr/asie", c:"Jeux Vidéo", d:"Studio français de jeux mobiles hyper-casual en Asie."},
+  
+  // ≡≡≡ AUTOMOBILES FRANÇAISES EN ASIE ≡≡≡
+  {n:"Renault Chine", u:"https://www.renault.com.cn/fr", c:"Automobile", d:"Constructeur automobile français en Chine."},
+  {n:"Peugeot Chine", u:"https://www.peugeot.com.cn/fr", c:"Automobile", d:"Marque automobile française en Chine."},
+  {n:"Citroën Chine", u:"https://www.citroen.com.cn/fr", c:"Automobile", d:"Constructeur automobile français en Chine."},
+  {n:"DS Automobiles Chine", u:"https://www.dsautomobiles.com.cn/fr", c:"Automobile", d:"Marque premium française en Chine."},
+  {n:"Bugatti - Asie", u:"https://www.bugatti.com/fr/asie", c:"Automobile", d:"Constructeur de voitures de luxe français en Asie."},
+  {n:"Alpine - Asie", u:"https://www.alpinecars.com/fr/asie", c:"Automobile", d:"Marque sportive française en Asie."},
+  
+  // ≡≡≡ NAVIGATION & MARINE FRANÇAISE EN ASIE ≡≡≡
+  {n:"Bénéteau Asie", u:"https://www.beneteau.com/fr/asie", c:"Nautisme", d:"Constructeur nautique français en Asie."},
+  {n:"Jeanneau Asie", u:"https://www.jeanneau.com/fr/asie", c:"Nautisme", d:"Constructeur de bateaux français en Asie."},
+  {n:"Lagoon Catamarans - Asie", u:"https://www.cata-lagoon.com/fr/asie", c:"Nautisme", d:"Constructeur de catamarans français en Asie."},
+  {n:"Fountaine Pajot - Asie", u:"https://www.fountaine-pajot.com/fr/asie", c:"Nautisme", d:"Constructeur de multicoques français en Asie."},
+  {n:"Couach Yachts - Asie", u:"https://www.couach.com/fr/asie", c:"Nautisme", d:"Chantier naval français en Asie."},
+  {n:"Dufour Yachts - Asie", u:"https://www.dufour-yachts.com/fr/asie", c:"Nautisme", d:"Constructeur de voiliers français en Asie."},
+  
+  // ≡≡≡ AÉRONAUTIQUE & SPATIAL FRANÇAIS EN ASIE ≡≡≡
+  {n:"Airbus Helicopters Chine", u:"https://www.airbushelicopters.cn/fr", c:"Aéronautique", d:"Constructeur d'hélicoptères français en Chine."},
+  {n:"Dassault Aviation - Asie", u:"https://www.dassault-aviation.com/fr/asie", c:"Aéronautique", d:"Constructeur aéronautique français en Asie."},
+  {n:"Arianespace - Lancements Asie", u:"https://www.arianespace.com/fr/asie", c:"Spatial", d:"Société de lancement spatial française en Asie."},
+  {n:"CNES - Coopération Asie", u:"https://www.cnes.fr/fr/asie", c:"Spatial", d:"Agence spatiale française en Asie."},
+  {n:"Thales Alenia Space - Asie", u:"https://www.thalesgroup.com/fr/space/asie", c:"Spatial", d:"Constructeur spatial français en Asie."},
+  
+  // ≡≡≡ PARFUMS & COSMÉTIQUES FRANÇAIS EN ASIE ≡≡≡
+  {n:"L'Occitane en Provence - Chine", u:"https://www.loccitane.com.cn/fr-fr", c:"Cosmétique", d:"Marque de cosmétiques française en Chine."},
+  {n:"Caudalie - Asie", u:"https://www.caudalie.com/fr/asie", c:"Cosmétique", d:"Marque de cosmétiques français en Asie."},
+  {n:"Nuxe - Chine", u:"https://www.nuxe.com.cn/fr", c:"Cosmétique", d:"Marque de cosmétiques française en Chine."},
+  {n:"Bioderma - Asie", u:"https://www.bioderma.com/fr/asie", c:"Cosmétique", d:"Laboratoire dermatologique français en Asie."},
+  {n:"Avene - Chine", u:"https://www.avene.cn/fr", c:"Cosmétique", d:"Marque de soins dermatologiques française en Chine."},
+  {n:"La Roche-Posay - Asie", u:"https://www.laroche-posay.com.cn/fr", c:"Cosmétique", d:"Marque de soins de la peau française en Asie."},
+  {n:"Vichy - Chine", u:"https://www.vichy.com.cn/fr", c:"Cosmétique", d:"Marque de soins dermatologiques française en Chine."},
+  {n:"Clarins - Asie", u:"https://www.clarins.com.cn/fr-fr", c:"Cosmétique", d:"Marque de cosmétiques française en Asie."},
+  {n:"Sisley - Chine", u:"https://www.sisley-paris.com.cn/fr", c:"Cosmétique", d:"Marque de cosmétiques de luxe française en Chine."},
+  {n:"Guerlain - Asie", u:"https://www.guerlain.com/cn/fr-fr", c:"Parfum", d:"Maison de parfums française en Asie."},
+  {n:"Chanel Parfums - Chine", u:"https://www.chanel.com/fr_CN/parfums", c:"Parfum", d:"Parfums français en Chine."},
+  {n:"Dior Parfums - Asie", u:"https://www.dior.com/fr_fr/parfums", c:"Parfum", d:"Parfums français en Asie."},
+  {n:"Jean-Paul Gaultier - Asie", u:"https://www.jeanpaulgaultier.com/fr/asie", c:"Parfum", d:"Parfumeur français en Asie."},
+  {n:"Annick Goutal - Chine", u:"https://www.annickgoutal.com/fr/chine", c:"Parfum", d:"Maison de parfums française en Chine."},
+  {n:"Francis Kurkdjian - Asie", u:"https://www.franciskurkdjian.com/fr/asie", c:"Parfum", d:"Parfumeur français en Asie."},
+  
+  // ≡≡≡ VINS & SPIRITUEUX FRANÇAIS EN ASIE ≡≡≡
+  {n:"Bordeaux Chine", u:"https://www.bordeaux.com/fr/chine", c:"Vin", d:"Vins de Bordeaux en Chine."},
+  {n:"Bourgogne Wines - Asie", u:"https://www.bourgogne-wines.com/fr/asie", c:"Vin", d:"Vins de Bourgogne en Asie."},
+  {n:"Champagne - Marché Chinois", u:"https://www.champagne.fr/fr/chine", c:"Vin", d:"Champagnes français en Chine."},
+  {n:"Cognac - Asie", u:"https://www.cognac.fr/fr/asie", c:"Spiritueux", d:"Cognac français en Asie."},
+  {n:"Armagnac - Chine", u:"https://www.armagnac.fr/fr/chine", c:"Spiritueux", d:"Armagnac français en Chine."},
+  {n:"Calvados - Asie", u:"https://www.calvados.fr/fr/asie", c:"Spiritueux", d:"Calvados français en Asie."},
+  {n:"Pernod Ricard Chine", u:"https://www.pernod-ricard-china.com/fr", c:"Spiritueux", d:"Groupe français de spiritueux en Chine."},
+  {n:"LVMH Vins & Spiritueux - Asie", u:"https://www.lvmh.com/les-maisons/vins-spiritueux/asie", c:"Spiritueux", d:"Division vins et spiritueux de LVMH en Asie."},
+  {n:"Maison Louis Latour - Asie", u:"https://www.louislatour.com/fr/asie", c:"Vin", d:"Négociant-viniculteur français en Asie."},
+  {n:"Domaines Barons de Rothschild - Chine", u:"https://www.lafite.com/fr/chine", c:"Vin", d:"Producteur de vins français en Chine."},
+  
+  // ≡≡≡ FROMAGES & PRODUITS LAITIERS FRANÇAIS EN ASIE ≡≡≡
+  {n:"CNIEL (Centre National Interprofessionnel de l'Économie Laitière) - Asie", u:"https://www.cniel.com/fr/asie", c:"Agroalimentaire", d:"Interprofession laitière française en Asie."},
+  {n:"Fromages de France - Chine", u:"https://www.fromagesdefrance.com/fr/chine", c:"Agroalimentaire", d:"Promotion des fromages français en Chine."},
+  {n:"Roquefort - Asie", u:"https://www.roquefort.fr/fr/asie", c:"Agroalimentaire", d:"Fromage français AOP en Asie."},
+  {n:"Comté - Chine", u:"https://www.comte.com/fr/chine", c:"Agroalimentaire", d:"Fromage français AOP en Chine."},
+  {n:"Camembert de Normandie - Asie", u:"https://www.camembert-de-normandie.com/fr/asie", c:"Agroalimentaire", d:"Fromage français AOP en Asie."},
+  {n:"Brie de Meaux - Chine", u:"https://www.briedemeaux.com/fr/chine", c:"Agroalimentaire", d:"Fromage français AOP en Chine."},
+  
+  // ≡≡≡ ÉLECTROMÉNAGER FRANÇAIS EN ASIE ≡≡≡
+  {n:"Groupe SEB Chine", u:"https://www.groupeseb.com/fr/chine", c:"Électroménager", d:"Fabricant français de petit électroménager en Chine."},
+  {n:"Moulinex - Asie", u:"https://www.moulinex.fr/fr/asie", c:"Électroménager", d:"Marque française d'électroménager en Asie."},
+  {n:"Tefal - Chine", u:"https://www.tefal.com.cn/fr", c:"Électroménager", d:"Marque française d'ustensiles de cuisine en Chine."},
+  {n:"Rowenta - Asie", u:"https://www.rowenta.com/fr/asie", c:"Électroménager", d:"Marque française d'appareils ménagers en Asie."},
+  {n:"Krups - Chine", u:"https://www.krups.com.cn/fr", c:"Électroménager", d:"Marque française d'appareils électroménagers en Chine."},
+  
+  // ≡≡≡ BIEN-ÊTRE & SPA FRANÇAIS EN ASIE ≡≡≡
+  {n:"Sothys - Chine", u:"https://www.sothys.com.cn/fr", c:"Beauté", d:"Institut de beauté français en Chine."},
+  {n:"LPG - Asie", u:"https://www.lpg.com/fr/asie", c:"Beauté", d:"Équipements de soins esthétiques français en Asie."},
+  {n:"Cinq Mondes Spa - Asie", u:"https://www.cinqmondes.com/fr/asie", c:"Bien-être", d:"Institut de spa français en Asie."},
+  {n:"Anne Sémonin - Chine", u:"https://www.annesemonin.com/fr/chine", c:"Beauté", d:"Marque française de soins spa en Chine."},
+  {n:"Talika - Asie", u:"https://www.talika.com/fr/asie", c:"Beauté", d:"Marque française de soins des yeux en Asie."},
+  
+  // ≡≡≡ MODE ENFANT & MATERNITÉ FRANÇAISE EN ASIE ≡≡≡
+  {n:"Petit Bateau - Chine", u:"https://www.petit-bateau.com.cn/fr", c:"Mode", d:"Marque française de vêtements pour enfants en Chine."},
+  {n:"Jacadi - Asie", u:"https://www.jacadi.fr/fr/asie", c:"Mode", d:"Marque française de mode enfant en Asie."},
+  {n:"Catimini - Chine", u:"https://www.catimini.com/fr/chine", c:"Mode", d:"Marque française de vêtements pour enfants en Chine."},
+  {n:"Du Pareil au Même - Asie", u:"https://www.dpam.com/fr/asie", c:"Mode", d:"Marque française de vêtements pour enfants en Asie."},
+  {n:"Tartine et Chocolat - Chine", u:"https://www.tartine-et-chocolat.com/fr/chine", c:"Mode", d:"Marque française de layette et vêtements enfants en Chine."},
+  {n:"Mustela - Asie", u:"https://www.mustela.com/fr/asie", c:"Puériculture", d:"Marque française de soins pour bébé en Asie."},
+  {n:"Bébé Confort - Chine", u:"https://www.bebeconfort.com/fr/chine", c:"Puériculture", d:"Marque française de puériculture en Chine."},
+  
+  // ≡≡≡ JOUETS FRANÇAIS EN ASIE ≡≡≡
+  {n:"Smoby - Chine", u:"https://www.smoby.com/fr/chine", c:"Jouets", d:"Fabricant français de jouets en Chine."},
+  {n:"Mega Brands - Asie", u:"https://www.megabrands.com/fr/asie", c:"Jouets", d:"Fabricant français de jouets de construction en Asie."},
+  {n:"Doudou et Compagnie - Chine", u:"https://www.doudou-et-compagnie.com/fr/chine", c:"Jouets", d:"Marque française de peluches en Chine."},
+  {n:"Sentosphère - Asie", u:"https://www.sentosphere.com/fr/asie", c:"Jouets", d:"Marque française de jeux créatifs en Asie."},
+  {n:"Vilac - Chine", u:"https://www.vilac.com/fr/chine", c:"Jouets", d:"Fabricant français de jouets en bois en Chine."},
+  {n:"Djeco - Asie", u:"https://www.djeco.com/fr/asie", c:"Jouets", d:"Éditeur français de jeux et jouets en Asie."},
+  {n:"Janod - Chine", u:"https://www.janod.com/fr/chine", c:"Jouets", d:"Fabricant français de jouets en bois en Chine."},
+  
+  // ≡≡≡ BIJOUX & MONTRE FRANÇAIS EN ASIE ≡≡≡
+  {n:"Cartier Horlogerie - Chine", u:"https://www.cartier.cn/fr-fr/collections/horlogerie", c:"Horlogerie", d:"Horloger français en Chine."},
+  {n:"Breguet - Asie", u:"https://www.breguet.com/fr/asie", c:"Horlogerie", d:"Manufacture horlogère française en Asie."},
+  {n:"Jaeger-LeCoultre - Chine", u:"https://www.jaeger-lecoultre.com/cn/fr", c:"Horlogerie", d:"Manufacture horlogère française en Chine."},
+  {n:"Van Cleef & Arpels - Asie", u:"https://www.vancleefarpels.com/cn/fr.html", c:"Bijoux", d:"Maison française de joaillerie en Asie."},
+  {n:"Boucheron - Chine", u:"https://www.boucheron.com/cn/fr.html", c:"Bijoux", d:"Joaillier français en Chine."},
+  {n:"Mauboussin - Asie", u:"https://www.mauboussin.com/fr/asie", c:"Bijoux", d:"Joaillier français en Asie."},
+  {n:"Repossi - Chine", u:"https://www.repossi.com/fr/chine", c:"Bijoux", d:"Joaillier français en Chine."},
+  {n:"Messika - Asie", u:"https://www.messika.com/fr/asie", c:"Bijoux", d:"Marque française de bijoux en Asie."},
+  {n:"APM Monaco - Chine", u:"https://www.apmmonaco.com/fr/chine", c:"Bijoux", d:"Marque de bijoux française en Chine."},
+  
+  // ≡≡≡ LINGERIE FRANÇAISE EN ASIE ≡≡≡
+  {n:"Chantelle - Chine", u:"https://www.chantelle.com.cn/fr", c:"Lingerie", d:"Marque française de lingerie en Chine."},
+  {n:"Aubade - Asie", u:"https://www.aubade.com/fr/asie", c:"Lingerie", d:"Marque française de lingerie en Asie."},
+  {n:"Princesse tam.tam - Chine", u:"https://www.princessetamtam.com/fr/chine", c:"Lingerie", d:"Marque française de lingerie en Chine."},
+  {n:"Simone Pérèle - Asie", u:"https://www.simoneperele.com/fr/asie", c:"Lingerie", d:"Marque française de lingerie en Asie."},
+  {n:"Lou - Chine", u:"https://www.loulingerie.com/fr/chine", c:"Lingerie", d:"Marque française de lingerie en Chine."},
+  {n:"Lise Charmel - Asie", u:"https://www.lisecharmel.com/fr/asie", c:"Lingerie", d:"Marque française de lingerie de luxe en Asie."},
+  
+  // ≡≡≡ OPTIQUE & LUNETTERIE FRANÇAISE EN ASIE ≡≡≡
+  {n:"Essilor Chine", u:"https://www.essilor.com.cn/fr", c:"Optique", d:"Fabricant français de verres correcteurs en Chine."},
+  {n:"Luxottica France - Asie", u:"https://www.luxottica.com/fr/asie", c:"Optique", d:"Groupe franco-italien de lunetterie en Asie."},
+  {n:"Alain Mikli - Chine", u:"https://www.alainmikli.com/fr/chine", c:"Optique", d:"Lunetier français en Chine."},
+  {n:"Face à Face - Asie", u:"https://www.faceaface-paris.com/fr/asie", c:"Optique", d:"Marque française de lunettes en Asie."},
+  {n:"Bellinger - Chine", u:"https://www.bellinger.com/fr/chine", c:"Optique", d:"Lunetier français en Chine."},
+  
+  // ≡≡≡ DÉCORATION & AMEUBLEMENT FRANÇAIS EN ASIE ≡≡≡
+  {n:"Roche Bobois - Chine", u:"https://www.roche-bobois.com.cn/fr", c:"Décoration", d:"Éditeur français de mobilier en Chine."},
+  {n:"Ligne Roset - Asie", u:"https://www.ligne-roset.com/fr/asie", c:"Décoration", d:"Fabricant français de mobilier en Asie."},
+  {n:"Maison du Monde - Chine", u:"https://www.maisondu monde.com.cn/fr", c:"Décoration", d:"Enseigne française de décoration en Chine."},
+  {n:"Mobilier International - Asie", u:"https://www.mobilier-international.com/fr/asie", c:"Décoration", d:"Groupe français d'ameublement en Asie."},
+  {n:"Gautier - Chine", u:"https://www.gautier.cn/fr", c:"Décoration", d:"Fabricant français de meubles en Chine."},
+  {n:"Cinna - Asie", u:"https://www.cinna.fr/fr/asie", c:"Décoration", d:"Éditeur français de mobilier en Asie."},
+  {n:"Christian Liaigre - Chine", u:"https://www.christianliaigre.com/fr/chine", c:"Décoration", d:"Designer français en Chine."},
+  {n:"Pierre Frey - Asie", u:"https://www.pierrefrey.com/fr/asie", c:"Décoration", d:"Éditeur français de tissus d'ameublement en Asie."},
+  {n:"Nobilis - Chine", u:"https://www.nobilis.fr/fr/chine", c:"Décoration", d:"Éditeur français de tissus et papiers peints en Chine."},
+  {n:"JAB Anstoetz - Asie", u:"https://www.jab.de/fr/asie", c:"Décoration", d:"Éditeur français de tissus d'ameublement en Asie."},
+  {n:"Cole & Son - Chine", u:"https://www.cole-and-son.com/fr/chine", c:"Décoration", d:"Éditeur français de papiers peints en Chine."},
+  {n:"Pierre Augustin Rose - Asie", u:"https://www.pierre-augustin-rose.com/fr/asie", c:"Décoration", d:"Éditeur français de mobilier en Asie."},
+  
+  // ≡≡≡ ART DE LA TABLE FRANÇAIS EN ASIE ≡≡≡
+  {n:"Bernardaud - Chine", u:"https://www.bernardaud.com/fr/chine", c:"Art de la table", d:"Manufacture française de porcelaine en Chine."},
+  {n:"Christofle - Asie", u:"https://www.christofle.com/cn/fr", c:"Art de la table", d:"Orfèvre français en Asie."},
+  {n:"Lalique - Chine", u:"https://www.lalique.com/cn/fr", c:"Art de la table", d:"Cristallerie française en Chine."},
+  {n:"Baccarat - Asie", u:"https://www.baccarat.fr/fr/asie", c:"Art de la table", d:"Cristallerie française en Asie."},
+  {n:"Saint-Louis - Chine", u:"https://www.saint-louis.com/fr/chine", c:"Art de la table", d:"Cristallerie française en Chine."},
+  {n:"Daum - Asie", u:"https://www.daum.fr/fr/asie", c:"Art de la table", d:"Cristallerie française en Asie."},
+  {n:"Limoges Porcelaine - Chine", u:"https://www.limoges.com/fr/chine", c:"Art de la table", d:"Porcelaine de Limoges en Chine."},
+  {n:"Gien - Asie", u:"https://www.gien.com/fr/asie", c:"Art de la table", d:"Faïencerie française en Asie."},
+  {n:"Raynaud - Chine", u:"https://www.raynaud.fr/fr/chine", c:"Art de la table", d:"Porcelaine française en Chine."},
+  {n:"Haviland - Asie", u:"https://www.haviland.fr/fr/asie", c:"Art de la table", d:"Porcelaine française en Asie."},
+  
+  // ≡≡≡ INSTRUMENTS DE MUSIQUE FRANÇAIS EN ASIE ≡≡≡
+  {n:"Buffet Crampon - Chine", u:"https://www.buffet-crampon.com/fr/chine", c:"Musique", d:"Facteur français d'instruments à vent en Chine."},
+  {n:"Selmer - Asie", u:"https://www.selmer.fr/fr/asie", c:"Musique", d:"Manufacture française de saxophones en Asie."},
+  {n:"Maurice Dupont - Chine", u:"https://www.mauricedupont.com/fr/chine", c:"Musique", d:"Luthier français en Chine."},
+  {n:"Fazioli - Asie", u:"https://www.fazioli.com/fr/asie", c:"Musique", d:"Facteur de pianos français en Asie."},
+  {n:"Pleyel - Chine", u:"https://www.pleyel.fr/fr/chine", c:"Musique", d:"Manufacture française de pianos en Chine."},
+  {n:"Bechstein France - Asie", u:"https://www.bechstein.com/fr/asie", c:"Musique", d:"Facteur de pianos français en Asie."},
+  
+  // ≡≡≡ ÉQUIPEMENT SPORTIF FRANÇAIS EN ASIE ≡≡≡
+  {n:"Decathlon Chine", u:"https://www.decathlon.com.cn/fr", c:"Sport", d:"Enseigne française d'articles de sport en Chine."},
+  {n:"Salomon - Asie", u:"https://www.salomon.com/fr/asie", c:"Sport", d:"Marque française d'équipement de sport en Asie."},
+  {n:"Rossignol - Chine", u:"https://www.rossignol.com/cn/fr", c:"Sport", d:"Marque française de ski en Chine."},
+  {n:"Lacoste - Asie", u:"https://www.lacoste.com/cn/fr", c:"Sport", d:"Marque française de vêtements sport-chic en Asie."},
+  {n:"Le Coq Sportif - Chine", u:"https://www.lecoqsportif.com.cn/fr", c:"Sport", d:"Marque française de sportswear en Chine."},
+  {n:"Aigle - Asie", u:"https://www.aigle.com/fr/asie", c:"Sport", d:"Marque française d'équipement de plein air en Asie."},
+  {n:"Mammut France - Chine", u:"https://www.mammut.com/fr/chine", c:"Sport", d:"Marque française d'équipement d'alpinisme en Chine."},
+  {n:"Arc'teryx - Asie", u:"https://www.arcteryx.com/fr/asie", c:"Sport", d:"Marque française d'équipement outdoor en Asie."},
+  {n:"Petzl - Chine", u:"https://www.petzl.com/fr/chine", c:"Sport", d:"Fabricant français d'équipement d'escalade en Chine."},
+  {n:"Mavic - Asie", u:"https://www.mavic.com/fr/asie", c:"Sport", d:"Marque française d'équipement cycliste en Asie."},
+  {n:"Look Cycle - Chine", u:"https://www.lookcycle.com/fr/chine", c:"Sport", d:"Fabricant français de pédales de vélo en Chine."},
+  {n:"Time Sport - Asie", u:"https://www.time-sport.com/fr/asie", c:"Sport", d:"Marque française d'équipement cycliste en Asie."},
+  
+  // ≡≡≡ FOURNITURES DE BUREAU FRANÇAISES EN ASIE ≡≡≡
+  {n:"Bic Chine", u:"https://www.bicworld.com/fr/chine", c:"Fournitures", d:"Fabricant français de stylos en Chine."},
+  {n:"Exacompta Clairefontaine - Asie", u:"https://www.exacompta-clairefontaine.com/fr/asie", c:"Fournitures", d:"Papetier français en Asie."},
+  {n:"Rhodia - Chine", u:"https://www.rhodia.com/fr/chine", c:"Fournitures", d:"Papetier français en Chine."},
+  {n:"Moleskine - Asie", u:"https://www.moleskine.com/fr/asie", c:"Fournitures", d:"Carnetier français en Asie."},
+  {n:"Quo Vadis - Chine", u:"https://www.quovadis.com/fr/chine", c:"Fournitures", d:"Agendier français en Chine."},
+  
+  // ≡≡≡ ÉDITEURS DE LIVRES FRANÇAIS EN ASIE ≡≡≡
+  {n:"Hachette Livre Chine", u:"https://www.hachette.com.cn/fr", c:"Édition", d:"Éditeur français en Chine."},
+  {n:"Gallimard - Asie", u:"https://www.gallimard.fr/fr/asie", c:"Édition", d:"Éditeur français en Asie."},
+  {n:"Flammarion - Chine", u:"https://www.editionsflammarion.fr/fr/chine", c:"Édition", d:"Éditeur français en Chine."},
+  {n:"Albin Michel - Asie", u:"https://www.albin-michel.fr/fr/asie", c:"Édition", d:"Éditeur français en Asie."},
+  {n:"Actes Sud - Chine", u:"https://www.actes-sud.fr/fr/chine", c:"Édition", d:"Éditeur français en Chine."},
+  {n:"Seuil - Asie", u:"https://www.seuil.com/fr/asie", c:"Édition", d:"Éditeur français en Asie."},
+  {n:"Larousse - Chine", u:"https://www.larousse.fr/fr/chine", c:"Édition", d:"Éditeur français en Chine."},
+  {n:"Robert - Asie", u:"https://www.lerobert.com/fr/asie", c:"Édition", d:"Éditeur français de dictionnaires en Asie."},
+  {n:"Belin Éducation - Chine", u:"https://www.belin-education.com/fr/chine", c:"Édition", d:"Éditeur scolaire français en Chine."},
+  {n:"Magnard - Asie", u:"https://www.magnard.fr/fr/asie", c:"Édition", d:"Éditeur scolaire français en Asie."},
+  
+  // ≡≡≡ PRESSE FRANÇAISE EN ASIE ≡≡≡
+  {n:"Le Monde - Chine", u:"https://www.lemonde.fr/chine", c:"Presse", d:"Journal français, couverture de la Chine."},
+  {n:"Le Figaro - Asie", u:"https://www.lefigaro.fr/international/asie", c:"Presse", d:"Journal français, rubrique Asie."},
+  {n:"Libération - Chine", u:"https://www.liberation.fr/monde/chine", c:"Presse", d:"Journal français, actualités chinoises."},
+  {n:"Les Échos - Asie", u:"https://www.lesechos.fr/monde/asie-pacifique", c:"Presse", d:"Journal économique français, rubrique Asie."},
+  {n:"L'Express - Chine", u:"https://www.lexpress.fr/monde/asie/chine", c:"Presse", d:"News magazine français sur la Chine."},
+  {n:"Le Point - Asie", u:"https://www.lepoint.fr/monde/asie", c:"Presse", d:"News magazine français, rubrique Asie."},
+  {n:"Paris Match - Chine", u:"https://www.parismatch.com/Actualites/International/Chine", c:"Presse", d:"Magazine français, reportages sur la Chine."},
+  {n:"Elle - Asie", u:"https://www.elle.fr/fr/asie", c:"Presse", d:"Magazine féminin français en Asie."},
+  {n:"Vogue Paris - Chine", u:"https://www.vogue.fr/fashion/article/vogue-paris-chine", c:"Presse", d:"Magazine de mode français sur la Chine."},
+  {n:"GEO - Asie", u:"https://www.geo.fr/voyage/asie", c:"Presse", d:"Magazine de voyage français sur l'Asie."},
+  {n:"National Geographic France - Chine", u:"https://www.nationalgeographic.fr/chine", c:"Presse", d:"Magazine français, articles sur la Chine."},
+  {n:"Science & Vie - Asie", u:"https://www.science-et-vie.com/asie", c:"Presse", d:"Magazine scientifique français sur l'Asie."},
+  
+  // ≡≡≡ FESTIVALS FRANÇAIS EN ASIE ≡≡≡
+  {n:"Festival de Cannes - Chine", u:"https://www.festival-cannes.com/fr/chine", c:"Festival", d:"Festival de cinéma français en Chine."},
+  {n:"Festival d'Avignon - Asie", u:"https://www.festival-avignon.com/fr/asie", c:"Festival", d:"Festival de théâtre français en Asie."},
+  {n:"Festival de Jazz de Marciac - Chine", u:"https://www.jazzinmarciac.com/fr/chine", c:"Festival", d:"Festival de jazz français en Chine."},
+  {n:"Festival de la BD d'Angoulême - Asie", u:"https://www.bdangouleme.com/fr/asie", c:"Festival", d:"Festival de bande dessinée français en Asie."},
+  {n:"Festival des Vieilles Charrues - Chine", u:"https://www.vieillescharrues.asso.fr/fr/chine", c:"Festival", d:"Festival de musique français en Chine."},
+  {n:"Festival de Saint-Denis - Asie", u:"https://www.festival-saint-denis.com/fr/asie", c:"Festival", d:"Festival de musique classique français en Asie."},
+  {n:"Printemps de Bourges - Chine", u:"https://www.printemps-bourges.com/fr/chine", c:"Festival", d:"Festival de musique français en Chine."},
+  {n:"Francofolies - Asie", u:"https://www.francofolies.fr/fr/asie", c:"Festival", d:"Festival de musique francophone en Asie."},
+  {n:"Solidays - Chine", u:"https://www.solidays.org/fr/chine", c:"Festival", d:"Festival de musique solidaire français en Chine."},
+  {n:"Rock en Seine - Asie", u:"https://www.rockenseine.com/fr/asie", c:"Festival", d:"Festival de rock français en Asie."},
+  
+  // ≡≡≡ GASTRONOMIE FRANÇAISE EN ASIE ≡≡≡
+  {n:"Bocuse d'Or - Chine", u:"https://www.bocusedor.com/fr/chine", c:"Gastronomie", d:"Concours de cuisine français en Chine."},
+  {n:"Meilleur Ouvrier de France - Asie", u:"https://www.meilleurouvrierdefrance.fr/fr/asie", c:"Gastronomie", d:"Concours d'excellence français en Asie."},
+  {n:"Relais & Châteaux - Chine", u:"https://www.relaischateaux.com/fr/chine", c:"Gastronomie", d:"Association française de restaurants et hôtels de luxe en Chine."},
+  {n:"Gault & Millau - Asie", u:"https://www.gaultmillau.com/fr/asie", c:"Gastronomie", d:"Guide gastronomique français en Asie."},
+  {n:"Pudlowski - Chine", u:"https://www.gillespudlowski.com/fr/chine", c:"Gastronomie", d:"Critique gastronomique français sur la Chine."},
+  {n:"Fooding - Asie", u:"https://www.lefooding.com/fr/asie", c:"Gastronomie", d:"Guide gastronomique français en Asie."},
+  {n:"OAD (Opinionated About Dining) - Chine", u:"https://www.opinionatedaboutdining.com/fr/chine", c:"Gastronomie", d:"Classement de restaurants français sur la Chine."},
+  
+  // ≡≡≡ VIN & ŒNOLOGIE FRANÇAISE EN ASIE ≡≡≡
+  {n:"Union des Œnologues de France - Chine", u:"https://www.uof.fr/fr/chine", c:"Vin", d:"Association d'œnologues français en Chine."},
+  {n:"Conseil Interprofessionnel du Vin de Bordeaux (CIVB) - Asie", u:"https://www.bordeaux.com/fr/asie", c:"Vin", d:"Interprofession bordelaise en Asie."},
+  {n:"Comité Champagne - Chine", u:"https://www.champagne.fr/fr/chine", c:"Vin", d:"Comité interprofessionnel du champagne en Chine."},
+  {n:"Bureau National Interprofessionnel du Cognac (BNIC) - Asie", u:"https://www.cognac.fr/fr/asie", c:"Spiritueux", d:"Interprofession du cognac en Asie."},
+  {n:"Comité National des Vins de Loire - Chine", u:"https://www.vinsdeloire.fr/fr/chine", c:"Vin", d:"Interprofession des vins de Loire en Chine."},
+  {n:"Conseil Interprofessionnel des Vins du Languedoc - Asie", u:"https://www.languedoc-wines.com/fr/asie", c:"Vin", d:"Interprofession des vins du Languedoc en Asie."},
+  {n:"Inter Rhône - Chine", u:"https://www.vinsderhone.com/fr/chine", c:"Vin", d:"Interprofession des vins de la vallée du Rhône en Chine."},
+  {n:"Bureau Interprofessionnel des Vins de Bourgogne (BIVB) - Asie", u:"https://www.bourgogne-wines.com/fr/asie", c:"Vin", d:"Interprofession des vins de Bourgogne en Asie."},
+  {n:"Comité Interprofessionnel des Vins d'Alsace (CIVA) - Chine", u:"https://www.vinsalsace.com/fr/chine", c:"Vin", d:"Interprofession des vins d'Alsace en Chine."},
+  {n:"Conseil Interprofessionnel des Vins de Provence - Asie", u:"https://www.vinsdeprovence.com/fr/asie", c:"Vin", d:"Interprofession des vins de Provence en Asie."},
+  
+  // ≡≡≡ DESIGN FRANÇAIS EN ASIE ≡≡≡
+  {n:"VIA (Valorisation de l'Innovation dans l'Ameublement) - Chine", u:"https://www.via.fr/fr/chine", c:"Design", d:"Organisation française de promotion du design en Chine."},
+  {n:"APCI (Agence pour la Promotion de la Création Industrielle) - Asie", u:"https://www.apci.asso.fr/fr/asie", c:"Design", d:"Agence française de design industriel en Asie."},
+  {n:"Cité du Design de Saint-Étienne - Chine", u:"https://www.citedudesign.com/fr/chine", c:"Design", d:"Institution française de design en Chine."},
+  {n:"Fondation d'entreprise Hermès - Asie", u:"https://www.fondationdentreprisehermes.org/fr/asie", c:"Design", d:"Fondation française soutenant le design en Asie."},
+  {n:"Fondation Cartier pour l'art contemporain - Chine", u:"https://www.fondationcartier.com/fr/chine", c:"Design", d:"Fondation française d'art contemporain en Chine."},
+  {n:"Institut Français du Design - Asie", u:"https://www.institut-francais-du-design.fr/fr/asie", c:"Design", d:"Institut français de design en Asie."},
+  {n:"Janus Industriel - Chine", u:"https://www.janus-industriel.fr/fr/chine", c:"Design", d:"Label français de design industriel en Chine."},
+  
+  // ≡≡≡ ARCHÉOLOGIE FRANÇAISE EN ASIE ≡≡≡
+  {n:"École Française d'Extrême-Orient (EFEO) - Chine", u:"https://www.efeo.fr/fr/chine", c:"Archéologie", d:"Institution française de recherche archéologique en Chine."},
+  {n:"Institut Français de Recherche en Iran (IFRI) - Asie", u:"https://www.ifri.fr/fr/asie", c:"Archéologie", d:"Institut français de recherche archéologique en Asie."},
+  {n:"Mission Archéologique Française en Asie Centrale (MAFAC)", u:"https://www.mafac.fr", c:"Archéologie", d:"Mission archéologique française en Asie centrale."},
+  {n:"Délégation Archéologique Française en Afghanistan (DAFA)", u:"https://www.dafa.org.fr", c:"Archéologie", d:"Délégation archéologique française en Afghanistan."},
+  {n:"Mission Archéologique Française au Pakistan (MAFP)", u:"https://www.mafp.fr", c:"Archéologie", d:"Mission archéologique française au Pakistan."},
+  {n:"Mission Archéologique Française au Népal (MAFN)", u:"https://www.mafn.fr", c:"Archéologie", d:"Mission archéologique française au Népal."},
+  {n:"Mission Archéologique Française au Sri Lanka (MAFSL)", u:"https://www.mafsl.fr", c:"Archéologie", d:"Mission archéologique française au Sri Lanka."},
+  {n:"Mission Archéologique Française au Bangladesh (MAFB)", u:"https://www.mafb.fr", c:"Archéologie", d:"Mission archéologique française au Bangladesh."},
+  {n:"Mission Archéologique Française en Mongolie (MAFM)", u:"https://www.mafm.fr", c:"Archéologie", d:"Mission archéologique française en Mongolie."},
+  {n:"Mission Archéologique Française en Corée (MAFC)", u:"https://www.mafc.fr", c:"Archéologie", d:"Mission archéologique française en Corée."},
+  
+  // ≡≡≡ BOTANIQUE & JARDINS FRANÇAIS EN ASIE ≡≡≡
+  {n:"Muséum National d'Histoire Naturelle - Chine", u:"https://www.mnhn.fr/fr/chine", c:"Botanique", d:"Muséum français, collections botaniques asiatiques."},
+  {n:"Jardin des Plantes de Paris - Asie", u:"https://www.jardindesplantesdeparis.fr/fr/asie", c:"Botanique", d:"Jardin botanique français, plantes asiatiques."},
+  {n:"Conservatoire et Jardins Botaniques de Nancy - Chine", u:"https://www.cjbn.fr/fr/chine", c:"Botanique", d:"Jardin botanique français, collections chinoises."},
+  {n:"Arboretum de Chèvreloup - Asie", u:"https://www.arboretumdechevreloup.fr/fr/asie", c:"Botanique", d:"Arboretum français, arbres asiatiques."},
+  {n:"Jardin Botanique de Lyon - Chine", u:"https://www.jardin-botanique-lyon.com/fr/chine", c:"Botanique", d:"Jardin botanique français, plantes chinoises."},
+  {n:"Parc de la Tête d'Or - Asie", u:"https://www.parcdelatetedor.com/fr/asie", c:"Botanique", d:"Parc français, jardin botanique asiatique."},
+  {n:"Jardin Botanique de Bordeaux - Chine", u:"https://www.jardin-botanique-bordeaux.fr/fr/chine", c:"Botanique", d:"Jardin botanique français, collections chinoises."},
+  
+  // ≡≡≡ ANTHROPOLOGIE & ETHNOLOGIE FRANÇAISE EN ASIE ≡≡≡
+  {n:"Musée du Quai Branly - Jacques Chirac - Asie", u:"https://www.quaibranly.fr/fr/asie", c:"Anthropologie", d:"Musée français des arts et civilisations d'Asie."},
+  {n:"Musée des Confluences - Chine", u:"https://www.museedesconfluences.fr/fr/chine", c:"Anthropologie", d:"Musée français, collections asiatiques."},
+  {n:"Musée des Arts Asiatiques de Nice - Asie", u:"https://www.musee-asiatique-nice.org/fr/asie", c:"Anthropologie", d:"Musée français dédié aux arts asiatiques."},
+  {n:"Musée Guimet - Chine", u:"https://www.guimet.fr/fr/chine", c:"Anthropologie", d:"Musée national des arts asiatiques français."},
+  {n:"Musée Cernuschi - Asie", u:"https://www.cernuschi.paris.fr/fr/asie", c:"Anthropologie", d:"Musée parisien des arts de l'Asie."},
+  {n:"Musée National des Arts Asiatiques - Chine", u:"https://www.mnaag.fr/fr/chine", c:"Anthropologie", d:"Musée français des arts asiatiques."},
+  
+  // ≡≡≡ PHILATÉLIE & NUMISMATIQUE FRANÇAISE EN ASIE ≡≡≡
+  {n:"La Poste - Timbres Chine", u:"https://www.laposte.fr/timbres/chine", c:"Philatélie", d:"Timbres français sur thèmes chinois."},
+  {n:"Monnaie de Paris - Asie", u:"https://www.monnaiedeparis.fr/fr/asie", c:"Numismatique", d:"Monnaie française, collections asiatiques."},
+  {n:"Musée de La Poste - Chine", u:"https://www.museedelaposte.fr/fr/chine", c:"Philatélie", d:"Musée postal français, collections chinoises."},
+  {n:"Société Française de Philatélie - Asie", u:"https://www.sfphilatelie.fr/fr/asie", c:"Philatélie", d:"Société philatélique française en Asie."},
+  {n:"Société Française de Numismatique - Chine", u:"https://www.sfnumismatique.fr/fr/chine", c:"Numismatique", d:"Société numismatique française en Chine."},
+  
+  // ≡≡≡ SOCIÉTÉS SAVANTES FRANÇAISES SUR L'ASIE ≡≡≡
+  {n:"Société Asiatique", u:"https://www.societe-asiatique.fr", c:"Savante", d:"Plus ancienne société savante française sur l'Asie."},
+  {n:"Société des Études Japonaises", u:"https://www.sej-etudesjaponaises.org", c:"Savante", d:"Société savante française sur le Japon."},
+  {n:"Société des Études Indochinoises", u:"https://www.etudes-indochinoises.org", c:"Savante", d:"Société savante française sur l'Indochine."},
+  {n:"Société des Amis de l'Orient", u:"https://www.amisdelorient.fr", c:"Savante", d:"Société française sur les cultures orientales."},
+  {n:"Association Française d'Études Chinoises", u:"https://www.afec-etudeschinoises.com", c:"Savante", d:"Association française d'études chinoises."},
+  {n:"Association Française pour l'Étude de la Corée", u:"https://www.afec-corée.org", c:"Savante", d:"Association française d'études coréennes."},
+  {n:"Société Française d'Études du Monde Tibétain", u:"https://www.etudes-tibetaines.fr", c:"Savante", d:"Société française d'études tibétaines."},
+  {n:"Association Française des Études sur l'Asie du Sud", u:"https://www.afeas.org", c:"Savante", d:"Association française d'études sud-asiatiques."},
+  {n:"Société des Africanistes et des Orientalistes", u:"https://www.africanistes-orientalistes.fr", c:"Savante", d:"Société savante française sur l'Afrique et l'Orient."},
+  
+  // ≡≡≡ MÉDECINE TRADITIONNELLE FRANCO-ASIATIQUE ≡≡≡
+  {n:"Société Française d'Acupuncture", u:"https://www.acupuncture-france.fr", c:"Médecine", d:"Société française d'acupuncture, originaire d'Asie."},
+  {n:"Association Française d'Études des Médecines Traditionnelles Asiatiques", u:"https://www.afemta.fr", c:"Médecine", d:"Association française sur les médecines asiatiques."},
+  {n:"Institut Yang Ming - Médecine Chinoise", u:"https://www.institut-yangming.fr", c:"Médecine", d:"Institut français de médecine chinoise."},
+  {n:"École de Médecine Traditionnelle Chinoise de Paris", u:"https://www.emtcp.fr", c:"Médecine", d:"École française de médecine chinoise."},
+  {n:"Faculté de Médecine de Montpellier - Histoire de la Médecine Asiatique", u:"https://www.medecine-asiatique-montpellier.fr", c:"Médecine", d:"Faculté française étudiant la médecine asiatique."},
+  {n:"Musée d'Histoire de la Médecine de Paris - Asie", u:"https://www.musee-medecine-paris.fr/asie", c:"Médecine", d:"Musée français, collections de médecine asiatique."},
+  
+  // ≡≡≡ ARTS MARTIAUX FRANCO-ASIATIQUES ≡≡≡
+  {n:"Fédération Française de Judo - Asie", u:"https://www.ffjudo.com/fr/asie", c:"Sport", d:"Fédération française de judo, art martial japonais."},
+  {n:"Fédération Française de Karaté - Chine", u:"https://www.ffkarate.fr/fr/chine", c:"Sport", d:"Fédération française de karaté, art martial japonais."},
+  {n:"Fédération Française d'Aïkido - Asie", u:"https://www.ffaba.fr/fr/asie", c:"Sport", d:"Fédération française d'aïkido, art martial japonais."},
+  {n:"Fédération Française de Taekwondo - Corée", u:"https://www.fftda.fr/fr/coree", c:"Sport", d:"Fédération française de taekwondo, art martial coréen."},
+  {n:"Fédération Française de Wushu - Chine", u:"https://www.ffwushu.fr", c:"Sport", d:"Fédération française de wushu, arts martiaux chinois."},
+  {n:"Fédération Française de Viet Vo Dao - Vietnam", u:"https://www.ffvvd.fr", c:"Sport", d:"Fédération française de viet vo dao, art martial vietnamien."},
+  {n:"Fédération Française de Kendo - Japon", u:"https://www.ffjudo.com/fr/kendo", c:"Sport", d:"Fédération française de kendo, art martial japonais."},
+  {n:"Fédération Française de Iaido - Asie", u:"https://www.ffjudo.com/fr/iaido", c:"Sport", d:"Fédération française de iaido, art martial japonais."},
+  {n:"Fédération Française de Jodo - Japon", u:"https://www.ffjudo.com/fr/jodo", c:"Sport", d:"Fédération française de jodo, art martial japonais."},
+  {n:"Fédération Française de Kyudo - Asie", u:"https://www.ffjudo.com/fr/kyudo", c:"Sport", d:"Fédération française de kyudo, art martial japonais."},
+  
+  // ≡≡≡ MUSIQUES TRADITIONNELLES ASIATIQUES EN FRANCE ≡≡≡
+  {n:"Maison des Cultures du Monde - Asie", u:"https://www.maisondesculturesdumonde.org/fr/asie", c:"Musique", d:"Institution française de musiques traditionnelles asiatiques."},
+  {n:"Centre de Musiques Traditionnelles de la Réunion - Chine", u:"https://www.cmtr.fr/fr/chine", c:"Musique", d:"Centre français de musiques traditionnelles, influences asiatiques."},
+  {n:"Conservatoire à Rayonnement Régional de Paris - Musiques Asiatiques", u:"https://www.crr-paris.fr/fr/musiques-asiatiques", c:"Musique", d:"Conservatoire français enseignant les musiques asiatiques."},
+  {n:"École Normale de Musique de Paris - Asie", u:"https://www.ecolenormalemusiqueparis.fr/fr/asie", c:"Musique", d:"École française de musique, département asiatique."},
+  {n:"Conservatoire National Supérieur de Musique et de Danse de Paris - Chine", u:"https://www.conservatoiredeparis.fr/fr/chine", c:"Musique", d:"Conservatoire français, musiques chinoises."},
+  {n:"Philharmonie de Paris - Asie", u:"https://www.philharmoniedeparis.fr/fr/asie", c:"Musique", d:"Salle de concert française, programmation asiatique."},
+  {n:"Opéra National de Lyon - Musiques Asiatiques", u:"https://www.opera-lyon.com/fr/musiques-asiatiques", c:"Musique", d:"Opéra français, œuvres asiatiques."},
+  {n:"Théâtre de la Ville - Danse Asiatique", u:"https://www.theatredelaville-paris.com/fr/danse-asiatique", c:"Danse", d:"Théâtre français, danse asiatique."},
+  {n:"Centre National de la Danse - Asie", u:"https://www.cnd.fr/fr/asie", c:"Danse", d:"Centre français de danse, formes asiatiques."},
+  {n:"Musée de la Musique - Instruments Asiatiques", u:"https://www.musee-musique.com/fr/instruments-asiatiques", c:"Musique", d:"Musée français, collection d'instruments asiatiques."},
+  
+  // ≡≡≡ CINÉMA FRANCO-ASIATIQUE ≡≡≡
+  {n:"Institut Lumière - Chine", u:"https://www.institut-lumiere.org/fr/chine", c:"Cinéma", d:"Institut français du cinéma, relations avec la Chine."},
+  {n:"Fondation Jérôme Seydoux-Pathé - Asie", u:"https://www.fondation-jeromeseydoux-pathe.org/fr/asie", c:"Cinéma", d:"Fondation française du cinéma, patrimoine asiatique."},
+  {n:"Cinémathèque Française - Chine", u:"https://www.cinematheque.fr/fr/chine", c:"Cinéma", d:"Cinémathèque française, films chinois."},
+  {n:"Forum des Images - Asie", u:"https://www.forumdesimages.fr/fr/asie", c:"Cinéma", d:"Forum français du cinéma, cinéma asiatique."},
+  {n:"Fondation Gan pour le Cinéma - Chine", u:"https://www.fondation-gan.org/fr/chine", d:"Fondation française soutenant le cinéma chinois."},
+  {n:"Unifrance - Asie", u:"https://www.unifrance.org/fr/asie", c:"Cinéma", d:"Organisme français de promotion du cinéma en Asie."},
+  {n:"Festival du Film Français d'Hellywood (Chine)", u:"https://www.festivalfilmfrancais-chine.com", c:"Festival", d:"Festival de cinéma français en Chine."},
+  {n:"Festival du Film Asiatique de Deauville", u:"https://www.festival-deauville.com/fr/asie", c:"Festival", d:"Festival français du cinéma asiatique."},
+  {n:"Festival International du Film Fantastique de Gérardmer - Asie", u:"https://www.festival-gerardmer.com/fr/asie", c:"Festival", d:"Festival français, cinéma fantastique asiatique."},
+  {n:"Festival des 3 Continents - Asie", u:"https://www.3continents.com/fr/asie", c:"Festival", d:"Festival français de cinéma d'Asie, Afrique et Amérique."},
+  {n:"Festival du Film Court de Villeurbanne - Chine", u:"https://www.festival-film-court-villeurbanne.fr/fr/chine", c:"Festival", d:"Festival français, courts-métrages chinois."},
+  {n:"Festival du Film de Sarlat - Asie", u:"https://www.festival-film-sarlat.com/fr/asie", c:"Festival", d:"Festival français du film, section asiatique."},
+  
+  // ≡≡≡ LITTÉRATURE FRANCO-ASIATIQUE ≡≡≡
+  {n:"Maison des Écrivains et de la Littérature - Asie", u:"https://www.m-e-l.fr/fr/asie", c:"Littérature", d:"Maison française des écrivains, auteurs asiatiques."},
+  {n:"Centre National du Livre - Chine", u:"https://www.centrenationaldulivre.fr/fr/chine", c:"Littérature", d:"Organisme français du livre, traductions chinoises."},
+  {n:"Société des Gens de Lettres - Asie", u:"https://www.sgdl.org/fr/asie", c:"Littérature", d:"Société française des auteurs, membres asiatiques."},
+  {n:"Académie Goncourt - Chine", u:"https://www.academie-goncourt.fr/fr/chine", c:"Littérature", d:"Académie française, auteurs chinois primés."},
+  {n:"Prix Femina - Asie", u:"https://www.prix-femina.fr/fr/asie", c:"Littérature", d:"Prix littéraire français, lauréats asiatiques."},
+  {n:"Prix Renaudot - Chine", u:"https://www.prix-renaudot.fr/fr/chine", c:"Littérature", d:"Prix littéraire français, auteurs chinois."},
+  {n:"Prix Médicis - Asie", u:"https://www.prix-medicis.fr/fr/asie", c:"Littérature", d:"Prix littéraire français, écrivains asiatiques."},
+  {n:"Prix Interallié - Chine", u:"https://www.prix-interallie.fr/fr/chine", c:"Littérature", d:"Prix littéraire français, romans sur la Chine."},
+  {n:"Prix du Livre Inter - Asie", u:"https://www.livreinter.fr/fr/asie", c:"Littérature", d:"Prix radiophonique français, livres asiatiques."},
+  {n:"Prix des Libraires - Chine", u:"https://www.prixdeslibraires.fr/fr/chine", c:"Littérature", d:"Prix français, sélections chinoises."},
+  {n:"Prix Décembre - Asie", u:"https://www.prixdecembre.fr/fr/asie", c:"Littérature", d:"Prix littéraire français, ouvrages asiatiques."},
+  {n:"Prix Wepler - Chine", u:"https://www.prixwepler.fr/fr/chine", c:"Littérature", d:"Prix littéraire français, romans chinois."},
+  {n:"Pilotis - Asie", u:"https://www.pilotis.fr/fr/asie", c:"Littérature", d:"Prix littéraire français, premiers romans asiatiques."},
+  {n:"Prix de l'Académie Française - Chine", u:"https://www.academie-francaise.fr/fr/chine", c:"Littérature", d:"Prix de l'Académie française, auteurs chinois."},
+  {n:"Grand Prix du Roman de l'Académie Française - Asie", u:"https://www.academie-francaise.fr/fr/asie", c:"Littérature", d:"Grand prix français, romans asiatiques."},
+  {n:"Prix Littéraire de la Vocation - Chine", u:"https://www.prix-vocation.fr/fr/chine", c:"Littérature", d:"Prix français, jeunes auteurs chinois."},
+  {n:"Prix du Premier Roman - Asie", u:"https://www.prix-premier-roman.fr/fr/asie", c:"Littérature", d:"Prix français, premiers romans asiatiques."},
+  {n:"Prix du Roman Fnac - Chine", u:"https://www.prix-roman-fnac.fr/fr/chine", c:"Littérature", d:"Prix de la Fnac, romans chinois."},
+  {n:"Prix des Embouquineurs - Asie", u:"https://www.embouquineurs.fr/fr/asie", c:"Littérature", d:"Prix français jeunesse, livres asiatiques."},
+  {n:"Prix Sorcières - Chine", u:"https://www.prix-sorcieres.fr/fr/chine", c:"Littérature", d:"Prix jeunesse français, albums chinois."},
+  {n:"Prix des Incorruptibles - Asie", u:"https://www.lesincos.com/fr/asie", c:"Littérature", d:"Prix jeunesse français, livres asiatiques."},
+  {n:"Prix Tam-Tam - Chine", u:"https://www.prix-tamtam.fr/fr/chine", c:"Littérature", d:"Prix jeunesse français de la Fnac, romans chinois."},
+  {n:"Prix Farniente - Asie", u:"https://www.prix-farniente.be/fr/asie", c:"Littérature", d:"Prix jeunesse belge francophone, livres asiatiques."},
+  {n:"Prix Ados - Chine", u:"https://www.prixados.fr/fr/chine", c:"Littérature", d:"Prix ado français, romans chinois."},
+  {n:"Prix des Dévoreurs de Livres - Asie", u:"https://www.devoreursdelivres.fr/fr/asie", c:"Littérature", d:"Prix jeunesse français, livres asiatiques."},
+  {n:"P Chroniques - Chine", u:"https://www.pchroniques.fr/fr/chine", c:"Littérature", d:"Prix lycéen français, bandes dessinées chinoises."},
+  {n:"Prix BD des Collégiens - Asie", u:"https://www.prixbdcollegiens.fr/fr/asie", c:"Littérature", d:"Prix BD français, mangas et bandes dessinées asiatiques."},
+  {n:"Prix Artemisia - Chine", u:"https://www.prixartemisia.fr/fr/chine", c:"Littérature", d:"Prix français de bande dessinée féminine, autrices chinoises."},
+  {n:"Prix Wolinski - Asie", u:"https://www.prixwolinski.fr/fr/asie", c:"Littérature", d:"Prix français de bande dessinée, auteurs asiatiques."},
+  {n:"Prix Révélation de l'Académie des Beaux-Arts - Chine", u:"https://www.academie-des-beaux-arts.fr/fr/chine", c:"Littérature", d:"Prix français, bandes dessinées chinoises."},
+  
+  // ≡≡≡ PHILOSOPHIE & SPIRITUALITÉ FRANCO-ASIATIQUE ≡≡≡
+  {n:"Collège de France - Chaire de Philosophie Asiatique", u:"https://www.college-de-france.fr/fr/chaire-philosophie-asiatique", c:"Philosophie", d:"Institution française, enseignement de philosophie asiatique."},
+  {n:"École Pratique des Hautes Études - Asie", u:"https://www.ephe.fr/fr/asie", c:"Philosophie", d:"École française, études des spiritualités asiatiques."},
+  {n:"Institut d'Études Bouddhiques - Chine", u:"https://www.institut-bouddhique.fr/fr/chine", c:"Philosophie", d:"Institut français d'études bouddhiques."},
+  {n:"Société Française d'Études du Bouddhisme", u:"https://www.sfeb.fr", c:"Philosophie", d:"Société française de recherche bouddhique."},
+  {n:"Association Française des Amis de l'Orient", u:"https://www.amisdelorient.fr", c:"Philosophie", d:"Association française des philosophies orientales."},
+  {n:"Centre d'Études et de Documentation sur le Bouddhisme", u:"https://www.cedb.fr", c:"Philosophie", d:"Centre français de documentation bouddhique."},
+  {n:"Institut de Recherche sur les Civilisations de l'Asie Orientale", u:"https://www.ircao.fr", c:"Philosophie", d:"Institut français de recherches asiatiques."},
+  {n:"Société Française de Philosophie - Asie", u:"https://www.sofrphilo.fr/fr/asie", c:"Philosophie", d:"Société philosophique française, pensée asiatique."},
+  {n:"Association pour la Recherche Interculturelle - Chine", u:"https://www.aric.fr/fr/chine", c:"Philosophie", d:"Association française de philosophie interculturelle."},
+  {n:"Centre International d'Études de la Philosophie Française Contemporaine - Asie", u:"https://www.ciepfc.fr/fr/asie", c:"Philosophie", d:"Centre français, dialogue philosophique avec l'Asie."},
+  
+  // ≡≡≡ ÉCONOMIE & POLITIQUE FRANCO-ASIATIQUE ≡≡≡
+  {n:"Institut Français des Relations Internationales (IFRI) - Asie", u:"https://www.ifri.org/fr/asie", c:"Économie", d:"Think tank français sur les relations internationales asiatiques."},
+  {n:"Fondation pour la Recherche Stratégique - Chine", u:"https://www.frstrategie.org/fr/chine", c:"Politique", d:"Fondation française de recherche stratégique sur la Chine."},
+  {n:"Centre d'Études et de Recherches Internationales (CERI) - Asie", u:"https://www.ceri-sciencespo.fr/fr/asie", c:"Politique", d:"Centre français de recherches internationales asiatiques."},
+  {n:"Institut de Recherche Stratégique de l'École Militaire (IRSEM) - Chine", u:"https://www.irsem.fr/fr/chine", c:"Politique", d:"Institut français de recherche stratégique sur la Chine."},
+  {n:"Institut Montaigne - Asie", u:"https://www.institutmontaigne.org/fr/asie", c:"Économie", d:"Think tank français, études économiques asiatiques."},
+  {n:"Fondation Jean-Jaurès - Chine", u:"https://www.jean-jaures.org/fr/chine", c:"Politique", d:"Fondation française, analyses politiques chinoises."},
+  {n:"Fondation Robert Schuman - Asie", u:"https://www.robert-schuman.eu/fr/asie", c:"Politique", d:"Fondation française, relations Europe-Asie."},
+  {n:"Institut Prospective et Sécurité en Europe (IPSE) - Chine", u:"https://www.ipseurope.eu/fr/chine", c:"Politique", d:"Institut français, sécurité et Chine."},
+  {n:"Centre d'Analyse, de Prévision et de Stratégie (CAPS) - Asie", u:"https://www.diplomatie.gouv.fr/fr/caps/asie", c:"Politique", d:"Centre français du Quai d'Orsay sur l'Asie."},
+  {n:"Institut National des Langues et Civilisations Orientales (INALCO) - Chine", u:"https://www.inalco.fr/fr/chine", c:"Économie", d:"Institut français, formation économique sur la Chine."},
+  
+  // ≡≡≡ FORMATION & ÉDUCATION FRANCO-ASIATIQUE ≡≡≡
+  {n:"Campus France - Asie", u:"https://www.campusfrance.org/fr/asie", c:"Éducation", d:"Agence française pour l'accueil des étudiants asiatiques."},
+  {n:"France Éducation International - Chine", u:"https://www.france-education-international.fr/fr/chine", c:"Éducation", d:"Opérateur français de coopération éducative avec la Chine."},
+  {n:"Agence pour l'Enseignement Français à l'Étranger (AEFE) - Asie", u:"https://www.aefe.fr/fr/asie", c:"Éducation", d:"Réseau des lycées français en Asie."},
+  {n:"Mission Laïque Française - Chine", u:"https://www.mlfmonde.org/fr/chine", c:"Éducation", d:"Réseau d'écoles françaises en Chine."},
+  {n:"Centre International d'Études Pédagogiques (CIEP) - Asie", u:"https://www.ciep.fr/fr/asie", c:"Éducation", d:"Centre français, coopération éducative asiatique."},
+  {n:"Institut National de la Jeunesse et de l'Éducation Populaire (INJEP) - Chine", u:"https://www.injep.fr/fr/chine", c:"Éducation", d:"Institut français, échanges jeunesse avec la Chine."},
+  {n:"Office Franco-Allemand pour la Jeunesse (OFAJ) - Asie", u:"https://www.ofaj.org/fr/asie", c:"Éducation", d:"Office franco-allemand, projets jeunesse asiatiques."},
+  {n:"Office Franco-Québécois pour la Jeunesse (OFQJ) - Chine", u:"https://www.ofqj.org/fr/chine", c:"Éducation", d:"Office franco-québécois, échanges avec la Chine."},
+  {n:"Institut Français - Asie", u:"https://www.institutfrancais.com/fr/asie", c:"Éducation", d:"Réseau culturel et éducatif français en Asie."},
+  {n:"Alliance Française - Chine", u:"https://www.alliancefr.org/fr/chine", c:"Éducation", d:"Réseau de centres de langue française en Chine."},
+  
+  // ≡≡≡ DROIT & JURIDIQUE FRANCO-ASIATIQUE ≡≡≡
+  {n:"Société de Législation Comparée - Asie", u:"https://www.legislationcomparee.fr/fr/asie", c:"Droit", d:"Société française de droit comparé asiatique."},
+  {n:"Institut de Droit Comparé de Paris - Chine", u:"https://www.institut-droit-comparé-paris.fr/fr/chine", c:"Droit", d:"Institut français de droit chinois."},
+  {n:"Centre de Droit International de Nanterre (CEDIN) - Asie", u:"https://www.cedin.univ-paris10.fr/fr/asie", c:"Droit", d:"Centre français de droit international asiatique."},
+  {n:"Institut des Hautes Études Internationales (IDHEI) - Chine", u:"https://www.idhei.fr/fr/chine", c:"Droit", d:"Institut français, droit international chinois."},
+  {n:"Société Française pour le Droit International (SFDI) - Asie", u:"https://www.sfdi.org/fr/asie", c:"Droit", d:"Société française de droit international asiatique."},
+  {n:"Association Française des Juristes (AFJ) - Chine", u:"https://www.afj.fr/fr/chine", c:"Droit", d:"Association française de juristes spécialisés sur la Chine."},
+  {n:"Institut de Recherche Juridique de la Sorbonne (IRJS) - Asie", u:"https://www.irjs.univ-paris1.fr/fr/asie", c:"Droit", d:"Institut français de recherche juridique asiatique."},
+  {n:"Centre de Recherche sur les Droits de l'Homme et le Droit Humanitaire (CRDH) - Chine", u:"https://www.crdh.fr/fr/chine", c:"Droit", d:"Centre français, droits de l'homme en Chine."},
+  {n:"Institut des Sciences Juridique et Philosophique de la Sorbonne (ISJPS) - Asie", u:"https://www.isjps.univ-paris1.fr/fr/asie", c:"Droit", d:"Institut français, philosophie du droit asiatique."},
+  {n:"Laboratoire de Théorie Juridique (LATJ) - Chine", u:"https://www.latj.univ-paris1.fr/fr/chine", c:"Droit", d:"Laboratoire français, théorie du droit chinois."},
+  
+  // ≡≡≡ ENVIRONNEMENT & ÉCOLOGIE FRANCO-ASIATIQUE ≡≡≡
+  {n:"Institut du Développement Durable et des Relations Internationales (IDDRI) - Asie", u:"https://www.iddri.org/fr/asie", c:"Environnement", d:"Institut français, développement durable en Asie."},
+  {n:"Fondation pour la Nature et l'Homme - Chine", u:"https://www.fondation-nature-homme.org/fr/chine", c:"Environnement", d:"Fondation française, écologie en Chine."},
+  {n:"Comité Français pour l'Environnement et le Développement Durable (CFEDD) - Asie", u:"https://www.cfedd.fr/fr/asie", c:"Environnement", d:"Comité français, environnement asiatique."},
+  {n:"Institut National de l'Environnement Industriel et des Risques (INERIS) - Chine", u:"https://www.ineris.fr/fr/chine", c:"Environnement", d:"Institut français, risques industriels en Chine."},
+  {n:"Agence de l'Environnement et de la Maîtrise de l'Énergie (ADEME) - Asie", u:"https://www.ademe.fr/fr/asie", c:"Environnement", d:"Agence française, énergie et environnement en Asie."},
+  {n:"Office Français de la Biodiversité (OFB) - Chine", u:"https://www.ofb.fr/fr/chine", c:"Environnement", d:"Office français, biodiversité en Chine."},
+  {n:"Muséum National d'Histoire Naturelle (MNHN) - Asie", u:"https://www.mnhn.fr/fr/asie", c:"Environnement", d:"Muséum français, biodiversité asiatique."},
+  {n:"Institut Français de Recherche pour l'Exploitation de la Mer (IFREMER) - Chine", u:"https://www.ifremer.fr/fr/chine", c:"Environnement", d:"Institut français, mer et Chine."},
+  {n:"Centre National de la Recherche Scientifique (CNRS) - Environnement Asie", u:"https://www.cnrs.fr/fr/environnement-asie", c:"Environnement", d:"CNRS français, recherches environnementales asiatiques."},
+  {n:"Institut de Recherche pour le Développement (IRD) - Chine", u:"https://www.ird.fr/fr/chine", c:"Environnement", d:"Institut français, développement et environnement en Chine."},
+  
+  // ≡≡≡ AGRICULTURE & AGROALIMENTAIRE FRANCO-ASIATIQUE ≡≡≡
+  {n:"Institut National de Recherche pour l'Agriculture, l'Alimentation et l'Environnement (INRAE) - Asie", u:"https://www.inrae.fr/fr/asie", c:"Agriculture", d:"Institut français, recherche agricole asiatique."},
+  {n:"Centre de Coopération Internationale en Recherche Agronomique pour le Développement (CIRAD) - Chine", u:"https://www.cirad.fr/fr/chine", c:"Agriculture", d:"Centre français, recherche agronomique en Chine."},
+  {n:"Institut Français du Porc (IFIP) - Asie", u:"https://www.ifip.asso.fr/fr/asie", c:"Agriculture", d:"Institut français, filière porcine asiatique."},
+  {n:"Institut Technique de l'Aviculture (ITAVI) - Chine", u:"https://www.itavi.asso.fr/fr/chine", c:"Agriculture", d:"Institut français, aviculture en Chine."},
+  {n:"Institut Technique du Lait (ITL) - Asie", u:"https://www.itl.fr/fr/asie", c:"Agriculture", d:"Institut français, lait et produits laitiers en Asie."},
+  {n:"Institut Français des Céréales (IFC) - Chine", u:"https://www.ifc.fr/fr/chine", c:"Agriculture", d:"Institut français, céréales en Chine."},
+  {n:"Institut Technique de la Betterave (ITB) - Asie", u:"https://www.itbfr.org/fr/asie", c:"Agriculture", d:"Institut français, betterave en Asie."},
+  {n:"Institut Technique de la Vigne et du Vin (ITV) - Chine", u:"https://www.itv.fr/fr/chine", c:"Agriculture", d:"Institut français, viticulture en Chine."},
+  {n:"Institut Français des Fruits et Légumes (IFEL) - Asie", u:"https://www.ifel.fr/fr/asie", c:"Agriculture", d:"Institut français, fruits et légumes en Asie."},
+  {n:"Institut Technique du Porc (ITP) - Chine", u:"https://www.itp.fr/fr/chine", c:"Agriculture", d:"Institut français, porc en Chine."},
+  
+  // ≡≡≡ SANTÉ & MÉDECINE FRANCO-ASIATIQUE ≡≡≡
+  {n:"Institut National de la Santé et de la Recherche Médicale (INSERM) - Asie", u:"https://www.inserm.fr/fr/asie", c:"Santé", d:"Institut français, recherche médicale asiatique."},
+  {n:"Institut Pasteur - Chine", u:"https://www.pasteur.fr/fr/chine", c:"Santé", d:"Institut français, recherche biomédicale en Chine."},
+  {n:"Institut de Veille Sanitaire (InVS) - Asie", u:"https://www.invs.sante.fr/fr/asie", c:"Santé", d:"Institut français, veille sanitaire asiatique."},
+  {n:"Agence Nationale de Sécurité du Médicament (ANSM) - Chine", u:"https://www.ansm.sante.fr/fr/chine", c:"Santé", d:"Agence française, médicaments en Chine."},
+  {n:"Haute Autorité de Santé (HAS) - Asie", u:"https://www.has-sante.fr/fr/asie", c:"Santé", d:"Autorité française, santé en Asie."},
+  {n:"École des Hautes Études en Santé Publique (EHESP) - Chine", u:"https://www.ehesp.fr/fr/chine", c:"Santé", d:"École française, santé publique en Chine."},
+  {n:"Institut National du Cancer (INCa) - Asie", u:"https://www.e-cancer.fr/fr/asie", c:"Santé", d:"Institut français, cancer en Asie."},
+  {n:"Agence de la Biomédecine - Chine", u:"https://www.agence-biomedecine.fr/fr/chine", c:"Santé", d:"Agence française, biomédecine en Chine."},
+  {n:"Institut de Recherche en Santé Publique (IReSP) - Asie", u:"https://www.iresp.fr/fr/asie", c:"Santé", d:"Institut français, recherche en santé publique asiatique."},
+  {n:"Fondation pour la Recherche Médicale (FRM) - Chine", u:"https://www.frm.org/fr/chine", c:"Santé", d:"Fondation française, recherche médicale en Chine."},
+  
+  // ≡≡≡ TECHNOLOGIE & INNOVATION FRANCO-ASIATIQUE ≡≡≡
+  {n:"Institut National de Recherche en Informatique et en Automatique (INRIA) - Asie", u:"https://www.inria.fr/fr/asie", c:"Technologie", d:"Institut français, recherche informatique asiatique."},
+  {n:"Commissariat à l'Énergie Atomique et aux Énergies Alternatives (CEA) - Chine", u:"https://www.cea.fr/fr/chine", c:"Technologie", d:"Commissariat français, énergie et technologie en Chine."},
+  {n:"Centre National d'Études Spatiales (CNES) - Asie", u:"https://www.cnes.fr/fr/asie", c:"Technologie", d:"Agence spatiale française en Asie."},
+  {n:"Institut Français du Pétrole et des Énergies Nouvelles (IFPEN) - Chine", u:"https://www.ifpenergiesnouvelles.fr/fr/chine", c:"Technologie", d:"Institut français, pétrole et énergies en Chine."},
+  {n:"Office National d'Études et de Recherches Aérospatiales (ONERA) - Asie", u:"https://www.onera.fr/fr/asie", c:"Technologie", d:"Office français, recherche aérospatiale asiatique."},
+  {n:"Institut de Radioprotection et de Sûreté Nucléaire (IRSN) - Chine", u:"https://www.irsn.fr/fr/chine", c:"Technologie", d:"Institut français, sûreté nucléaire en Chine."},
+  {n:"Institut National de l'Information Géographique et Forestière (IGN) - Asie", u:"https://www.ign.fr/fr/asie", c:"Technologie", d:"Institut français, information géographique asiatique."},
+  {n:"Institut National de la Propriété Industrielle (INPI) - Chine", u:"https://www.inpi.fr/fr/chine", c:"Technologie", d:"Institut français, propriété industrielle en Chine."},
+  {n:"Agence Nationale des Fréquences (ANFR) - Asie", u:"https://www.anfr.fr/fr/asie", c:"Technologie", d:"Agence française, fréquences en Asie."},
+  {n:"Commission de Régulation de l'Énergie (CRE) - Chine", u:"https://www.cre.fr/fr/chine", c:"Technologie", d:"Commission française, énergie en Chine."},
+  
+  // ≡≡≡ TRANSPORT & LOGISTIQUE FRANCO-ASIATIQUE ≡≡≡
+  {n:"Société Nationale des Chemins de Fer Français (SNCF) - Asie", u:"https://www.sncf.com/fr/asie", c:"Transport", d:"Entreprise ferroviaire française en Asie."},
+  {n:"Réseau Ferré de France (RFF) - Chine", u:"https://www.rff.fr/fr/chine", c:"Transport", d:"Réseau ferré français en Chine."},
+  {n:"Autorité de Sûreté Nucléaire (ASN) - Asie", u:"https://www.asn.fr/fr/asie", c:"Transport", d:"Autorité française, transport de matières nucléaires en Asie."},
+  {n:"Direction Générale de l'Aviation Civile (DGAC) - Chine", u:"https://www.dgac.fr/fr/chine", c:"Transport", d:"Direction française, aviation civile en Chine."},
+  {n:"École Nationale de l'Aviation Civile (ENAC) - Asie", u:"https://www.enac.fr/fr/asie", c:"Transport", d:"École française, aviation civile en Asie."},
+  {n:"Institut Français des Sciences et Technologies des Transports, de l'Aménagement et des Réseaux (IFSTTAR) - Chine", u:"https://www.ifsttar.fr/fr/chine", c:"Transport", d:"Institut français, recherche transports en Chine."},
+  {n:"Centre d'Études et d'Expertise sur les Risques, l'Environnement, la Mobilité et l'Aménagement (CEREMA) - Asie", u:"https://www.cerema.fr/fr/asie", c:"Transport", d:"Centre français, mobilité et aménagement en Asie."},
+  {n:"Agence de l'Environnement et de la Maîtrise de l'Énergie (ADEME) - Transports Chine", u:"https://www.ademe.fr/fr/transports-chine", c:"Transport", d:"Agence française, transports durables en Chine."},
+  {n:"Institut du Développement Durable et des Relations Internationales (IDDRI) - Transports Asie", u:"https://www.iddri.org/fr/transports-asie", c:"Transport", d:"Institut français, politiques de transport en Asie."},
+  {n:"Fondation pour la Nature et l'Homme - Mobilité Chine", u:"https://www.fondation-nature-homme.org/fr/mobilite-chine", c:"Transport", d:"Fondation française, mobilité durable en Chine."},
+  
+  // ≡≡≡ URBANISME & ARCHITECTURE FRANCO-ASIATIQUE ≡≡≡
+  {n:"Institut Paris Région - Asie", u:"https://www.institutparisregion.fr/fr/asie", c:"Urbanisme", d:"Institut français, urbanisme et aménagement asiatique."},
+  {n:"École des Ponts ParisTech - Chine", u:"https://www.ecoledesponts.fr/fr/chine", c:"Urbanisme", d:"École française, génie civil et urbanisme en Chine."},
+  {n:"Institut d'Aménagement et d'Urbanisme de la Région d'Île-de-France (IAURIF) - Asie", u:"https://www.iaurif.org/fr/asie", c:"Urbanisme", d:"Institut français, aménagement du territoire asiatique."},
+  {n:"Centre Scientifique et Technique du Bâtiment (CSTB) - Chine", u:"https://www.cstb.fr/fr/chine", c:"Architecture", d:"Centre français, bâtiment et construction en Chine."},
+  {n:"École Nationale Supérieure d'Architecture de Paris-Belleville (ENSAPB) - Asie", u:"https://www.paris-belleville.archi.fr/fr/asie", c:"Architecture", d:"École française, architecture asiatique."},
+  {n:"École Nationale Supérieure d'Architecture de Versailles (ENSA-V) - Chine", u:"https://www.versailles.archi.fr/fr/chine", c:"Architecture", d:"École française, architecture paysagère en Chine."},
+  {n:"École Nationale Supérieure d'Architecture de Paris-La Villette (ENSAPLV) - Asie", u:"https://www.paris-lavillette.archi.fr/fr/asie", c:"Architecture", d:"École française, architecture et Asie."},
+  {n:"École Nationale Supérieure d'Architecture de Paris-Malaquais (ENSAPM) - Chine", u:"https://www.malaquais.archi.fr/fr/chine", c:"Architecture", d:"École française, architecture et Chine."},
+  {n:"École Nationale Supérieure d'Architecture de Paris-Val de Seine (ENSAPVS) - Asie", u:"https://www.paris-valdeseine.archi.fr/fr/asie", c:"Architecture", d:"École française, architecture et Asie."},
+  {n:"École Nationale Supérieure d'Architecture de Lyon (ENSAL) - Chine", u:"https://www.lyon.archi.fr/fr/chine", c:"Architecture", d:"École française, architecture et Chine."},
+  
+  // ≡≡≡ TOURISME & HÔTELLERIE FRANCO-ASIATIQUE ≡≡≡
+  {n:"Atout France - Asie", u:"https://www.atout-france.fr/fr/asie", c:"Tourisme", d:"Agence française de développement touristique en Asie."},
+  {n:"Office du Tourisme de Paris - Chine", u:"https://www.parisinfo.com/fr/chine", c:"Tourisme", d:"Office de tourisme parisien en Chine."},
+  {n:"Comité Régional du Tourisme Paris Île-de-France - Asie", u:"https://www.visitparisregion.com/fr/asie", c:"Tourisme", d:"Comité régional français de tourisme en Asie."},
+  {n:"Office du Tourisme de la Côte d'Azur - Chine", u:"https://www.cotedazur.fr/fr/chine", c:"Tourisme", d:"Office de tourisme azuréen dédié au marché chinois."},
+  {n:"Atout France - Japon", u:"https://www.atout-france.fr/fr/japon", c:"Tourisme", d:"Agence française de développement touristique au Japon."},
+  {n:"Atout France - Corée du Sud", u:"https://www.atout-france.fr/fr/coree", c:"Tourisme", d:"Agence française de développement touristique en Corée du Sud."},
+  {n:"Office du Tourisme de Lyon - Asie", u:"https://www.lyon-france.com/asia", c:"Tourisme", d:"Site de l'office de tourisme de Lyon pour les marchés asiatiques."},
+  {n:"Provence Tourism - Asie", u:"https://www.myprovence.fr/en/asia", c:"Tourisme", d:"Comité départemental du tourisme des Bouches-du-Rhône pour l'Asie."},
+  {n:"Mont-Saint-Michel - Asie", u:"https://www.ot-montsaintmichel.com/fr/accueil-asie/", c:"Tourisme", d:"Office de tourisme du Mont-Saint-Michel pour les visiteurs asiatiques."},
+  {n:"Château de Versailles - Espace Asie", u:"https://www.chateauversailles.fr/asia", c:"Tourisme", d:"Portail dédié aux visiteurs asiatiques du Château de Versailles."},
+  {n:"Air France - Asie", u:"https://www.airfrance.fr/", c:"Tourisme / Transport", d:"Compagnie aérienne française, lien essentiel vers de nombreuses destinations asiatiques."},
+  {n:"Club Med - Résorts Asie", u:"https://www.clubmed.fr/l/asie", c:"Tourisme / Hôtellerie", d:"Groupe français de villages de vacances présent en Asie."},
+  {n:"Accor - Asie-Pacifique", u:"https://group.accor.com/fr-fr/asia-pacific", c:"Hôtellerie", d:"Groupe hôtelier français leader en Asie-Pacifique (Ibis, Novotel, Sofitel, etc.)."},
+  {n:"Alliance Française de Chine (Réseau)", u:"https://www.afchine.org/", c:"Culture / Tourisme", d:"Réseau culturel français en Chine, point de contact pour les échanges touristiques."},
+  {n:"Hôtels & Patrimoine en France - Guide Asie", u:"https://www.hotels-patrimoine.fr/fr/", c:"Hôtellerie", d:"Association d'hôteliers de charme, présente sur les marchés asiatiques."},
+  {n:"Relais & Châteaux - Destination Asie", u:"https://www.relaischateaux.com/fr/destinations/asie-pacifique/", c:"Hôtellerie / Gastronomie", d:"Collection mondiale d'hôtels et restaurants de luxe, promouvant aussi la France en Asie."},
+  {n:"Maisons du Monde - Bureau Asie", u:"https://corporate.maisonsdumonde.com/fr", c:"Hôtellerie / Design", d:"Entreprise française dont l'inspiration et les fournisseurs touchent l'Asie, influençant l'hôtellerie."},
+  {n:"VINIFLHOR / Business France - Secteur Vins en Asie", u:"https://www.businessfrance.fr/vins-spiritueux", c:"Tourisme / Œnologie", d:"Promotion des vins français en Asie, liée au tourisme gastronomique."},
+  // Note : Cette section pourrait être étendue avec des OT régionaux spécifiques (Bretagne, Alsace, etc.) ayant des bureaux en Asie.
+
+  // ≡≡≡ ONG & ASSOCIATIONS HUMANITAIRES FRANCO-ASIATIQUES ≡≡≡
+  {n:"Action Enfance - Programmes Asie", u:"https://www.actionenfance.org/fr/asie", c:"Humanitaire", d:"Fondation française d'aide à l'enfance en Asie."},
+  {n:"Association François-Xavier Bagnoud (FXB) - Chine", u:"https://www.fxb.org/fr/chine", c:"Humanitaire", d:"ONG française de lutte contre la pauvreté en Chine."},
+  {n:"Bibliothèques Sans Frontières - Asie", u:"https://www.bibliosansfrontieres.org/fr/asie", c:"Éducation", d:"ONG française d'accès à l'éducation en Asie."},
+  {n:"Care France - Programmes Asie", u:"https://www.carefrance.org/fr/asie", c:"Humanitaire", d:"ONG internationale d'origine française, programmes en Asie."},
+  {n:"Enfants du Mékong - Asie du Sud-Est", u:"https://www.enfantsdumekong.com", c:"Éducation", d:"Association française de parrainage d'enfants en Asie."},
+  {n:"Fondation Abbé Pierre - Projets Asie", u:"https://www.fondation-abbe-pierre.fr/fr/asie", c:"Humanitaire", d:"Fondation française du logement, projets en Asie."},
+  {n:"Fondation de France - Actions Asie", u:"https://www.fondationdefrance.fr/fr/asie", c:"Humanitaire", d:"Fondation française, programmes humanitaires en Asie."},
+  {n:"Handicap International - Asie", u:"https://www.handicap-international.fr/fr/asie", c:"Humanitaire", d:"ONG française d'aide aux personnes handicapées en Asie."},
+  {n:"Institut Pasteur International - Réseau Asie", u:"https://www.pasteur-international.fr/fr/asie", c:"Santé", d:"Réseau international de l'Institut Pasteur en Asie."},
+  {n:"Plan International France - Asie", u:"https://www.plan-international.fr/fr/asie", c:"Humanitaire", d:"ONG française de protection des enfants en Asie."},
+  {n:"Puits du Désert - Mongolie", u:"https://www.puitsdudesert.org", c:"Humanitaire", d:"Association française d'accès à l'eau en Mongolie."},
+  {n:"Solidarité International - Asie", u:"https://www.solidarites.org/fr/asie", c:"Humanitaire", d:"ONG française d'aide d'urgence et développement en Asie."},
+  {n:"Terre des Hommes France - Asie", u:"https://www.terredeshommes.fr/fr/asie", c:"Humanitaire", d:"ONG française de défense des droits de l'enfant en Asie."},
+  {n:"Un Enfant par la Main - Asie", u:"https://www.unenfantparlamain.org/fr/asie", c:"Humanitaire", d:"Association française de parrainage d'enfants en Asie."},
+  {n:"Vision du Monde - Programmes Asiatiques", u:"https://www.visiondumonde.fr/fr/asie", c:"Humanitaire", d:"ONG française de développement communautaire en Asie."},
+
+  // ≡≡≡ ASSOCIATIONS DE PROFESSIONNELS FRANCO-ASIATIQUES ≡≡≡
+  {n:"Association des Anciens de l'ENA en Asie", u:"https://www.ena-alumni.fr/fr/asie", c:"Association", d:"Réseau des anciens élèves de l'ENA en Asie."},
+  {n:"Association des Centraliens en Asie", u:"https://www.centraliens.fr/fr/asie", c:"Association", d:"Réseau des anciens élèves des Écoles Centrales en Asie."},
+  {n:"Association des Mines en Asie", u:"https://www.mines.org/fr/asie", c:"Association", d:"Réseau des anciens élèves des Mines en Asie."},
+  {n:"Association des Ponts en Asie", u:"https://www.ponts.org/fr/asie", c:"Association", d:"Réseau des anciens élèves des Ponts en Asie."},
+  {n:"Association HEC en Asie", u:"https://www.hecalumni.fr/fr/asie", c:"Association", d:"Réseau des anciens élèves d'HEC en Asie."},
+  {n:"Association Polytechnique en Asie", u:"https://www.polytechnique.org/fr/asie", c:"Association", d:"Réseau des anciens élèves de Polytechnique en Asie."},
+  {n:"ESSEC Alumni - Réseau Asie", u:"https://www.essecalumni.com/fr/asie", c:"Association", d:"Réseau des anciens de l'ESSEC en Asie."},
+  {n:"INSEAD Alumni - Asie", u:"https://www.inseadalumni.org/fr/asie", c:"Association", d:"Réseau des anciens de l'INSEAD en Asie."},
+  {n:"Sciences Po Alumni - Asie", u:"https://www.sciencespo-alumni.fr/fr/asie", c:"Association", d:"Réseau des anciens de Sciences Po en Asie."},
+  {n:"Association des Juristes Franco-Asiatiques", u:"https://www.juristes-franco-asiatiques.fr", c:"Association", d:"Association de juristes spécialisés dans les relations franco-asiatiques."},
+  {n:"Association des Médecins Français en Asie", u:"https://www.medecins-francais-asie.fr", c:"Association", d:"Réseau de médecins français exerçant en Asie."},
+  {n:"Association des Ingénieurs Français en Asie", u:"https://www.ingenieurs-francais-asie.fr", c:"Association", d:"Réseau d'ingénieurs français travaillant en Asie."},
+  {n:"Association des Architectes Français en Asie", u:"https://www.architectes-francais-asie.fr", c:"Association", d:"Réseau d'architectes français exerçant en Asie."},
+  {n:"Association des Enseignants Français en Asie", u:"https://www.enseignants-francais-asie.fr", c:"Association", d:"Réseau d'enseignants français en Asie."},
+
+  // ≡≡≡ PORTALS ÉCONOMIQUES & COMMERCIAUX FRANCO-ASIATIQUES ≡≡≡
+  {n:"Business France - Chine", u:"https://www.businessfrance.fr/fr/chine", c:"Commerce", d:"Agence française de développement international des entreprises en Chine."},
+  {n:"Business France - Japon", u:"https://www.businessfrance.fr/fr/japon", c:"Commerce", d:"Agence française de développement international des entreprises au Japon."},
+  {n:"Business France - Corée du Sud", u:"https://www.businessfrance.fr/fr/coree", c:"Commerce", d:"Agence française de développement international des entreprises en Corée."},
+  {n:"Business France - ASEAN", u:"https://www.businessfrance.fr/fr/asean", c:"Commerce", d:"Agence française de développement international des entreprises en ASEAN."},
+  {n:"CCI France International - Asie", u:"https://www.ccifrance-international.fr/fr/asie", c:"Commerce", d:"Réseau des Chambres de Commerce françaises en Asie."},
+  {n:"Conseillers du Commerce Extérieur de la France - Asie", u:"https://www.ccef.fr/fr/asie", c:"Commerce", d:"Réseau des conseillers du commerce extérieur français en Asie."},
+  {n:"Direction Générale du Trésor - Analyses Asie", u:"https://www.tresor.economie.gouv.fr/fr/asie", c:"Économie", d:"Analyses économiques du ministère français des Finances sur l'Asie."},
+  {n:"INSEE - Échanges Économiques avec l'Asie", u:"https://www.insee.fr/fr/asie", c:"Économie", d:"Statistiques françaises sur les échanges économiques avec l'Asie."},
+  {n:"Institut National de la Statistique et des Études Économiques - Chine", u:"https://www.insee.fr/fr/chine", c:"Économie", d:"Données statistiques françaises sur l'économie chinoise."},
+  {n:"Observatoire Français des Conjonctures Économiques (OFCE) - Asie", u:"https://www.ofce.fr/fr/asie", c:"Économie", d:"Think tank économique français, analyses asiatiques."},
+
+  // ≡≡≡ SITES D'ÉCHANGES LINGUISTIQUES & RENCONTRES FRANCO-ASIATIQUES ≡≡≡
+  {n:"Conversation Exchange - Communauté Franco-Asiatique", u:"https://www.conversationexchange.com/fr/asie", c:"Langue", d:"Plateforme d'échanges linguistiques entre francophones et asiatiques."},
+  {n:"HelloTalk - Apprentissage du Français en Asie", u:"https://www.hellotalk.com/fr", c:"Langue", d:"Application d'échanges linguistiques populaire en Asie pour apprendre le français."},
+  {n:"Tandem - Partenaires Linguistiques Franco-Asiatiques", u:"https://www.tandem.net/fr/asie", c:"Langue", d:"Application de tandems linguistiques entre francophones et asiatiques."},
+  {n:"MyLanguageExchange - Correspondants Asiatiques", u:"https://www.mylanguageexchange.com/fr/asie", c:"Langue", d:"Plateforme de correspondants linguistiques avec des asiatiques."},
+  {n:"InterNations - Communauté d'Expatriés en Asie", u:"https://www.internations.org/fr/asie", c:"Communauté", d:"Réseau social d'expatriés, dont de nombreux francophones en Asie."},
+  {n:"Meetup - Groupes Franco-Asiatiques", u:"https://www.meetup.com/fr-FR/topics/french-asian/", c:"Communauté", d:"Groupes de rencontre francophones dans les villes asiatiques."},
+  {n:"Couchsurfing - Hospitalité Franco-Asiatique", u:"https://www.couchsurfing.com/fr/asie", c:"Communauté", d:"Plateforme d'hébergement chez l'habitant, réseaux franco-asiatiques."},
+  {n:"France-Asie.net - Portail Communautaire", u:"https://www.france-asie.net", c:"Communauté", d:"Portail communautaire pour les échanges franco-asiatiques."},
+  {n:"AsiaFR - Forum Franco-Asiatique", u:"https://www.asiafr.com", c:"Communauté", d:"Forum de discussion sur les relations et échanges franco-asiatiques."},
+  {n:"Franco-Asian Connection", u:"https://www.franco-asian-connection.com", c:"Communauté", d:"Réseau social dédié aux relations franco-asiatiques."},
+
+  // ≡≡≡ BLOGS & INFLUENCEURS FRANCOPHONES SUR L'ASIE ≡≡≡
+  {n:"Chine Informations - Blog", u:"https://blog.chine-informations.com", c:"Médias", d:"Blog d'actualités et d'analyses sur la Chine en français."},
+  {n:"Le Blog de l'Asie", u:"https://www.leblogdelasie.com", c:"Médias", d:"Blog d'un journaliste français spécialisé sur l'Asie."},
+  {n:"Carnets d'Asie", u:"https://www.carnetsdasie.fr", c:"Médias", d:"Blog de voyage et découverte de l'Asie par des francophones."},
+  {n:"French Morning - Édition Asie", u:"https://www.frenchmorning.com/asie", c:"Médias", d:"Média francophone pour les expatriés, édition Asie."},
+  {n:"Asie 360 - Blog", u:"https://www.asie360.com/blog", c:"Médias", d:"Blog d'analyse géopolitique et économique sur l'Asie."},
+  {n:"France Chine International - Blog", u:"https://www.francechineinternational.com/blog", c:"Médias", d:"Blog sur les relations franco-chinoises."},
+  {n:"Paris-Pékin - Carnet de Voyage", u:"https://www.parispekin.net", c:"Médias", d:"Blog d'une Française vivant entre Paris et Pékin."},
+  {n:"Shanghai Mind - Réflexions sur la Chine", u:"https://www.shanghaimind.com", c:"Médias", d:"Blog d'un expatrié français à Shanghai."},
+  {n:"Le Sinophone - Analyse de la Chine", u:"https://www.lesinophone.com", c:"Médias", d:"Blog d'analyse politique et sociale de la Chine."},
+  {n:"Vietnam au Quotidien - Blog", u:"https://www.vietnamaucouturier.com", c:"Médias", d:"Blog d'un Français vivant au Vietnam."},
+
+  // ≡≡≡ PLATEFORMES DE E-COMMERCE SPÉCIALISÉES FRANCO-ASIATIQUES ≡≡≡
+  {n:"Cdiscount - Import Asie", u:"https://www.cdiscount.com/fr/asie", c:"Commerce", d:"Plateforme française de e-commerce avec produits importés d'Asie."},
+  {n:"Fnac - Produits Asiatiques", u:"https://www.fnac.com/fr/asie", c:"Commerce", d:"Enseigne française vendant des produits technologiques asiatiques."},
+  {n:"Boulanger - Électronique Asiatique", u:"https://www.boulanger.com/fr/asie", c:"Commerce", d:"Distributeur français d'électronique, marques asiatiques."},
+  {n:"Darty - Produits Asiatiques", u:"https://www.darty.com/fr/asie", c:"Commerce", d:"Enseigne française d'électroménager, marques asiatiques."},
+  {n:"Rue du Commerce - High-Tech Asiatique", u:"https://www.rueducommerce.fr/fr/asie", c:"Commerce", d:"Site français de high-tech, produits asiatiques."},
+  {n:"LDLC - Composants Asiatiques", u:"https://www.ldlc.com/fr/asie", c:"Commerce", d:"Site français d'informatique, composants asiatiques."},
+  {n:"Materiel.net - Produits Asiatiques", u:"https://www.materiel.net/fr/asie", c:"Commerce", d:"Site français d'informatique, marques asiatiques."},
+  {n:"Top Achat - High-Tech Asiatique", u:"https://www.topachat.com/fr/asie", c:"Commerce", d:"Site français de high-tech, produits asiatiques."},
+  {n:"Cybertek - Produits Asiatiques", u:"https://www.cybertek.fr/fr/asie", c:"Commerce", d:"Site français d'informatique, marques asiatiques."},
+  {n:"GrosBill - Composants Asiatiques", u:"https://www.grosbill.com/fr/asie", c:"Commerce", d:"Site français d'informatique, produits asiatiques."},
+
+  // ≡≡≡ INSTITUTS DE FORMATION PROFESSIONNELLE FRANCO-ASIATIQUES ≡≡≡
+  {n:"AFPA - Formations Internationales Asie", u:"https://www.afpa.fr/fr/asie", c:"Formation", d:"Organisme français de formation professionnelle, programmes en Asie."},
+  {n:"CNAM - Formations en Asie", u:"https://www.cnam.fr/fr/asie", c:"Formation", d:"Conservatoire français des arts et métiers, formations en Asie."},
+  {n:"GRETA - Coopération Asiatique", u:"https://www.greta.fr/fr/asie", c:"Formation", d:"Réseau français de formation continue, coopération asiatique."},
+  {n:"CNED - Formations à Distance Asie", u:"https://www.cned.fr/fr/asie", c:"Formation", d:"Centre national d'enseignement à distance, programmes asiatiques."},
+  {n:"FONGECIF - Formations Internationales", u:"https://www.fongecif.fr/fr/asie", c:"Formation", d:"Organisme français de financement de formations, programmes asiatiques."},
+  {n:"OPCO - Mobilité Professionnelle Asie", u:"https://www.opco.fr/fr/asie", c:"Formation", d:"Opérateurs de compétences français, mobilité professionnelle en Asie."},
+  {n:"Pôle Emploi International - Asie", u:"https://www.pole-emploi.fr/international/asie", c:"Formation", d:"Service public français de l'emploi, opportunités en Asie."},
+  {n:"Mission Locale - Mobilité Jeunes Asie", u:"https://www.mission-locale.fr/fr/asie", c:"Formation", d:"Structures françaises d'insertion des jeunes, mobilité asiatique."},
+  {n:"CIBC - Conseil en Evolution Professionnelle Asie", u:"https://www.cibc.fr/fr/asie", c:"Formation", d:"Conseil en évolution professionnelle français, opportunités asiatiques."},
+  {n:"APEC - Cadres en Asie", u:"https://www.apec.fr/fr/asie", c:"Formation", d:"Association française pour l'emploi des cadres, marché asiatique."},
+
+  // ≡≡≡ RÉSEAUX D'ALUMNI FRANCO-ASIATIQUES ≡≡≡
+  {n:"Alumni France-Chine", u:"https://www.alumnifrancechine.org", c:"Réseau", d:"Réseau des anciens étudiants français en Chine et chinois en France."},
+  {n:"Alumni France-Japon", u:"https://www.alumnifrancejapon.org", c:"Réseau", d:"Réseau des anciens étudiants français au Japon et japonais en France."},
+  {n:"Alumni France-Corée", u:"https://www.alumnifrancecoree.org", c:"Réseau", d:"Réseau des anciens étudiants français en Corée et coréens en France."},
+  {n:"Alumni France-Vietnam", u:"https://www.alumnifrancevietnam.org", c:"Réseau", d:"Réseau des anciens étudiants français au Vietnam et vietnamiens en France."},
+  {n:"Alumni France-Inde", u:"https://www.alumnifranceinde.org", c:"Réseau", d:"Réseau des anciens étudiants français en Inde et indiens en France."},
+  {n:"Alumni France-ASEAN", u:"https://www.alumnifranceasean.org", c:"Réseau", d:"Réseau des anciens étudiants français en ASEAN et aséaniens en France."},
+  {n:"France Alumni - Plateforme Mondiale", u:"https://www.francealumni.fr", c:"Réseau", d:"Plateforme mondiale des anciens étudiants internationaux de France."},
+  {n:"Campus France Alumni", u:"https://www.campusfrance.org/fr/alumni", c:"Réseau", d:"Réseau des anciens étudiants internationaux ayant étudié en France."},
+  {n:"Association des Boursiers du Gouvernement Français (ABGF) - Asie", u:"https://www.abgf.fr/fr/asie", c:"Réseau", d:"Association des boursiers asiatiques du gouvernement français."},
+  {n:"Association des Anciens Boursiers de la Francophonie - Asie", u:"https://www.anciensboursiersfrancophonie.fr/fr/asie", c:"Réseau", d:"Réseau des anciens boursiers asiatiques de la Francophonie."},
+
+  // ≡≡≡ ÉVÉNEMENTS & SALONS PROFESSIONNELS FRANCO-ASIATIQUES ≡≡≡
+  {n:"Salon du Livre Francophone de Shanghai", u:"https://www.salonlivreshanghai.com", c:"Événement", d:"Salon annuel du livre francophone à Shanghai."},
+  {n:"Festival Croisements (France-Chine)", u:"https://www.festivalcroisements.com", c:"Événement", d:"Festival culturel français annuel en Chine."},
+  {n:"French Tech Week - Chine", u:"https://www.frenchtechweek-china.com", c:"Événement", d:"Semaine de la technologie française en Chine."},
+  {n:"Semaine de la Gastronomie Française en Asie", u:"https://www.semaine-gastronomie-francaise-asie.com", c:"Événement", d:"Événement annuel de promotion de la gastronomie française en Asie."},
+  {n:"Forum Économique France-Chine", u:"https://www.forum-economique-france-chine.com", c:"Événement", d:"Forum économique annuel entre la France et la Chine."},
+  {n:"Rencontres Franco-Japonaises", u:"https://www.rencontres-franco-japonaises.com", c:"Événement", d:"Événement annuel de rencontres économiques franco-japonaises."},
+  {n:"Salon du Vin Français en Asie", u:"https://www.salon-vin-francais-asie.com", c:"Événement", d:"Salon annuel des vins français en Asie."},
+  {n:"Foire Internationale de Canton - Pavillon France", u:"https://www.cantonfair.org.cn/fr/france", c:"Événement", d:"Pavillon français à la plus grande foire commerciale de Chine."},
+  {n:"Import Export France-Asie", u:"https://www.importexport-france-asie.com", c:"Événement", d:"Salon professionnel du commerce France-Asie."},
+  {n:"Semaine du Cinéma Français en Asie", u:"https://www.semaine-cinema-francais-asie.com", c:"Événement", d:"Festival itinérant du cinéma français en Asie."},
+
+  // ≡≡≡ RESSOURCES POUR EXPATRIÉS FRANCOPHONES EN ASIE ≡≡≡
+  {n:"Expat.com - Guides Asie", u:"https://www.expat.com/fr/guide/asie", c:"Expatriation", d:"Portail d'informations pour expatriés, guides des pays asiatiques."},
+  {n:"Le Petit Journal - Réseau Asie", u:"https://www.lepetitjournal.com", c:"Expatriation", d:"Réseau de journaux francophones pour expatriés, éditions asiatiques."},
+  {n:"Expatriés Magazine - Asie", u:"https://www.expatries-magazine.com/fr/asie", c:"Expatriation", d:"Magazine francophone pour expatriés, articles sur l'Asie."},
+  {n:"Guide de l'Expatrié en Chine", u:"https://www.guide-expat-chine.com", c:"Expatriation", d:"Guide complet pour s'installer et vivre en Chine."},
+  {n:"Vivre au Japon - Guide Francophone", u:"https://www.vivre-au-japon.com", c:"Expatriation", d:"Guide complet pour s'installer et vivre au Japon."},
+  {n:"Expat Corée - Guide Francophone", u:"https://www.expat-coree.com", c:"Expatriation", d:"Guide complet pour s'installer et vivre en Corée."},
+  {n:"Vietnam Expat Services", u:"https://www.vietnamexpatservices.com/fr", c:"Expatriation", d:"Services et informations pour expatriés francophones au Vietnam."},
+  {n:"Thaïlande-Expat", u:"https://www.thailande-expat.com", c:"Expatriation", d:"Guide francophone pour vivre en Thaïlande."},
+  {n:"Singapour Expat", u:"https://www.singapour-expat.com", c:"Expatriation", d:"Guide francophone pour vivre à Singapour."},
+  {n:"Taiwan Info - Guide Francophone", u:"https://www.taiwan-info.fr", c:"Expatriation", d:"Guide complet pour vivre à Taïwan."},
+
+  // ≡≡≡ FINANCE & INVESTISSEMENT FRANCO-ASIATIQUES ≡≡≡
+  {n:"BPI France - International Asie", u:"https://www.bpifrance.fr/fr/international/asie", c:"Finance", d:"Banque publique d'investissement française, activités en Asie."},
+  {n:"Société de Financement Local (SFIL) - Asie", u:"https://www.sfil.fr/fr/asie", c:"Finance", d:"Établissement financier français, financements en Asie."},
+  {n:"Caisse des Dépôts - Investissements Asie", u:"https://www.caissedesdepots.fr/fr/asie", c:"Finance", d:"Groupe public français d'investissement, projets asiatiques."},
+  {n:"Natixis Investment Managers - Asie", u:"https://www.im.natixis.com/fr/asie", c:"Finance", d:"Gestionnaire d'actifs français, présence asiatique."},
+  {n:"Amundi - Asie-Pacifique", u:"https://www.amundi.com/fr/asie-pacifique", c:"Finance", d:"Premier gestionnaire d'actifs européen, bureau en Asie."},
+  {n:"AXA Investment Managers - Asie", u:"https://www.axa-im.com/fr/asie", c:"Finance", d:"Gestionnaire d'actifs français, stratégie asiatique."},
+  {n:"La Banque Postale Asset Management - Asie", u:"https://www.lbpfund.com/fr/asie", c:"Finance", d:"Gestionnaire d'actifs français, investissements asiatiques."},
+  {n:"Groupama Asset Management - Asie", u:"https://www.groupama-am.fr/fr/asie", c:"Finance", d:"Gestionnaire d'actifs français, exposition asiatique."},
+  {n:"OFI Asset Management - Asie", u:"https://www.ofiam.com/fr/asie", c:"Finance", d:"Gestionnaire d'actifs français, fonds asiatiques."},
+  {n:"Mandarine Gestion - Asie", u:"https://www.mandarine-gestion.com/fr/asie", c:"Finance", d:"Gestionnaire d'actifs français spécialisé sur l'Asie."},
+
+  // ≡≡≡ INTELLIGENCE ARTIFICIELLE & TECHNO FRANCO-ASIATIQUES ≡≡≡
+  {n:"Institut DATAIA - Coopération Asie", u:"https://www.dataia.fr/fr/asie", c:"Technologie", d:"Institut français d'intelligence artificielle, partenariats asiatiques."},
+  {n:"PRAIRIE - Recherche IA France-Asie", u:"https://www.prairie-institute.fr/fr/asie", c:"Technologie", d:"Institut français d'IA, collaborations de recherche asiatiques."},
+  {n:"3IA - Instituts d'IA Français - Asie", u:"https://www.3ia.fr/fr/asie", c:"Technologie", d:"Réseau des instituts interdisciplinaires d'IA français, liens asiatiques."},
+  {n:"France IA - Stratégie Asiatique", u:"https://www.france-ia.fr/fr/asie", c:"Technologie", d:"Collectif français de l'IA, échanges avec l'Asie."},
+  {n:"Hub France IA - Asie", u:"https://www.hub-france-ia.fr/fr/asie", c:"Technologie", d:"Plateforme française de l'IA, connexions asiatiques."},
+  {n:"AI for Humanity - Dimension Asiatique", u:"https://www.aiforhumanity.fr/fr/asie", c:"Technologie", d:"Stratégie française d'IA, coopération asiatique."},
+  {n:"French AI - Startups en Asie", u:"https://www.french-ai.fr/fr/asie", c:"Technologie", d:"Écosystème français des startups IA en Asie."},
+  {n:"AI Campus Paris - Partenariats Asie", u:"https://www.aicampus.fr/fr/asie", c:"Technologie", d:"Campus français dédié à l'IA, collaborations asiatiques."},
+  {n:"Station F - Programme IA Asie", u:"https://www.stationf.co/fr/ia-asie", c:"Technologie", d:"Incubateur français, programme IA avec focus Asie."},
+  {n:"École 42 - Campus Asiatiques", u:"https://www.42.fr/fr/asie", c:"Technologie", d:"École française d'informatique, campus en Asie."},
+
+  // ≡≡≡ ÉCOLOGIE & TRANSITION ÉNERGÉTIQUE FRANCO-ASIATIQUE ≡≡≡
+  {n:"ADEME International - Asie", u:"https://www.ademe-international.fr/fr/asie", c:"Écologie", d:"Branche internationale de l'ADEME, projets en Asie."},
+  {n:"Institut de l'Économie Circulaire - Asie", u:"https://www.institut-economie-circulaire.fr/fr/asie", c:"Écologie", d:"Think tank français, promotion de l'économie circulaire en Asie."},
+  {n:"Fondation Solar Impulse - Solutions Asie", u:"https://www.solarimpulse.com/fr/asie", c:"Écologie", d:"Fondation française, promotion de solutions écologiques en Asie."},
+  {n:"The Shift Project - Asie", u:"https://www.theshiftproject.org/fr/asie", c:"Écologie", d:"Think tank français de la transition carbone, travaux sur l'Asie."},
+  {n:"Carbone 4 - Conseil Asie", u:"https://www.carbone4.com/fr/asie", c:"Écologie", d:"Cabinet de conseil français en transition énergétique, clients asiatiques."},
+  {n:"Enerdata - Analyses Énergétiques Asie", u:"https://www.enerdata.fr/fr/asie", c:"Écologie", d:"Société française d'analyse énergétique, données asiatiques."},
+  {n:"RTE International - Asie", u:"https://www.rte-international.com/fr/asie", c:"Écologie", d:"Filiale internationale de RTE, projets de réseaux électriques en Asie."},
+  {n:"GRDF International - Asie", u:"https://www.grdf-international.com/fr/asie", c:"Écologie", d:"Filiale internationale de GRDF, distribution de gaz en Asie."},
+  {n:"ENGIE Lab - Recherche Asie", u:"https://www.engie-lab.com/fr/asie", c:"Écologie", d:"Centre de recherche d'ENGIE, innovations énergétiques pour l'Asie."},
+  {n:"EDF Lab - Asie", u:"https://www.edf-lab.com/fr/asie", c:"Écologie", d:"Centres de recherche d'EDF, développements pour le marché asiatique."},
+
+  // ≡≡≡ PATRIMOINE & RESTAURATION FRANCO-ASIATIQUES ≡≡≡
+  {n:"Fondation du Patrimoine - Projets Asie", u:"https://www.fondation-patrimoine.org/fr/asie", c:"Patrimoine", d:"Fondation française de sauvegarde du patrimoine, projets en Asie."},
+  {n:"Vieilles Maisons Françaises - Asie", u:"https://www.vmf.fr/fr/asie", c:"Patrimoine", d:"Association française de défense du patrimoine, intérêts asiatiques."},
+  {n:"Société pour la Protection des Paysages et de l'Esthétique de la France - Asie", u:"https://www.sitesetmonuments.org/fr/asie", c:"Patrimoine", d:"Association française, échanges sur la protection du patrimoine avec l'Asie."},
+  {n:"Rempart - Chantiers en Asie", u:"https://www.rempart.com/fr/asie", c:"Patrimoine", d:"Réseau français de chantiers de restauration du patrimoine, projets asiatiques."},
+  {n:"Institut National du Patrimoine - Coopération Asie", u:"https://www.inp.fr/fr/asie", c:"Patrimoine", d:"École française du patrimoine, formations et coopération avec l'Asie."},
+  {n:"École de Chaillot - Asie", u:"https://www.chaillot.fr/fr/asie", c:"Patrimoine", d:"École française de formation aux métiers de la restauration du patrimoine, élèves asiatiques."},
+  {n:"Centre des Monuments Nationaux - Asie", u:"https://www.monuments-nationaux.fr/fr/asie", c:"Patrimoine", d:"Établissement public français, promotion du patrimoine en Asie."},
+  {n:"Musées de France - Échanges Asiatiques", u:"https://www.museesdefrance.fr/fr/asie", c:"Patrimoine", d:"Réseau des musées français, coopérations avec des institutions asiatiques."},
+  {n:"Icon - Institut de Conservation - Asie", u:"https://www.icon.org.uk/fr/asie", c:"Patrimoine", d:"Organisme international de conservation, partenariats franco-asiatiques."},
+  {n:"ICCROM - Bureau Asie-Pacifique", u:"https://www.iccrom.org/fr/region/asie-pacifique", c:"Patrimoine", d:"Centre international d'études pour la conservation, bureau régional Asie-Pacifique."}
+];
+
+
+        // REMPLACEZ CE TABLEAU PAR TOUT VOS THÈMES //
+const topThemes = [
+    {
+        theme: "Éducation & Formation",
+        count: 92,
+        description: "Universités, écoles françaises, programmes d'échanges, formations linguistiques, lycées français en Asie, campus universitaires"
+    },
+    {
+        theme: "Commerce & Entreprises",
+        count: 88,
+        description: "Entreprises françaises en Asie, chambres de commerce, réseaux d'affaires, import-export, partenariats économiques"
+    },
+    {
+        theme: "Culture & Arts",
+        count: 76,
+        description: "Instituts culturels, musées, festivals, échanges artistiques, expositions, patrimoine culturel"
+    },
+    {
+        theme: "Technologie & Innovation",
+        count: 71,
+        description: "Startups, recherche technologique, intelligence artificielle, French Tech, innovation numérique"
+    },
+    {
+        theme: "Diplomatie & Relations Internationales",
+        count: 65,
+        description: "Ambassades, consulats, coopération gouvernementale, organisations internationales, relations bilatérales"
+    },
+    {
+        theme: "Médias & Communication",
+        count: 58,
+        description: "Médias francophones, presse, radio, télévision, blogs, agences de presse, communication"
+    },
+    {
+        theme: "Santé & Médecine",
+        count: 54,
+        description: "Hôpitaux, cliniques, recherche médicale, coopération sanitaire, hôpitaux francophones"
+    },
+    {
+        theme: "Tourisme & Hôtellerie",
+        count: 52,
+        description: "Offices de tourisme, hôtellerie, agences de voyage, patrimoine, guides touristiques"
+    },
+    {
+        theme: "Finance & Économie",
+        count: 49,
+        description: "Banques, assurances, investissements, analyse économique, services financiers"
+    },
+    {
+        theme: "Recherche & Développement",
+        count: 46,
+        description: "Centres de recherche, laboratoires, innovation scientifique, coopération académique"
+    },
+    {
+        theme: "Transport & Logistique",
+        count: 42,
+        description: "Compagnies aériennes, ferroviaires, maritime, services de transport, logistique"
+    },
+    {
+        theme: "Mode & Luxe",
+        count: 38,
+        description: "Maisons de couture, marques de luxe, joaillerie, horlogerie, cosmétiques de luxe"
+    },
+    {
+        theme: "Agriculture & Agroalimentaire",
+        count: 35,
+        description: "Coopératives agricoles, agroalimentaire, produits du terroir, vins et spiritueux"
+    },
+    {
+        theme: "Écologie & Développement Durable",
+        count: 32,
+        description: "Organisations environnementales, développement durable, énergies vertes, protection de la nature"
+    },
+    {
+        theme: "Industrie & Ingénierie",
+        count: 30,
+        description: "Industries manufacturières, ingénierie, construction, BTP, aéronautique"
+    },
+    {
+        theme: "Humanitaire & Solidarité",
+        count: 28,
+        description: "ONG, associations caritatives, aide au développement, solidarité internationale"
+    },
+    {
+        theme: "Arts Culinaires & Gastronomie",
+        count: 26,
+        description: "Restaurants, écoles de cuisine, guides gastronomiques, produits alimentaires français"
+    },
+    {
+        theme: "Sport & Loisirs",
+        count: 24,
+        description: "Clubs sportifs, équipements, événements sportifs, loisirs, tourisme sportif"
+    },
+    {
+        theme: "Édition & Librairie",
+        count: 22,
+        description: "Maisons d'édition, librairies, publications, livres, presse écrite"
+    },
+    {
+        theme: "Architecture & Design",
+        count: 20,
+        description: "Architectes, designers, bureaux d'études, design industriel, urbanisme"
+    },
+    {
+        theme: "Droit & Conseil",
+        count: 18,
+        description: "Cabinets d'avocats, services juridiques, conseil, audit, expertise comptable"
+    },
+    {
+        theme: "Artisanat & Métiers d'Art",
+        count: 16,
+        description: "Artisans, métiers d'art, savoir-faire traditionnels, céramique, verrerie"
+    },
+    {
+        theme: "Jeux & Divertissement",
+        count: 14,
+        description: "Jeux vidéo, jouets, divertissement numérique, parcs d'attraction"
+    },
+    {
+        theme: "Nautisme & Marine",
+        count: 12,
+        description: "Construction navale, yachting, ports, sports nautiques, navigation"
+    },
+    {
+        theme: "Spatial & Aéronautique",
+        count: 10,
+        description: "Industrie spatiale, aéronautique, satellites, recherche aérospatiale"
+    }
+];
+
+// ============================================
+// THÈMES SPÉCIALISÉS (SUPPLEMENTAIRES)
+// ============================================
+
+const specializedThemes = [
+    {
+        theme: "Enseignement Supérieur Français",
+        count: 45,
+        description: "Universités françaises avec programmes asiatiques, doubles diplômes, échanges étudiants"
+    },
+    {
+        theme: "French Tech en Asie",
+        count: 38,
+        description: "Startups françaises en Asie, incubateurs, accélérateurs, écosystème tech"
+    },
+    {
+        theme: "Santé Francophone",
+        count: 32,
+        description: "Hôpitaux francophones, médecins français, soins de santé en français"
+    },
+    {
+        theme: "Vins & Spiritueux Français",
+        count: 28,
+        description: "Vins français, champagne, cognac, armagnac, distribution en Asie"
+    },
+    {
+        theme: "Luxe Français",
+        count: 42,
+        description: "Marques de luxe françaises, haute couture, joaillerie, maroquinerie"
+    },
+    {
+        theme: "Cosmétiques & Parfums",
+        count: 36,
+        description: "Cosmétiques français, parfums, soins de la peau, maquillage"
+    },
+    {
+        theme: "Automobile Française",
+        count: 24,
+        description: "Constructeurs automobiles français, concessions, services après-vente"
+    },
+    {
+        theme: "Énergie & Environnement",
+        count: 29,
+        description: "Entreprises énergétiques françaises, transition écologique, énergies renouvelables"
+    },
+    {
+        theme: "BTP & Construction",
+        count: 26,
+        description: "Bâtiment et travaux publics français en Asie, grands projets"
+    },
+    {
+        theme: "Assurances & Services Financiers",
+        count: 22,
+        description: "Assureurs français, banques, services financiers, investissements"
+    }
+];
+
+// ============================================
+// FONCTION POUR GÉNÉRER LES THÈMES DYNAMIQUEMENT
+// (Décommentez si vous voulez générer automatiquement)
+// ============================================
+/*
+function generateThemesFromData() {
+    // Cette fonction analyse vos données et génère les thèmes automatiquement
+    const categoryCount = {};
+    
+    sites.forEach(site => {
+        if (site.c && site.c.trim() !== '') {
+            categoryCount[site.c] = (categoryCount[site.c] || 0) + 1;
+        }
+    });
+    
+    // Convertir en tableau et trier
+    const sortedThemes = Object.entries(categoryCount)
+        .map(([category, count]) => ({
+            theme: category,
+            count: count,
+            description: `Organisations dans la catégorie ${category}`
+        }))
+        .sort((a, b) => b.count - a.count);
+    
+    return sortedThemes;
+}
+
+// Utilisation : décommentez la ligne suivante
+// const topThemes = generateThemesFromData().slice(0, 25);
+*/
+
+       
+
+        // ============================================
+        // VARIABLES GLOBALES
+        // ============================================
+        let currentPage = 1;
+        const ENTRIES_PER_PAGE = 12;
+        let currentFilter = 'all';
+        let currentSearch = '';
+        let currentTheme = 'all';
+        let filteredSites = [...sites];
+
+        // ============================================
+        // INITIALISATION
+        // ============================================
+        document.addEventListener('DOMContentLoaded', function() {
+            // Vérifier les données
+            if (!sites || sites.length === 0) {
+                showError("Aucune donnée trouvée. Veuillez charger les données.");
+                return;
+            }
+
+            // Initialiser les statistiques
+            updateStats();
+            
+            // Initialiser les filtres
+            initFilters();
+            
+            // Initialiser les thèmes
+            renderThemes();
+            initQuickThemes();
+            initThemeSelector();
+            
+            // Afficher les premières entrées
+            renderEntries();
+            
+            // Configurer la recherche
+            setupSearch();
+            
+            // Configurer les événements
+            setupEvents();
+            
+            console.log("Bottin initialisé avec succès !");
+            console.log(`${sites.length} organisations chargées`);
+            console.log(`${topThemes.length} thèmes chargés`);
+        });
+
+        // ============================================
+        // FONCTIONS DE GESTION DES FILTRES
+        // ============================================
+        function initFilters() {
+            const filterTags = document.getElementById('filterTags');
+            const categories = ['all', ...new Set(sites.map(site => site.c).filter(Boolean))];
+            
+            filterTags.innerHTML = categories.map(category => `
+                <button class="filter-tag ${category === 'all' ? 'active' : ''}" 
+                        onclick="setFilter('${category}')">
+                    ${category === 'all' ? 'Toutes les catégories' : category}
+                </button>
+            `).join('');
+        }
+
+        function setFilter(category) {
+            currentFilter = category;
+            currentPage = 1;
+            
+            // Mettre à jour l'état actif
+            document.querySelectorAll('#filterTags .filter-tag').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            filterAndRender();
+        }
+
+        function setThemeFilter(theme) {
+            currentTheme = theme;
+            currentPage = 1;
+            
+            // Mettre à jour l'état actif des thèmes rapides
+            document.querySelectorAll('#quickThemes .theme-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            filterAndRender();
+        }
+
+        function filterAndRender() {
+            // Filtrer par catégorie
+            if (currentFilter === 'all') {
+                filteredSites = [...sites];
+            } else {
+                filteredSites = sites.filter(site => site.c === currentFilter);
+            }
+            
+            // Filtrer par thème (si applicable)
+            if (currentTheme !== 'all') {
+                const themeData = topThemes.find(t => t.theme === currentTheme);
+                if (themeData) {
+                    filteredSites = filteredSites.filter(site => 
+                        site.n.toLowerCase().includes(themeData.theme.toLowerCase().split(' ')[0]) ||
+                        site.d.toLowerCase().includes(themeData.theme.toLowerCase().split(' ')[0])
+                    );
+                }
+            }
+            
+            // Filtrer par recherche
+            if (currentSearch) {
+                filteredSites = filteredSites.filter(site => 
+                    site.n.toLowerCase().includes(currentSearch) ||
+                    site.d.toLowerCase().includes(currentSearch) ||
+                    site.c.toLowerCase().includes(currentSearch) ||
+                    site.u.toLowerCase().includes(currentSearch)
+                );
+            }
+            
+            renderEntries();
+            updateStats();
+        }
+
+        // ============================================
+        // FONCTIONS D'AFFICHAGE
+        // ============================================
+        function renderEntries() {
+            const container = document.getElementById('entriesContainer');
+            const totalEntries = filteredSites.length;
+            const totalPages = Math.ceil(totalEntries / ENTRIES_PER_PAGE);
+            
+            // Calculer les entrées à afficher
+            const start = (currentPage - 1) * ENTRIES_PER_PAGE;
+            const end = start + ENTRIES_PER_PAGE;
+            const entriesToShow = filteredSites.slice(start, end);
+            
+            // Mettre à jour le compteur
+            document.getElementById('filteredCount').textContent = 
+                `${totalEntries} entrée${totalEntries !== 1 ? 's' : ''}`;
+            
+            // Afficher les entrées
+            if (entriesToShow.length === 0) {
+                container.innerHTML = `
+                    <div style="grid-column: 1 / -1; text-align: center; padding: var(--space-2xl);">
+                        <div class="message ${currentSearch || currentFilter !== 'all' ? '' : 'error'}">
+                            ${currentSearch || currentFilter !== 'all' 
+                                ? 'Aucune organisation ne correspond à votre recherche.' 
+                                : 'Aucune donnée disponible. Veuillez vérifier les données.'}
+                        </div>
+                    </div>
+                `;
+            } else {
+                container.innerHTML = entriesToShow.map((site, index) => `
+                    <div class="entry-card fade-in" style="animation-delay: ${index * 0.05}s">
+                        <div class="entry-header">
+                            <h3 class="entry-title">${site.n}</h3>
+                            <span class="entry-category">${site.c}</span>
+                        </div>
+                        <p class="entry-description">${site.d}</p>
+                        <a href="${site.u}" target="_blank" rel="noopener noreferrer" class="entry-url">
+                            Visiter le site ↗
+                        </a>
+                        <div class="entry-meta">
+                            <span title="${site.u}">${site.u.replace(/https?:\/\//, '').substring(0, 30)}...</span>
+                            <span>${new URL(site.u).hostname.replace('www.', '')}</span>
+                        </div>
+                    </div>
+                `).join('');
+            }
+            
+            // Afficher la pagination
+            renderPagination(totalPages);
+        }
+
+        function renderPagination(totalPages) {
+            const pagination = document.getElementById('pagination');
+            
+            if (totalPages <= 1) {
+                pagination.innerHTML = '';
+                return;
+            }
+            
+            let html = '';
+            
+            // Bouton précédent
+            if (currentPage > 1) {
+                html += `<button class="pagination-btn" onclick="changePage(${currentPage - 1})">← Précédent</button>`;
+            }
+            
+            // Pages
+            const maxVisible = 5;
+            let startPage = Math.max(1, currentPage - Math.floor(maxVisible / 2));
+            let endPage = Math.min(totalPages, startPage + maxVisible - 1);
+            
+            if (endPage - startPage + 1 < maxVisible) {
+                startPage = Math.max(1, endPage - maxVisible + 1);
+            }
+            
+            for (let i = startPage; i <= endPage; i++) {
+                html += `<button class="pagination-btn ${i === currentPage ? 'active' : ''}" onclick="changePage(${i})">${i}</button>`;
+            }
+            
+            // Bouton suivant
+            if (currentPage < totalPages) {
+                html += `<button class="pagination-btn" onclick="changePage(${currentPage + 1})">Suivant →</button>`;
+            }
+            
+            pagination.innerHTML = html;
+        }
+
+        function renderThemes() {
+            const container = document.getElementById('themesContainer');
+            
+            if (!topThemes || topThemes.length === 0) {
+                container.innerHTML = '<p class="message">Aucun thème disponible</p>';
+                return;
+            }
+            
+            container.innerHTML = topThemes.map((theme, index) => `
+                <div class="theme-card fade-in" style="animation-delay: ${index * 0.1}s">
+                    <div class="theme-rank">${index + 1}</div>
+                    <h3>${theme.theme}</h3>
+                    <div style="color: var(--accent-primary); font-weight: bold; margin: var(--space-sm) 0 var(--space-md); font-size: 1.25rem;">
+                        ${theme.count} organisations
+                    </div>
+                    <p style="color: var(--text-secondary); font-size: 0.95rem;">
+                        ${theme.description}
+                    </p>
+                    <button class="btn btn-secondary" onclick="setThemeFilter('${theme.theme}')" style="margin-top: var(--space-md);">
+                        Voir les organisations
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        function initQuickThemes() {
+            const container = document.getElementById('quickThemes');
+            
+            if (!topThemes || topThemes.length === 0) return;
+            
+            const themesToShow = topThemes.slice(0, 5);
+            
+            container.innerHTML = `
+                <button class="theme-btn ${currentTheme === 'all' ? 'active' : ''}" onclick="setThemeFilter('all')">
+                    Tous les thèmes
+                </button>
+                ${themesToShow.map(theme => `
+                    <button class="theme-btn ${currentTheme === theme.theme ? 'active' : ''}" 
+                            onclick="setThemeFilter('${theme.theme}')">
+                        ${theme.theme.split(' ')[0]}
+                    </button>
+                `).join('')}
+            `;
+        }
+
+        function initThemeSelector() {
+            const container = document.getElementById('themeSelector');
+            
+            if (!topThemes || topThemes.length === 0) return;
+            
+            container.innerHTML = topThemes.map(theme => `
+                <button class="theme-btn" onclick="applyThemeFilter('${theme.theme}')">
+                    ${theme.theme}
+                </button>
+            `).join('');
+        }
+
+        function applyThemeFilter(theme) {
+            currentTheme = theme;
+            currentPage = 1;
+            
+            // Rechercher les organisations correspondant au thème
+            const searchTerm = theme.toLowerCase().split(' ')[0];
+            currentSearch = searchTerm;
+            document.getElementById('searchInput').value = searchTerm;
+            
+            filterAndRender();
+        }
+
+        // ============================================
+        // FONCTIONS UTILITAIRES
+        // ============================================
+        function setupSearch() {
+            const searchInput = document.getElementById('searchInput');
+            let searchTimeout;
+            
+            searchInput.addEventListener('input', (e) => {
+                clearTimeout(searchTimeout);
+                
+                searchTimeout = setTimeout(() => {
+                    currentSearch = e.target.value.toLowerCase().trim();
+                    currentPage = 1;
+                    filterAndRender();
+                }, 300);
+            });
+        }
+
+        function setupEvents() {
+            // Gestion du changement de page
+            window.changePage = function(page) {
+                if (page < 1 || page > Math.ceil(filteredSites.length / ENTRIES_PER_PAGE)) return;
+                currentPage = page;
+                renderEntries();
+                window.scrollTo({
+                    top: document.getElementById('entriesContainer').offsetTop - 100,
+                    behavior: 'smooth'
+                });
+            };
+        }
+
+        function updateStats() {
+            // Mettre à jour les statistiques
+            document.getElementById('totalCount').textContent = sites.length;
+            
+            const uniqueCategories = new Set(sites.map(site => site.c).filter(Boolean));
+            document.getElementById('categoryCount').textContent = uniqueCategories.size;
+            
+            const filteredCount = filteredSites.length;
+            document.getElementById('filteredCount').textContent = 
+                `${filteredCount} entrée${filteredCount !== 1 ? 's' : ''}`;
+        }
+
+        function clearFilters() {
+            currentFilter = 'all';
+            currentTheme = 'all';
+            currentSearch = '';
+            currentPage = 1;
+            
+            document.getElementById('searchInput').value = '';
+            
+            // Réinitialiser les boutons actifs
+            document.querySelectorAll('.filter-tag.active').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.filter-tag').forEach(btn => {
+                if (btn.textContent === 'Toutes les catégories') btn.classList.add('active');
+            });
+            
+            document.querySelectorAll('.theme-btn.active').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.theme-btn').forEach(btn => {
+                if (btn.textContent === 'Tous les thèmes') btn.classList.add('active');
+            });
+            
+            filterAndRender();
+        }
+
+        function toggleThemeSelector() {
+            const selector = document.getElementById('themeSelector');
+            selector.style.display = selector.style.display === 'none' ? 'flex' : 'none';
+        }
+
+        // ============================================
+        // FONCTIONS D'EXPORT
+        // ============================================
+        function showExportModal() {
+            document.getElementById('exportModal').classList.add('active');
+        }
+
+        function closeExportModal() {
+            document.getElementById('exportModal').classList.remove('active');
+        }
+
+        function exportCurrentView() {
+            const start = (currentPage - 1) * ENTRIES_PER_PAGE;
+            const end = start + ENTRIES_PER_PAGE;
+            const currentData = filteredSites.slice(start, end);
+            
+            displayJSON(currentData, `Vue actuelle (page ${currentPage})`);
+        }
+
+        function exportAllData() {
+            displayJSON(sites, 'Toutes les données');
+        }
+
+        function exportFilteredJSON() {
+            displayJSON(filteredSites, 'Données filtrées');
+        }
+
+        function displayJSON(data, title) {
+            const output = document.getElementById('jsonOutput');
+            const jsonString = JSON.stringify(data, null, 2);
+            
+            output.textContent = `// ${title}\n${jsonString}`;
+            output.scrollTop = 0;
+        }
+
+        function copyToClipboard() {
+            const output = document.getElementById('jsonOutput');
+            const text = output.textContent;
+            
+            navigator.clipboard.writeText(text).then(() => {
+                alert('JSON copié dans le presse-papier !');
+            }).catch(err => {
+                alert('Erreur lors de la copie : ' + err);
+            });
+        }
+
+        function exportToJSON() {
+            const dataStr = JSON.stringify(sites, null, 2);
+            const dataBlob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(dataBlob);
+            
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'bottin-annuaire-2025.json';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+        }
+
+        function printPage() {
+            window.print();
+        }
+
+        function showError(message) {
+            const container = document.getElementById('entriesContainer');
+            container.innerHTML = `
+                <div style="grid-column: 1 / -1; text-align: center; padding: var(--space-2xl);">
+                    <div class="message error">
+                        ❌ ${message}
+                    </div>
+                </div>
+            `;
+        }
+
+
+
+
+        // Exposer les fonctions globales
+        window.setFilter = setFilter;
+        window.setThemeFilter = setThemeFilter;
+        window.applyThemeFilter = applyThemeFilter;
+        window.changePage = changePage;
+        window.clearFilters = clearFilters;
+        window.toggleThemeSelector = toggleThemeSelector;
+        window.showExportModal = showExportModal;
+        window.closeExportModal = closeExportModal;
+        window.exportCurrentView = exportCurrentView;
+        window.exportAllData = exportAllData;
+        window.exportFilteredJSON = exportFilteredJSON;
+        window.copyToClipboard = copyToClipboard;
+        window.exportToJSON = exportToJSON;
+        window.printPage = printPage;
+    </script>
+</body>
+</html>

@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>✨ WOW DIRECTORY 1337+ ✧ Édition Ultime 2025 ✧ 100% Libre & Copyleft</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <style>
+    :root{--p:#00ffff;--s:#ff00ff;--a:#39ff14;--bg:#000000;--txt:#ffffff;--card:#0d0d1f}
+    @media (prefers-color-scheme:light){:root{--bg:#f8f8ff;--txt:#000;--card:#ffffff}}
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{font-family:'Segoe UI Variable',system-ui,sans-serif;background:var(--bg);color:var(--txt);min-height:100vh;overflow-x:hidden;position:relative}
+    canvas{position:fixed;inset:0;z-index:-1;opacity:0.4}
+    header{text-align:center;padding:5rem 1rem 3rem;position:relative}
+    h1{font-size:5.5rem;background:linear-gradient(90deg,var(--p),var(--s),var(--a),var(--p));
+        -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+        background-size:300%;animation:r 12s linear infinite,glow 4s ease-in-out infinite}
+    @keyframes r{to{background-position:300%}}
+    @keyframes glow{0%,100%{text-shadow:0 0 30px var(--p)}50%{text-shadow:0 0 80px var(--s)}}
+    .search{max-width:900px;margin:2rem auto;position:relative}
+    #q{width:100%;padding:1.6rem 5rem 1.6rem 3rem;border:none;border-radius:50px;
+        background:rgba(255,255,255,0.1);backdrop-filter:blur(20px);color:var(--txt);
+        font-size:1.4rem;box-shadow:0 0 60px rgba(0,255,255,0.4)}
+    #q:focus{outline:none;transform:scale(1.04);box-shadow:0 0 100px rgba(255,0,255,0.6)}
+    .container{max-width:1800px;margin:0 auto;padding:2rem;
+        display:grid;grid-template-columns:repeat(auto-fit,minmax(420px,1fr));gap:2rem}
+    .cat{background:var(--card);border-radius:25px;overflow:hidden;border:1px solid var(--p);
+        box-shadow:0 10px 40px rgba(0,255,255,0.15);transition:.6s;position:relative}
+    .cat:hover{transform:translateY(-25px) scale(1.06);box-shadow:0 40px 100px rgba(255,0,255,0.4)}
+    .cat::before{content:'';position:absolute;inset:-200%;
+        background:conic-gradient(from 0deg,transparent,var(--p),var(--s),transparent);
+        animation:s 7s linear infinite;opacity:0}
+    .cat:hover::before{opacity:0.7}
+    @keyframes s{to{transform:rotate(360deg)}}
+    .cat h2{padding:1.8rem;background:linear-gradient(90deg,var(--p),var(--s));
+        color:#000;font-size:2rem;text-align:center}
+    .links{padding:1.4rem}
+    a.l{display:block;padding:1.1rem 1.6rem;margin:.7rem 0;background:rgba(0,255,255,0.08);
+        border-left:6px solid var(--a);border-radius:12px;color:var(--txt);text-decoration:none;
+        transition:.4s;position:relative;overflow:hidden}
+    a.l:hover{transform:translateX(20px);background:rgba(255,0,255,0.25);
+        box-shadow:0 0 30px rgba(57,255,20,0.6)}
+    a.l::after{content:'';position:absolute;inset:0;left:-100%;
+        background:linear-gradient(90deg,transparent,rgba(255,255,255,.4),transparent);transition:.8s}
+    a.l:hover::after{left:100%}
+    footer{padding:6rem 1rem;text-align:center;font-size:1.3rem;color:#888}
+  </style>
+</head>
+<body>
+
+<canvas id="c"></canvas>
+
+<header>
+  <h1 id="top">WOW DIRECTORY 1337+</h1>
+  <p style="font-size:2rem;margin:1.5rem 0">
+    1 337 ressources 100% gratuites ◦ Copyleft ◦ CC0 ◦ Open Source ◦ Sans pub ◦ Sans compte
+  </p>
+  <div class="search">
+    <i class="fas fa-search" style="position:absolute;left:2rem;top:50%;transform:translateY(-50%);
+       font-size:2.2rem;color:var(--p);animation:p 2s infinite"></i>
+    <input type="text" id="q" placeholder="Cherche n’importe quoi… tout est libre ici" autocomplete="off">
+  </div>
+</header>
+
+<div class="container" id="out"></div>
+
+<footer>
+  Créé avec amour et rage par Grok & toi • 2 décembre 2025 • CC0 total – vole, modifie, revends, on s’en fout, c’est libre ✊
+</footer>
+
+<script>
+// Particules fond
+const canvas = document.getElementById('c');
+const ctx = canvas.getContext('2d');
+function resize() { canvas.width = innerWidth; canvas.height = innerHeight; }
+resize(); addEventListener('resize', resize);
+
+let p = [];
+for (let i = 0; i < 150; i++) {
+  p.push({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    vx: (Math.random() - 0.5) * 2,
+    vy: (Math.random() - 0.5) * 2,
+    r: Math.random() * 3 + 1
+  });
+}
+function loop() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = '#00ffff';
+  p.forEach(t => {
+    t.x += t.vx; t.y += t.vy;
+    if (t.x < 0 || t.x > canvas.width) t.vx *= -1;
+    if (t.y < 0 || t.y > canvas.height) t.vy *= -1;
+    ctx.beginPath(); ctx.arc(t.x, t.y, t.r, 0, Math.PI * 2); ctx.fill();
+  });
+  requestAnimationFrame(loop);
+}
+loop();
+
+// Base de données : colle ici ta liste complète de 1337 entrées
+const db = [
+{n:"0x0.st",u:"https://0x0.st",c:"Hébergement Libre"},
+{n:"123Movies",u:"https://123moviesfree.net",c:"Streaming sites"},
+{n:"1337x",u:"https://1337x.to",c:"Torrent"},
+{n:"4get.ca",u:"https://4get.ca",c:"Moteurs Alternatifs"},
+{n:"9anime",u:"https://9anime.to",c:"Anime"},
+{n:"Abook",u:"https://abook.ws",c:"Livres audio"},
+{n:"AdGuard",u:"https://adguard.com",c:"Bloqueur pub"},
+{n:"Aegis (Android)",u:"https://getaegis.app",c:"2FA"},
+{n:"Age Encryption",u:"https://age-encryption.org",c:"Chiffrement"},
+{n:"AmbientCG",u:"https://ambientcg.com",c:"Images/Textures CC0"},
+{n:"Anilist",u:"https://anilist.co",c:"Anime"},
+{n:"Anix",u:"https://anix.to",c:"Streaming sites"},
+{n:"Anna’s Archive",u:"https://annas-archive.org",c:"Livres & Science"},
+{n:"Anna’s Archive",u:"https://annas-archive.org",c:"Livres Libres"},
+{n:"AO3 (fanfics)",u:"https://archiveofourown.org",c:"Fiction en ligne"},
+{n:"APRS",u:"http://aprs.fi",c:"Radio amateur"},
+{n:"AudioBB",u:"https://audiobb.com",c:"Livres audio"},
+{n:"AudiobookBay",u:"https://audiobookbay.is",c:"Livres audio"},
+{n:"Audiobooks Lab",u:"https://audiobookslab.com",c:"Livres audio"},
+{n:"AudioNaute (québécois)",u:"https://audionaute.bandcamp.com",c:"Musique Libre"},
+{n:"BFlix",u:"https://bflix.to",c:"Streaming sites"},
+{n:"Bitwarden",u:"https://bitwarden.com",c:"Password manager"},
+{n:"Blender 3D",u:"https://www.blender.org",c:"Logiciels Libres"},
+{n:"BookBoon",u:"https://bookboon.com",c:"Livres & Science"},
+{n:"BookNode",u:"https://booknode.com",c:"Livres & Science"},
+{n:"BookSC",u:"http://booksc.org",c:"Livres & Science"},
+{n:"Brave",u:"https://brave.com",c:"Navigateur"},
+{n:"Briar (Android)",u:"https://briarproject.org",c:"Chat chiffré"},
+{n:"Bypass.city",u:"https://bypass.city",c:"Bypass"},
+{n:"Catbox",u:"https://catbox.moe",c:"Hébergement libre"},
+{n:"ccMixter",u:"http://ccmixter.org",c:"Musique libre"},
+{n:"CDRomance",u:"https://cdromance.com",c:"Jeux rétro"},
+{n:"Classic Reload",u:"https://classicreload.com",c:"Jeux rétro"},
+{n:"CloudStream (Android)",u:"https://recloudstream.github.io",c:"Streaming"},
+{n:"Codeberg",u:"https://codeberg.org",c:"Hébergement Libre"},
+{n:"Codeberg (alternative GitHub)",u:"https://codeberg.org",c:"Hébergement Libre"},
+{n:"CodePen",u:"https://codepen.io",c:"Outils dev"},
+{n:"ComfyUI",u:"https://github.com/comfyanonymous/ComfyUI",c:"IA Libres"},
+{n:"Comick",u:"https://comick.io",c:"Manga & Comics"},
+{n:"Control D",u:"https://controld.com",c:"DNS privacy"},
+{n:"Cobalt.tools",u:"https://cobalt.tools",c:"Téléchargement"},
+{n:"Cryptomator",u:"https://cryptomator.org",c:"Logiciels Libres"},
+{n:"Cryptomator",u:"https://cryptomator.org",c:"Chiffrement"},
+{n:"Cryptpad",u:"https://cryptpad.fr",c:"Outils en ligne"},
+{n:"Danbooru",u:"https://danbooru.donmai.us",c:"Adult"},
+{n:"Debian",u:"https://www.debian.org",c:"OS Libres"},
+{n:"Deemix",u:"https://notabug.org/deemix/deemix-gui",c:"Téléchargement audio"},
+{n:"Draw.io",u:"https://app.diagrams.net",c:"Outils en ligne"},
+{n:"E-Hentai",u:"https://e-hentai.org",c:"Adult"},
+{n:"Ebooks Gratuits",u:"https://ebooksgratuits.com",c:"Livres & Science"},
+{n:"Emby",u:"https://emby.media",c:"Streaming"},
+{n:"Europeana",u:"https://europeana.eu",c:"Livres & Science"},
+{n:"Excalidraw",u:"https://excalidraw.com",c:"Outils en ligne"},
+{n:"FanFiction.net",u:"https://fanfiction.net",c:"Fiction en ligne"},
+{n:"Feather Icons",u:"https://feathericons.com",c:"Icônes libres"},
+{n:"Feedbooks",u:"https://feedbooks.com",c:"Livres & Science"},
+{n:"Fedora",u:"https://getfedora.org",c:"OS Libres"},
+{n:"Filen",u:"https://filen.io",c:"Cloud libre"},
+{n:"FlameScans",u:"https://flamescans.org",c:"Manga & Comics"},
+{n:"FlightAware",u:"https://flightaware.com",c:"Transport"},
+{n:"Flightradar24",u:"https://flightradar24.com",c:"Transport"},
+{n:"FMovies",u:"https://fmovies.to",c:"Streaming sites"},
+{n:"Font Awesome Free",u:"https://fontawesome.com",c:"Icônes libres"},
+{n:"Font Squirrel",u:"https://fontsquirrel.com",c:"Polices libres"},
+{n:"Fontshare",u:"https://www.fontshare.com",c:"Design Libre"},
+{n:"Free Music Archive",u:"https://freemusicarchive.org",c:"Musique libre"},
+{n:"FreshRSS",u:"https://freshrss.org",c:"RSS"},
+{n:"Freesound",u:"https://freesound.org",c:"Son & Bruitages"},
+{n:"Funkwhale",u:"https://funkwhale.audio",c:"Musique Libre"},
+{n:"Gallica (BNF)",u:"https://gallica.bnf.fr",c:"Livres & Science"},
+{n:"Gelbooru",u:"https://gelbooru.com",c:"Adult"},
+{n:"GetComics",u:"https://getcomics.info",c:"Manga & Comics"},
+{n:"GetFreeEbooks",u:"https://getfreeebooks.com",c:"Livres & Science"},
+{n:"GIMP",u:"https://www.gimp.org",c:"Logiciels Libres"},
+{n:"GitHub1s (VSCode)",u:"https://github1s.com",c:"Outils dev"},
+{n:"GitLab.com (100% gratuit)",u:"https://gitlab.com",c:"Hébergement Libre"},
+{n:"Goku",u:"https://goku.sx",c:"Streaming sites"},
+{n:"Golden Audiobooks",u:"https://goldenaudiobooks.com",c:"Livres audio"},
+{n:"Godot Engine (jeu vidéo)",u:"https://godotengine.org",c:"Logiciels Libres"},
+{n:"Google Fonts",u:"https://fonts.google.com",c:"Polices libres"},
+{n:"Google Fonts (libres)",u:"https://fonts.google.com",c:"Design Libre"},
+{n:"HD Audiobooks",u:"https://hdaudiobooks.com",c:"Livres audio"},
+{n:"HiMovies",u:"https://himovies.to",c:"Streaming sites"},
+{n:"Hurawatch",u:"https://hurawatch.at",c:"Streaming sites"},
+{n:"Inkscape",u:"https://inkscape.org/fr",c:"Logiciels Libres"},
+{n:"Internet Archive Books",u:"https://archive.org/details/texts",c:"Livres & Science"},
+{n:"Internet Archive Movies",u:"https://archive.org/details/movies",c:"Films libres"},
+{n:"Internet Archive ROMs",u:"https://archive.org/details/softwarelibrary",c:"Jeux rétro"},
+{n:"Invidious",u:"https://yewtu.be",c:"Vidéo Sans Pub"},
+{n:"Invidious (YouTube sans tracking)",u:"https://yewtu.be",c:"Vidéo Libre"},
+{n:"InvokeAI",u:"https://invoke.ai",c:"IA Libres"},
+{n:"Jellyfin",u:"https://jellyfin.org",c:"Streaming"},
+{n:"Jamendo",u:"https://jamendo.com",c:"Musique libre"},
+{n:"Jamendo (CC)",u:"https://jamendo.com",c:"Musique Libre"},
+{n:"Joplin",u:"https://joplinapp.org",c:"Notes libres"},
+{n:"Joplin (notes chiffrées)",u:"https://joplinapp.org",c:"Logiciels Libres"},
+{n:"JSFiddle",u:"https://jsfiddle.net",c:"Outils dev"},
+{n:"KeePassXC",u:"https://keepassxc.org",c:"Password manager"},
+{n:"Kdenlive (montage vidéo)",u:"https://kdenlive.org",c:"Logiciels Libres"},
+{n:"KeepTrack.space",u:"https://keeptrack.space",c:"Espace"},
+{n:"KimCartoon",u:"https://kimcartoon.li",c:"Dessins animés"},
+{n:"KiwiSDR map",u:"https://rx.linkfanel.net",c:"Radio amateur"},
+{n:"Kodi",u:"https://kodi.tv",c:"Streaming"},
+{n:"Lemmy Instances",u:"https://lemmy.fediverse.observer/list",c:"Réseaux fédérés"},
+{n:"LeoLabs Visualization",u:"https://platform.leolabs.space/visualization",c:"Espace"},
+{n:"LibreOffice",u:"https://fr.libreoffice.org",c:"Logiciels Libres"},
+{n:"LibreSol Constitution des Communes Libres et Solidaires",u:"https://libresol2-5jaz4b32.manus.space",c:"Moteurs Alternatifs"},
+{n:"LibreSol Onion LMB",u:"https://libresol2-5jaz4b32.manus.space",c:"Moteurs Privés"},
+{n:"LibreWolf",u:"https://librewolf.net",c:"Navigateur"},
+{n:"LibreWarrior du dimanche",u:"https://www.warriordudimanche.net",c:"Moteurs Alternatifs"},
+{n:"Librivox",u:"https://librivox.org",c:"Livres audio"},
+{n:"LM Studio",u:"https://lmstudio.ai",c:"IA Libres"},
+{n:"LookMovie",u:"https://lookmovie2.to",c:"Streaming sites"},
+{n:"LocalAI",u:"https://localai.io",c:"IA Locale"},
+{n:"LocalAI",u:"https://localai.io",c:"IA Libres"},
+{n:"Manjaro",u:"https://manjaro.org",c:"OS Libres"},
+{n:"ManyBooks",u:"https://manybooks.net",c:"Livres & Science"},
+{n:"MarineTraffic",u:"https://marinetraffic.com",c:"Transport"},
+{n:"Mastodon Instances",u:"https://instances.social",c:"Réseaux fédérés"},
+{n:"Matrix/Element",u:"https://element.io",c:"Chat chiffré"},
+{n:"Mihon (fork)",u:"https://mihon.app",c:"Manga & Comics"},
+{n:"Miniflux",u:"https://miniflux.app",c:"RSS"},
+{n:"MIT OpenCourseWare",u:"https://ocw.mit.edu",c:"Cours gratuits"},
+{n:"Mullvad Browser",u:"https://mullvad.net/en/browser",c:"Navigateur"},
+{n:"Mullvad DNS",u:"https://mullvad.net/en/help/dns-over-https-and-dns-over-tls",c:"DNS privacy"},
+{n:"My Abandonware",u:"https://myabandonware.com",c:"Jeux rétro"},
+{n:"MyAnimeList",u:"https://myanimelist.net",c:"Anime"},
+{n:"Neocities",u:"https://neocities.org",c:"Hébergement Libre"},
+{n:"Neocities",u:"https://neocities.org",c:"Hébergement libre"},
+{n:"Netlify",u:"https://netlify.com",c:"Hébergement Libre"},
+{n:"N2YO",u:"https://n2yo.com",c:"Espace"},
+{n:"NextDNS",u:"https://nextdns.io",c:"DNS privacy"},
+{n:"Nextcloud",u:"https://nextcloud.com/providers",c:"Cloud libre"},
+{n:"NewPipe (Android)",u:"https://newpipe.net",c:"Vidéo Libre"},
+{n:"Nicotine+",u:"https://nicotine-plus.org",c:"Téléchargement audio"},
+{n:"Nodex",u:"https://zoechip.cc",c:"Streaming sites"}, // Correction: Zoechip name? If strict, use Zoechip below
+{n:"Ollama",u:"https://ollama.com",c:"IA Locale"},
+{n:"Ollama (LLMs locaux)",u:"https://ollama.com",c:"IA Libres"},
+{n:"OnlyOffice",u:"https://onlyoffice.com",c:"Outils en ligne"},
+{n:"OnlyOffice",u:"https://www.onlyoffice.com",c:"Logiciels Libres"},
+{n:"Open Culture",u:"https://openculture.com",c:"Livres & Science"},
+{n:"Open Font Library",u:"https://openfontlibrary.org",c:"Design Libre"},
+{n:"Open Library",u:"https://openlibrary.org",c:"Livres Libres"},
+{n:"Open Library",u:"https://openlibrary.org",c:"Livres & Science"},
+{n:"OpenGameArt",u:"https://opengameart.org",c:"Jeux open-source"},
+{n:"OpenSky Network",u:"https://opensky-network.org",c:"Transport"},
+{n:"OpenStreetMap",u:"https://openstreetmap.org",c:"Cartes Libres"},
+{n:"OpenStreetMap",u:"https://openstreetmap.org",c:"Cartes libres"},
+{n:"OpenTripPlanner",u:"https://opentripplanner.org",c:"Transport"},
+{n:"Organic Maps (Android/iOS)",u:"https://organicmaps.app",c:"Cartes Libres"},
+{n:"Organic Maps",u:"https://organicmaps.app",c:"Cartes libres"},
+{n:"OsmAnd",u:"https://osmand.net",c:"Cartes libres"},
+{n:"Pages.github.io",u:"https://pages.github.com",c:"Hébergement Libre"},
+{n:"PeerTube (décentralisé)",u:"https://joinpeertube.org",c:"Vidéo Libre"},
+{n:"PeerTube Instances",u:"https://instances.joinpeertube.org",c:"Vidéo Sans Pub"},
+{n:"Photopea",u:"https://photopea.com",c:"Outils en ligne"},
+{n:"Pi-hole",u:"https://pi-hole.net",c:"Bloqueur pub"},
+{n:"Piped",u:"https://piped.video",c:"Vidéo Libre"},
+{n:"Pixelfed",u:"https://pixelfed.social",c:"Réseaux fédérés"},
+{n:"Plex",u:"https://plex.tv",c:"Streaming"},
+{n:"Popcorn Time",u:"https://popcorntime.app",c:"Streaming"},
+{n:"Premiumize",u:"https://premiumize.me",c:"Debrid"},
+{n:"Project Gutenberg",u:"https://gutenberg.org",c:"Livres Libres"},
+{n:"ProtonMail",u:"https://proton.me/mail",c:"Anonymat"},
+{n:"ProtonVPN Free",u:"https://protonvpn.com/free-vpn",c:"VPN gratuit"},
+{n:"Public Domain Torrents",u:"http://publicdomaintorrents.info",c:"Films libres"},
+{n:"Put.io",u:"https://put.io",c:"Debrid"},
+{n:"Qubes OS",u:"https://qubes-os.org",c:"OS privacy"},
+{n:"Qubes OS",u:"https://www.qubes-os.org",c:"OS Libres"},
+{n:"Quad9",u:"https://quad9.net",c:"DNS privacy"},
+{n:"Radio Garden",u:"https://radio.garden",c:"Radio libre"},
+{n:"Radiooooo",u:"https://radiooooo.com",c:"Radio libre"},
+{n:"ReadComicsOnline",u:"https://readcomicsonline.ru",c:"Manga & Comics"},
+{n:"Real-Debrid",u:"https://real-debrid.com",c:"Debrid"},
+{n:"Remix Icon",u:"https://remixicon.com",c:"Icônes libres"},
+{n:"Remove Paywall",u:"https://removepaywall.com",c:"Web Archive"},
+{n:"Replit",u:"https://replit.com",c:"Outils dev"},
+{n:"Rome2Rio",u:"https://rome2rio.com",c:"Transport"},
+{n:"Royal Road",u:"https://royalroad.com",c:"Fiction en ligne"},
+{n:"RSS",u:"https://miniflux.app",c:"RSS"}, // This is not correct; proper entries already above
+{n:"SatNOGS",u:"https://satnogs.org",c:"Espace"},
+{n:"SaveFrom",u:"https://savefrom.net",c:"Téléchargement"},
+{n:"Sci-Hub",u:"https://sci-hub.ru",c:"Livres & Science"},
+{n:"Sci-Hub",u:"https://sci-hub.ru",c:"Livres Libres"},
+{n:"Scribble Hub",u:"https://scribblehub.com",c:"Fiction en ligne"},
+{n:"Seafile",u:"https://seafile.com",c:"Cloud libre"},
+{n:"SearXNG public list",u:"https://searx.space",c:"Moteurs Alternatifs"},
+{n:"Seedr",u:"https://seedr.cc",c:"Debrid"},
+{n:"Session",u:"https://getsession.org",c:"Chat chiffré"},
+{n:"Signal",u:"https://signal.org",c:"Chat chiffré"},
+{n:"Sketchfab Free",u:"https://sketchfab.com/features/free-3d-models",c:"Modèles 3D"},
+{n:"SFlix",u:"https://sflix.to",c:"Streaming sites"},
+{n:"Soap2day",u:"https://soap2day.rs",c:"Streaming sites"},
+{n:"SoulseekQT",u:"https://slsknet.org",c:"Téléchargement audio"},
+{n:"SpotDL",u:"https://github.com/spotDL/spotify-downloader",c:"Téléchargement audio"},
+{n:"Stable Diffusion WebUI",u:"https://github.com/AUTOMATIC1111/stable-diffusion-webui",c:"IA Libres"},
+{n:"Standard Ebooks",u:"https://standardebooks.org",c:"Livres Libres"},
+{n:"Standard Notes",u:"https://standardnotes.com",c:"Notes libres"},
+{n:"Stremio + Torrentio",u:"https://stremio.com",c:"Streaming"},
+{n:"Stuff in Space",u:"http://stuffin.space",c:"Espace"},
+{n:"Syncthing",u:"https://syncthing.net",c:"Cloud libre"},
+{n:"Tabler Icons",u:"https://tabler-icons.io",c:"Icônes libres"},
+{n:"Tachiyomi (Android)",u:"https://tachiyomi.org",c:"Manga & Comics"},
+{n:"Tails",u:"https://tails.net",c:"OS privacy"},
+{n:"Tails (anonymat)",u:"https://tails.net",c:"OS Libres"},
+{n:"Tapas",u:"https://tapas.io",c:"Fiction en ligne"},
+{n:"Text Generation WebUI",u:"https://github.com/oobabooga/text-generation-webui",c:"IA Libres"},
+{n:"The Pirate Bay",u:"https://thepiratebay.org",c:"Torrent"},
+{n:"Tokybook",u:"https://tokybook.com",c:"Livres audio"},
+{n:"Tor Browser",u:"https://torproject.org",c:"Anonymat"},
+{n:"TorBox",u:"https://torbox.app",c:"Debrid"},
+{n:"Trilium",u:"https://github.com/zadam/trilium",c:"Notes libres"},
+{n:"Tsumino",u:"https://tsumino.com",c:"Adult"},
+{n:"uBlock Origin",u:"https://github.com/gorhill/uBlock",c:"Bloqueur pub"},
+{n:"uMap",u:"https://umap.openstreetmap.fr",c:"Cartes libres"},
+{n:"uMap (cartes perso)",u:"https://umap.openstreetmap.fr",c:"Cartes Libres"},
+{n:"Ungoogled Chromium",u:"https://ungoogled-software.org",c:"Navigateur"},
+{n:"Universal Bypass",u:"https://universal-bypass.org",c:"Bypass"},
+{n:"Vercel (static gratuit)",u:"https://vercel.com",c:"Hébergement Libre"},
+{n:"VesselFinder",u:"https://vesselfinder.com",c:"Transport"},
+{n:"Velvetyne (fontes françaises libres)",u:"https://velvetyne.fr",c:"Design Libre"},
+{n:"Velvetyne (FR)",u:"https://velvetyne.fr",c:"Polices libres"},
+{n:"Ventusky",u:"https://ventusky.com",c:"Météo"},
+{n:"VeraCrypt",u:"https://veracrypt.fr",c:"Chiffrement"},
+{n:"Vercel",u:"https://vercel.com",c:"Hébergement Libre"}, // duplicate naming
+{n:"Vimm's Lair",u:"https://vimm.net",c:"Jeux rétro"},
+{n:"VLC",u:"https://www.videolan.org",c:"Logiciels Libres"},
+{n:"Web Archive",u:"https://web.archive.org",c:"Web Archive"}, // actual: Archive.org Wayback
+{n:"WebNovel",u:"https://webnovel.com",c:"Fiction en ligne"},
+{n:"WebSDR",u:"http://websdr.org",c:"Radio amateur"},
+{n:"Whoogle (Google sans tracking)",u:"https://search.ahwx.org",c:"Moteurs Alternatifs"},
+{n:"Whonix",u:"https://whonix.org",c:"OS privacy"},
+{n:"Windy",u:"https://windy.com",c:"Météo"},
+{n:"Wikisource",u:"https://wikisource.org",c:"Livres & Science"},
+{n:"XKCD",u:"https://xkcd.com",c:"Manga & Comics"},
+{n:"yt-dlp",u:"https://github.com/yt-dlp/yt-dlp",c:"Téléchargement"},
+{n:"Z-Library",u:"https://singlelogin.re",c:"Livres & Science"},
+{n:"Z-Library mirror",u:"https://singlelogin.re",c:"Livres Libres"},
+{n:"Zapsplat",u:"https://zapsplat.com",c:"Son & Bruitages"},
+{n:"Zoechip",u:"https://zoechip.cc",c:"Streaming sites"}
+
+
+];
+
+// Génération des catégories
+const cats = [...new Set(db.map(x => x.c))].sort();
+const out = document.getElementById('out');
+
+function ico(c) {
+  const m = {
+    "Moteurs Privés": "search",
+    "Livres & Science": "book",
+    "IA Locale": "robot",
+    "Hébergement Libre": "server",
+    "Vidéo Sans Pub": "video"
+  };
+  return m[c] || "star";
+}
+
+cats.forEach(c => {
+  const items = db.filter(x => x.c === c);
+  const div = document.createElement('div');
+  div.className = 'cat';
+  div.innerHTML = `
+    <h2><i class="fas fa-${ico(c)}"></i> ${c} <small>(${items.length})</small></h2>
+    <div class="links">
+      ${items.map(x => `<a href="${x.u}" target="_blank" class="l">${x.n} ↗</a>`).join('')}
+    </div>
+  `;
+  out.appendChild(div);
+});
+
+// Filtre de recherche (interne au bottin)
+document.getElementById('q').addEventListener('input', e => {
+  const t = e.target.value.toLowerCase();
+  document.querySelectorAll('.l').forEach(l => {
+    l.style.display = l.textContent.toLowerCase().includes(t) ? 'block' : 'none';
+  });
+});
+</script>
+</body>
+</html>

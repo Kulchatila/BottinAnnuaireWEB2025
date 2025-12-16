@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Bottin Annuaire Web Libre 2025</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="themes-complets.css" />
+  <style>
+    /* Styles supplémentaires pour la gestion des entrées */
+    .theme-loading {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.85);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+    }
+    
+    .theme-loading.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+    
+    .theme-loading-spinner {
+      width: 50px;
+      height: 50px;
+      border: 3px solid var(--primary);
+      border-top-color: transparent;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.8);
+      z-index: 10000;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    
+    .modal.active {
+      display: flex;
+    }
+    
+    .modal-content {
+      background: var(--card-bg);
+      border: 2px solid var(--primary);
+      border-radius: 16px;
+      padding: 30px;
+      width: 100%;
+      max-width: 500px;
+      max-height: 90vh;
+      overflow-y: auto;
+      backdrop-filter: blur(10px);
+    }
+    
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    
+    .modal-header h2 {
+      margin: 0;
+      font-size: 1.4rem;
+      color: var(--primary);
+    }
+    
+    .modal-close {
+      background: none;
+      border: none;
+      color: var(--text2);
+      font-size: 1.5rem;
+      cursor: pointer;
+      padding: 0;
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+    }
+    
+    .modal-close:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--primary);
+    }
+    
+    .form-group {
+      margin-bottom: 20px;
+    }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--text-color);
+      font-weight: 600;
+    }
+    
+    .form-control {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid var(--border-color);
+      border-radius: 10px;
+      background: var(--card-bg);
+      color: var(--text-color);
+      font-size: 15px;
+    }
+    
+    .form-control:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+    
+    .form-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 25px;
+    }
+    
+    .entry-actions {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      display: flex;
+      gap: 5px;
+    }
+    
+    .entry-action-btn {
+      background: rgba(0, 0, 0, 0.7);
+      border: none;
+      color: white;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 14px;
+      transition: all 0.2s;
+    }
+    
+    .entry-action-btn:hover {
+      background: var(--primary);
+      color: black;
+      transform: scale(1.1);
+    }
+    
+    /* Toast notifications */
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: var(--card-bg);
+      border: 1px solid var(--primary);
+      border-radius: 10px;
+      padding: 15px 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      z-index: 10001;
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.3s ease;
+    }
+    
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    
+    .toast-success {
+      border-color: #00cc88;
+      background: rgba(0, 204, 136, 0.1);
+    }
+    
+    .toast-error {
+      border-color: #ff4444;
+      background: rgba(255, 68, 68, 0.1);
+    }
+    
+    .toast-info {
+      border-color: #00aaff;
+      background: rgba(0, 170, 255, 0.1);
+    }
+    
+    /* Badge spécial */
+    .constitution-badge {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: linear-gradient(135deg, #00ffaa, #00aaff);
+      color: black;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 0.7rem;
+      font-weight: bold;
+      z-index: 1;
+    }
+    
+    /* Animation d'entrée */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .entry-card {
+      animation: fadeInUp 0.4s ease-out;
+    }
+  </style>
+</head>
+<body class="theme-dark">
+  <!-- Loading overlay -->
+  <div class="theme-loading" id="themeLoading">
+    <div class="theme-loading-spinner"></div>
+  </div>
+  
+  <!-- Modal d'ajout/modification -->
+  <div class="modal" id="entryModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 id="modalTitle">Ajouter une organisation</h2>
+        <button class="modal-close" id="modalClose">&times;</button>
+      </div>
+      <form id="entryForm">
+        <div class="form-group">
+          <label for="entryName">Nom de l'organisation *</label>
+          <input type="text" id="entryName" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label for="entryCategory">Catégorie *</label>
+          <input type="text" id="entryCategory" class="form-control" required list="categoryList">
+          <datalist id="categoryList"></datalist>
+        </div>
+        <div class="form-group">
+          <label for="entryDescription">Description</label>
+          <textarea id="entryDescription" class="form-control" rows="3"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="entryUrl">URL *</label>
+          <input type="url" id="entryUrl" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label for="entryDate">Année</label>
+          <input type="text" id="entryDate" class="form-control" value="2025">
+        </div>
+        <div class="form-actions">
+          <button type="button" class="btn btn-secondary" id="modalCancel">Annuler</button>
+          <button type="submit" class="btn" id="modalSave">Enregistrer</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  
+  <!-- Toast notification -->
+  <div class="toast" id="toast"></div>
+  
+  <header class="header">
+    <div class="container">
+      <h1>📚 Bottin Annuaire Web Libre 2025</h1>
+      <div class="controls">
+        <input id="searchInput" type="text" placeholder="Rechercher organisations..." autocomplete="off" />
+        <button id="btnClearFilters" class="btn btn-secondary">🗑️ Effacer filtres</button>
+        <select id="themeSelect">
+          <option value="theme-dark">🌙 Sombre</option>
+          <option value="theme-light">☀️ Clair</option>
+          <option value="theme-techno">💻 Techno</option>
+          <option value="theme-pastel">🎨 Pastel</option>
+          <option value="theme-gradient">🌈 Gradient</option>
+          <option value="theme-minimal">⚪ Minimal</option>
+          <option value="theme-luxe">👑 Luxe</option>
+          <option value="theme-nature-user">🌿 Nature</option>
+          <option value="theme-retro">📼 Rétro</option>
+          <option value="theme-futuriste">🚀 Futuriste</option>
+          <option value="theme-original">🔵 Original</option>
+          <option value="theme-verre">🔍 Verre Transparent</option>
+          <option value="theme-cyberpunk">🔮 Cyberpunk Néon</option>
+          <option value="theme-jeu">🎮 Jeu Vidéo</option>
+          <option value="theme-neon">💡 Néon Simple</option>
+          <option value="theme-cyberpunk-v2">🌌 Cyberpunk V2</option>
+          <option value="theme-nature-zen">☯️ Nature Zen</option>
+          <option value="theme-solarise">☀️ Solarisé</option>
+          <option value="theme-coucher">🌅 Coucher de Soleil</option>
+          <option value="theme-pourpre">👑 Pourpre Royal</option>
+        </select>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <div class="container two-columns">
+      <section class="left-column">
+        <div class="section-header">
+          <h2>📋 Organisations & Entreprises</h2>
+          <div class="stats">
+            <span id="filteredCount" class="badge">0 entrées</span>
+            <div class="action-buttons">
+              <button id="btnImportJSON" class="btn btn-secondary" title="Importer un fichier JSON">
+                📁 Import JSON
+              </button>
+              <input type="file" id="jsonFileInput" accept=".json" style="display:none" />
+              <button id="btnAddEntry" class="btn btn-secondary" title="Ajouter une entrée manuellement">
+                ➕ Ajouter
+              </button>
+              <button id="btnResetData" class="btn btn-secondary" title="Réinitialiser les données">
+                🔄 Réinitialiser
+              </button>
+            </div>
+          </div>
+        </div>
+        <div id="entriesContainer" class="entries-grid"></div>
+      </section>
+
+      <aside class="right-column">
+        <section>
+          <h2>🏆 Top 10 thématiques</h2>
+          <div id="themesTop10" class="themes-grid"></div>
+        </section>
+
+        <section>
+          <h2>🏷️ Toutes les catégories</h2>
+          <div id="categoriesContainer" class="categories-grid"></div>
+        </section>
+
+        <section>
+          <h2>🎨 Thématiques regroupées</h2>
+          <div id="themesContainer" class="categories-grid"></div>
+        </section>
+
+        <section>
+          <h2>📊 Statistiques</h2>
+          <div class="stats-grid">
+            <div class="stat-item">
+              <div class="stat-value" id="statTotal">0</div>
+              <div class="stat-label">Total</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-value" id="statCategories">0</div>
+              <div class="stat-label">Catégories</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-value" id="statThemes">0</div>
+              <div class="stat-label">Thèmes</div>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2>📤 Exports</h2>
+          <div class="export-options">
+            <div class="export-row">
+              <label for="datasFormatSelect"><strong>Format datas.js:</strong></label>
+              <select id="datasFormatSelect">
+                <option value="compact" selected>Compact</option>
+                <option value="pretty">Lisible</option>
+              </select>
+            </div>
+            <div class="export-buttons">
+              <button id="btnExportJSON" class="btn" title="Exporter toutes les données en JSON">
+                💾 Export JSON
+              </button>
+              <button id="btnExportDatasJS" class="btn" title="Exporter au format datas.js">
+                📄 Export datas.js
+              </button>
+              <button id="btnExportTopThemes" class="btn btn-secondary" title="Générer toptheme.js automatiquement">
+                🏷️ Export toptheme.js
+              </button>
+            </div>
+            <div class="theme-controls" style="margin-top: 15px; padding-top: 15px; border-top: 1px solid var(--border-color);">
+              <button id="btnResetTheme" class="btn btn-secondary" style="width: 100%;">
+                🔄 Réinitialiser thème
+              </button>
+              <div class="theme-info" style="font-size: 0.85rem; color: var(--muted); margin-top: 8px; text-align: center;">
+                20 thèmes disponibles
+              </div>
+            </div>
+          </div>
+        </section>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>© 2025 - Bottin Annuaire Web Libre - 20 thèmes CSS optimisés</p>
+      <p style="font-size: 0.9em; margin-top: 5px; opacity: 0.8;">Contraste AAA | Accessibilité WCAG 2.1 | Design responsive</p>
+    </div>
+  </footer>
+  
+  <!-- Scripts -->
+  <script src="datas.js"></script>
+  <script src="toptheme.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

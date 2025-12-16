@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>🌟 LMB — Mon Annuaire Web</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  /* Mode clair par défaut (fond blanc/bleuté) */
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 40px 20px;
+    color: #fff;
+  }
+
+  /* Mode sombre bleu marin (toggle: body.dark) */
+  body.dark {
+    background: linear-gradient(135deg, #001f3f 0%, #003366 100%);
+    color: #eee;
+  }
+
+  .container { max-width: 1200px; margin: 0 auto; }
+
+  h1 {
+    text-align: center;
+    font-size: 3em;
+    margin-bottom: 20px;
+    color: #222;
+    text-shadow: none;
+    animation: fadeInDown 1s ease;
+  }
+  body.dark h1 {
+    color: #fff;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+  }
+
+  .subtitle {
+    text-align: center;
+    font-size: 1.2em;
+    margin-bottom: 50px;
+    color: rgba(34,34,34,0.8);
+    animation: fadeInUp 1s ease;
+  }
+  body.dark .subtitle {
+    color: rgba(255,255,255,0.9);
+  }
+
+  .search-box { text-align: center; margin-bottom: 40px; animation: fadeIn 1.5s ease; }
+  .search-box input {
+    padding: 15px 25px;
+    width: 100%;
+    max-width: 500px;
+    border: none;
+    border-radius: 50px;
+    font-size: 1em;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    color: #222;
+  }
+  body.dark .search-box input { color: #fff; background: rgba(0,0,30,0.4); }
+  .search-box input:focus { outline: none; transform: scale(1.05); box-shadow: 0 15px 40px rgba(0,0,0,0.3); }
+
+  .category {
+    background: rgba(255,255,255,1);
+    border-radius: 20px;
+    padding: 30px;
+    margin-bottom: 30px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+    animation: slideIn 0.8s ease;
+    transition: transform 0.3s ease;
+  }
+  body.dark .category {
+    background: rgba(0,0,30,0.9);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+  }
+  .category:hover { transform: translateY(-5px); }
+
+  .category-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 25px;
+    cursor: pointer;
+  }
+
+	.category-icon {
+	  display: flex;
+	  align-items: center;
+	  justify-content: center;
+	  width: 50px;
+	  height: 50px;
+	  border-radius: 12px;       /* arrondi du cadre */
+	  font-size: 1.6em;
+	  font-weight: bold;
+	  color: #fff;               /* texte blanc par défaut */
+	  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); /* fond coloré */
+	  box-shadow: 0 4px 10px rgba(0,0,0,0.2); /* ombre pour relief */
+	}
+
+  .category-title {
+    font-size: 1.8em;
+    font-weight: bold;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .links-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+  }
+
+  .link-card {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 20px;
+    border-radius: 15px;
+    text-decoration: none;
+    color: white;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    position: relative;
+    overflow: hidden;
+  }
+  .link-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s ease;
+  }
+  .link-card:hover::before { left: 100%; }
+  .link-card:hover { transform: translateY(-5px) scale(1.02); box-shadow: 0 15px 30px rgba(0,0,0,0.3); }
+
+  .link-title { font-size: 1.2em; font-weight: bold; margin-bottom: 8px; }
+  .link-description { font-size: 0.9em; opacity: 0.9; word-break: break-all; }
+
+	.mode-toggle {
+	  display: flex;
+	  justify-content: center;
+	  margin-bottom: 30px;
+	}
+
+	.toggle-btn {
+	  border: none;
+	  border-radius: 30px;
+	  padding: 10px 24px;
+	  font-size: 1em;
+	  font-weight: 600;
+	  cursor: pointer;
+	  color: #fff;
+	  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+	  box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+	  transition: transform 0.3s ease, box-shadow 0.3s ease;
+	}
+	.toggle-btn:hover {
+	  transform: scale(1.05);
+	  box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+	}
+
+	.moon-icon {
+	  display: flex;
+	  align-items: center;
+	  justify-content: center;
+	  width: 50px;
+	  height: 50px;
+	  border-radius: 12px;
+	  font-size: 1.6em;
+	  margin-right: 12px;
+	  background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%); /* jaune/orangé */
+	  color: #222; /* lune visible en clair */
+	  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+	}
+
+	/* En mode sombre : garder contraste */
+	body.dark .moon-icon {
+	  background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+	  color: #fff;
+	}
+
+	.back-to-top {
+	  text-align: center;
+	  margin-top: 20px;
+	}
+
+	.back-to-top a {
+	  display: inline-block;
+	  padding: 8px 16px;
+	  border-radius: 20px;
+	  text-decoration: none;
+	  font-weight: 600;
+	  color: #fff;
+	  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+	  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+	  transition: transform 0.2s ease, box-shadow 0.2s ease;
+	}
+
+	.back-to-top a:hover {
+	  transform: scale(1.05);
+	  box-shadow: 0 6px 18px rgba(0,0,0,0.3);
+	}
+
+  /* Couleurs d’icônes par catégorie (comme ton demo) */
+  .color-1 { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+  .color-2 { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
+  .color-3 { background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); }
+  .color-4 { background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); }
+  .color-5 { background: linear-gradient(135deg, #30cfd0 0%, #330867 100%); }
+  .color-6 { background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); }
+
+  /* Animations du demo */
+  @keyframes fadeInDown { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeInUp   { from { opacity: 0; transform: translateY(30px); }  to { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeIn     { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes slideIn    { from { opacity: 0; transform: translateX(-50px); } to { opacity: 1; transform: translateX(0); } }
+  @keyframes pulse      { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+</style>
+
+</head>
+<body>
+  <div class="container">
+	<h1 id="top">🌟 LMB — Mon Annuaire Web</h1>
+    <p class="subtitle">Interface affirmée, colorée et animée. Recherche instantanée. Mode clair/sombre sans sacrifier couleurs.</p>
+
+	<div class="mode-toggle">
+	  <div class="category-icon moon-icon">🌙</div>
+	  <button class="toggle-btn" onclick="toggleMode()">Basculer mode clair/sombre</button>
+	</div>
+
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="🔍 Rechercher un lien..." onkeyup="filterLinks()">
+    </div>
+
+    <!-- LMB -->
+    <div class="category">
+      <div class="category-header">
+        <div class="category-icon color-lmb">Ⓛ</div>
+        <h2 class="category-title">LMB</h2>
+      </div>
+      <div class="links-grid">
+        <a href="https://libresol2-5jaz4b32.manus.space" class="link-card" target="_blank" rel="noopener">
+          <div class="link-title">Constitution des Communes Libres et Solidaires</div>
+          <div class="link-description">- Découvrez les différentes versions de notre projet constitutionnel innovant</div>
+        </a>
+      </div>
+	  	<div class="back-to-top">
+	  <a href="#top">⬆️ Retour en haut</a>
+	</div>
+    </div>
+    <!-- Recherches -->
+    <div class="category">
+      <div class="category-header">
+        <div class="category-icon color-rech">🔎</div>
+        <h2 class="category-title">Recherches</h2>
+      </div>
+      <div class="links-grid">
+        <a href="https://www.shodan.io" class="link-card"><div class="link-title">Shodan</div><div class="link-description">https://www.shodan.io</div></a>
+        <a href="https://hunter.io/fr/email-finder" class="link-card"><div class="link-title">Hunter.io Email Finder</div><div class="link-description">https://hunter.io/fr/email-finder</div></a>
+        <a href="https://torchsearch.org" class="link-card"><div class="link-title">Torchsearch</div><div class="link-description">https://torchsearch.org</div></a>
+        <a href="https://www.zoomeye.ai" class="link-card"><div class="link-title">ZoomEye</div><div class="link-description">https://www.zoomeye.ai</div></a>
+        <a href="https://fr.canada411.ca" class="link-card"><div class="link-title">Canada411</div><div class="link-description">https://fr.canada411.ca</div></a>
+        <a href="https://www.pagesjaunes.ca" class="link-card"><div class="link-title">Pages Jaunes</div><div class="link-description">https://www.pagesjaunes.ca</div></a>
+        <a href="https://duckduckgo.com" class="link-card"><div class="link-title">DuckDuckGo</div><div class="link-description">https://duckduckgo.com</div></a>
+        <a href="https://www.mojeek.com" class="link-card"><div class="link-title">Mojeek</div><div class="link-description">https://www.mojeek.com</div></a>
+        <a href="https://yandex.com" class="link-card"><div class="link-title">Yandex</div><div class="link-description">https://yandex.com</div></a>
+        <a href="https://www.seznam.cz" class="link-card"><div class="link-title">Seznam</div><div class="link-description">https://www.seznam.cz</div></a>
+        <a href="https://www.qwant.com" class="link-card"><div class="link-title">Qwant</div><div class="link-description">https://www.qwant.com</div></a>
+        <a href="https://www.lukol.com" class="link-card"><div class="link-title">Lukol</div><div class="link-description">https://www.lukol.com</div></a>
+        <a href="https://archive.org" class="link-card"><div class="link-title">Archive.org</div><div class="link-description">https://archive.org</div></a>
+        <a href="https://ca.yahoo.com" class="link-card"><div class="link-title">Yahoo Canada</div><div class="link-description">https://ca.yahoo.com</div></a>
+        <a href="https://www.webcrawler.com" class="link-card"><div class="link-title">Webcrawler</div><div class="link-description">https://www.webcrawler.com</div></a>
+        <a href="https://www.bing.com" class="link-card"><div class="link-title">Bing</div><div class="link-description">https://www.bing.com</div></a>
+        <a href="https://www.google.com" class="link-card"><div class="link-title">Google</div><div class="link-description">https://www.google.com</div></a>
+        <a href="https://www.startpage.com" class="link-card"><div class="link-title">Startpage</div><div class="link-description">https://www.startpage.com</div></a>
+        <a href="https://www.ecosia.org" class="link-card"><div class="link-title">Ecosia</div><div class="link-description">https://www.ecosia.org</div></a>
+        <a href="https://www.lilo.org" class="link-card"><div class="link-title">Lilo</div><div class="link-description">https://www.lilo.org</div></a>
+        <a href="https://www.givewater.com" class="link-card"><div class="link-title">GiveWater</div><div class="link-description">https://www.givewater.com</div></a>
+        <a href="https://youcare.world/?l=fr" class="link-card"><div class="link-title">YouCare</div><div class="link-description">https://youcare.world/?l=fr</div></a>
+        <a href="https://search.brave.com" class="link-card"><div class="link-title">Brave Search</div><div class="link-description">https://search.brave.com</div></a>
+        <a href="https://www.larousse.fr" class="link-card"><div class="link-title">Larousse</div><div class="link-description">https://www.larousse.fr</div></a>
+        <a href="https://www.nationalgeographic.fr" class="link-card"><div class="link-title">National Geographic FR</div><div class="link-description">https://www.nationalgeographic.fr</div></a>
+        <a href="https://fr.wikipedia.org" class="link-card"><div class="link-title">Wikipedia FR</div><div class="link-description">https://fr.wikipedia.org</div></a>
+        <a href="https://grokipedia.com" class="link-card"><div class="link-title">Grokipedia</div><div class="link-description">https://grokipedia.com</div></a>
+        <a href="https://www.ask.com" class="link-card"><div class="link-title">Ask</div><div class="link-description">https://www.ask.com</div></a>
+        <a href="https://gibiru.com" class="link-card"><div class="link-title">Gibiru</div><div class="link-description">https://gibiru.com</div></a>
+        <a href="https://github.com" class="link-card"><div class="link-title">GitHub</div><div class="link-description">https://github.com</div></a>
+        <a href="https://search.disconnect.me" class="link-card"><div class="link-title">Disconnect Search</div><div class="link-description">https://search.disconnect.me</div></a>
+        <a href="https://metager.org/fr-FR" class="link-card"><div class="link-title">MetaGer FR</div><div class="link-description">https://metager.org/fr-FR</div></a>
+        <a href="https://www.oscobo.com" class="link-card"><div class="link-title">Oscobo</div><div class="link-description">https://www.oscobo.com</div></a>
+        <a href="https://yacy.net" class="link-card"><div class="link-title">YaCy</div><div class="link-description">https://yacy.net</div></a>
+        <a href="https://searx.bndkt.io" class="link-card"><div class="link-title">Searx</div><div class="link-description">https://searx.bndkt.io</div></a>
+        <a href="https://peertube.tv" class="link-card"><div class="link-title">PeerTube</div><div class="link-description">https://peertube.tv</div></a>
+        <a href="https://www.youtube.com" class="link-card"><div class="link-title">YouTube</div><div class="link-description">https://www.youtube.com</div></a>
+        <a href="https://www.tiktok.com/fr" class="link-card"><div class="link-title">TikTok FR</div><div class="link-description">https://www.tiktok.com/fr</div></a>
+        <a href="https://www.dailymotion.com/ca" class="link-card"><div class="link-title">Dailymotion CA</div><div class="link-description">https://www.dailymotion.com/ca</div></a>
+        <a href="https://www.baidu.com" class="link-card"><div class="link-title">Baidu</div><div class="link-description">https://www.baidu.com</div></a>
+        <a href="http://www.sogou.com" class="link-card"><div class="link-title">Sogou (HTTP)</div><div class="link-description">http://www.sogou.com</div></a>
+        <a href="https://www.youdao.com" class="link-card"><div class="link-title">Youdao</div><div class="link-description">https://www.youdao.com</div></a>
+        <a href="https://www.sogou.com" class="link-card"><div class="link-title">Sogou</div><div class="link-description">https://www.sogou.com</div></a>
+        <a href="https://www.soso.com/" class="link-card"><div class="link-title">Soso</div><div class="link-description">https://www.soso.com/</div></a>
+        <a href="https://swisscows.com/fr" class="link-card"><div class="link-title">Swisscows FR</div><div class="link-description">https://swisscows.com/fr</div></a>
+        <a href="https://geo.ca/fr/accueil" class="link-card"><div class="link-title">Geo.ca</div><div class="link-description">https://geo.ca/fr/accueil</div></a>
+        <a href="https://www.geoportail.gouv.fr" class="link-card"><div class="link-title">Geoportail</div><div class="link-description">https://www.geoportail.gouv.fr</div></a>
+        <a href="https://tosdr.org/fr" class="link-card"><div class="link-title">ToS;DR FR</div><div class="link-description">https://tosdr.org/fr</div></a>
+        <a href="https://www.startmycar.com" class="link-card"><div class="link-title">StartMyCar</div><div class="link-description">https://www.startmycar.com</div></a>
+        <a href="https://karmasearch.org/fr" class="link-card"><div class="link-title">KarmaSearch FR</div><div class="link-description">https://karmasearch.org/fr</div></a>
+      </div>
+	  	<div class="back-to-top">
+	  <a href="#top">⬆️ Retour en haut</a>
+	</div>
+    </div>
+
+    <!-- Cartes -->
+    <div class="category">
+      <div class="category-header">
+        <div class="category-icon color-cart">🗺️</div>
+        <h2 class="category-title">Cartes</h2>
+      </div>
+      <div class="links-grid">
+        <a href="https://360earthview.com" class="link-card"><div class="link-title">360 Earth View</div><div class="link-description">https://360earthview.com</div></a>
+        <a href="https://360earthview.com/aerial-maps/search.html?fun=gps" class="link-card"><div class="link-title">360 Earth View GPS</div><div class="link-description">https://360earthview.com/aerial-maps/search.html?fun=gps</div></a>
+        <a href="https://satellite-map.gosur.com/fr" class="link-card"><div class="link-title">Gosur Satellite FR</div><div class="link-description">https://satellite-map.gosur.com/fr</div></a>
+        <a href="https://www.google.ca/maps" class="link-card"><div class="link-title">Google Maps CA</div><div class="link-description">https://www.google.ca/maps</div></a>
+        <a href="https://earth.google.com/web" class="link-card"><div class="link-title">Google Earth Web</div><div class="link-description">https://earth.google.com/web</div></a>
+        <a href="https://www.bing.com/maps" class="link-card"><div class="link-title">Bing Maps</div><div class="link-description">https://www.bing.com/maps</div></a>
+        <a href="https://fr.mappy.com/plan" class="link-card"><div class="link-title">Mappy Plan</div><div class="link-description">https://fr.mappy.com/plan</div></a>
+        <a href="https://vgo.portailcartographique.gouv.qc.ca/mobile.aspx" class="link-card"><div class="link-title">Portail Cartographique QC</div><div class="link-description">https://vgo.portailcartographique.gouv.qc.ca/mobile.aspx</div></a>
+        <a href="https://eos.com/landviewer/fr" class="link-card"><div class="link-title">EOS LandViewer FR</div><div class="link-description">https://eos.com/landviewer/fr</div></a>
+        <a href="https://zoom.earth/maps/satellite-hd" class="link-card"><div class="link-title">Zoom.Earth Satellite HD</div><div class="link-description">https://zoom.earth/maps/satellite-hd</div></a>
+        <a href="https://platform.leolabs.space/visualization" class="link-card"><div class="link-title">LeoLabs Visualization</div><div class="link-description">https://platform.leolabs.space/visualization</div></a>
+        <a href="https://www.waze.com/fr/live-map" class="link-card"><div class="link-title">Waze Live Map FR</div><div class="link-description">https://www.waze.com/fr/live-map</div></a>
+      </div>
+	  	<div class="back-to-top">
+	  <a href="#top">⬆️ Retour en haut</a>
+	</div>
+    </div>
+
+    <!-- IA -->
+    <div class="category">
+      <div class="category-header">
+        <div class="category-icon color-ia">⚙️</div>
+        <h2 class="category-title">IA</h2>
+      </div>
+      <div class="links-grid">
+        <a href="https://www.aixploria.com/top-100-ia" class="link-card"><div class="link-title">Aixploria Top 100 IA</div><div class="link-description">https://www.aixploria.com/top-100-ia</div></a>
+        <a href="https://huggingface.co/spaces" class="link-card"><div class="link-title">Hugging Face Spaces</div><div class="link-description">https://huggingface.co/spaces</div></a>
+        <a href="https://manus.im/app" class="link-card"><div class="link-title">Manus IM</div><div class="link-description">https://manus.im/app</div></a>
+        <a href="https://claude.ai/new" class="link-card"><div class="link-title">Claude</div><div class="link-description">https://claude.ai/new</div></a>
+        <a href="https://chat.deepseek.com" class="link-card"><div class="link-title">DeepSeek Chat</div><div class="link-description">https://chat.deepseek.com</div></a>
+        <a href="https://copilot.microsoft.com" class="link-card"><div class="link-title">Copilot</div><div class="link-description">https://copilot.microsoft.com</div></a>
+        <a href="https://aistudio.google.com/prompts/new_chat" class="link-card"><div class="link-title">Google AI Studio</div><div class="link-description">https://aistudio.google.com/prompts/new_chat</div></a>
+        <a href="https://chatgpt.com" class="link-card"><div class="link-title">ChatGPT</div><div class="link-description">https://chatgpt.com</div></a>
+        <a href="https://gemini.google.com/app" class="link-card"><div class="link-title">Gemini</div><div class="link-description">https://gemini.google.com/app</div></a>
+        <a href="https://grok.com" class="link-card"><div class="link-title">Grok</div><div class="link-description">https://grok.com</div></a>
+        <a href="https://openai.com/fr-FR/index/dall-e-3" class="link-card"><div class="link-title">DALL·E 3 FR</div><div class="link-description">https://openai.com/fr-FR/index/dall-e-3</div></a>
+        <a href="https://openai.com/fr-FR" class="link-card"><div class="link-title">OpenAI FR</div><div class="link-description">https://openai.com/fr-FR</div></a>
+        <a href="https://www.genspark.ai" class="link-card"><div class="link-title">GenSpark</div><div class="link-description">https://www.genspark.ai</div></a>
+        <a href="https://www.perplexity.ai" class="link-card"><div class="link-title">Perplexity</div><div class="link-description">https://www.perplexity.ai</div></a>
+        <a href="https://www.remakeit.io/fr" class="link-card"><div class="link-title">RemakeIt FR</div><div class="link-description">https://www.remakeit.io/fr</div></a>
+        <a href="https://stackedit.io" class="link-card"><div class="link-title">StackEdit</div><div class="link-description">https://stackedit.io</div></a>
+        <a href="https://songer.co" class="link-card"><div class="link-title">Songer</div><div class="link-description">https://songer.co</div></a>
+        <a href="https://wan.video" class="link-card"><div class="link-title">Wan Video</div><div class="link-description">https://wan.video</div></a>
+        <a href="https://www.ainsfw.ai/fr" class="link-card"><div class="link-title">AINSFW FR</div><div class="link-description">https://www.ainsfw.ai/fr</div></a>
+        <a href="https://academy.openai.com" class="link-card"><div class="link-title">OpenAI Academy</div><div class="link-description">https://academy.openai.com</div></a>
+        <a href="https://www.synthesis.com/tutor" class="link-card"><div class="link-title">Synthesis Tutor</div><div class="link-description">https://www.synthesis.com/tutor</div></a>
+        <a href="https://elevenlabs.io/fr" class="link-card"><div class="link-title">ElevenLabs FR</div><div class="link-description">https://elevenlabs.io/fr</div></a>
+        <a href="https://wavetube.ai/ai-podcast-to-video" class="link-card"><div class="link-title">Wavetube</div><div class="link-description">https://wavetube.ai/ai-podcast-to-video</div></a>
+        <a href="https://www.musiccreator.ai/fr/ai-music-generator" class="link-card"><div class="link-title">MusicCreator FR</div><div class="link-description">https://www.musiccreator.ai/fr/ai-music-generator</div></a>
+        <a href="https://dezgo.com" class="link-card"><div class="link-title">Dezgo</div><div class="link-description">https://dezgo.com</div></a>
+        <a href="https://app.immersity.ai/upload" class="link-card"><div class="link-title">Immersity Upload</div><div class="link-description">https://app.immersity.ai/upload</div></a>
+        <a href="https://console.mistral.ai/home" class="link-card"><div class="link-title">Mistral Console</div><div class="link-description">https://console.mistral.ai/home</div></a>
+        <a href="https://www.artguru.ai/fr" class="link-card"><div class="link-title">ArtGuru FR</div><div class="link-description">https://www.artguru.ai/fr</div></a>
+        <a href="https://www.deepfiction.ai" class="link-card"><div class="link-title">DeepFiction</div><div class="link-description">https://www.deepfiction.ai</div></a>
+        <a href="https://klingai.com/global" class="link-card"><div class="link-title">KlingAI Global</div><div class="link-description">https://klingai.com/global</div></a>
+        <a href="https://iamleo.ai/fr" class="link-card"><div class="link-title">Leo AI FR</div><div class="link-description">https://iamleo.ai/fr</div></a>
+        <a href="https://luvvoice.com/fr/voice-cloning" class="link-card"><div class="link-title">Luvvoice Voice Cloning FR</div><div class="link-description">https://luvvoice.com/fr/voice-cloning</div></a>
+        <a href="https://describepicture.org/fr-CA" class="link-card"><div class="link-title">DescribePicture FR‑CA</div><div class="link-description">https://describepicture.org/fr-CA</div></a>
+        <a href="https://videomaker.me" class="link-card"><div class="link-title">VideoMaker</div><div class="link-description">https://videomaker.me</div></a>
+        <a href="https://www.jacktrip.com" class="link-card"><div class="link-title">JackTrip</div><div class="link-description">https://www.jacktrip.com</div></a>
+        <a href="https://luvvoice.com/fr" class="link-card"><div class="link-title">Luvvoice FR</div><div class="link-description">https://luvvoice.com/fr</div></a>
+        <a href="https://www.makesong.com/fr" class="link-card"><div class="link-title">MakeSong FR</div><div class="link-description">https://www.makesong.com/fr</div></a>
+        <a href="https://aimusic.so/fr" class="link-card"><div class="link-title">AI Music SO FR</div><div class="link-description">https://aimusic.so/fr</div></a>
+        <a href="https://suno.com/home" class="link-card"><div class="link-title">Suno</div><div class="link-description">https://suno.com/home</div></a>
+        <a href="https://intelbase.is" class="link-card"><div class="link-title">Intelbase</div><div class="link-description">https://intelbase.is</div></a>
+        <a href="https://www.deepl.com/fr/translator" class="link-card"><div class="link-title">DeepL Translator FR</div><div class="link-description">https://www.deepl.com/fr/translator</div></a>
+        <a href="https://wan.video" class="link-card"><div class="link-title">Wan Video (dup)</div><div class="link-description">https://wan.video</div></a>
+        <a href="https://wan2-2.org" class="link-card"><div class="link-title">Wan 2.2</div><div class="link-description">https://wan2-2.org</div></a>
+        <a href="https://sketch.metademolab.com" class="link-card"><div class="link-title">Meta DemoLab Sketch</div><div class="link-description">https://sketch.metademolab.com</div></a>
+        <a href="https://www.gambo.ai" class="link-card"><div class="link-title">Gambo AI</div><div class="link-description">https://www.gambo.ai</div></a>
+        <a href="https://fableai.app" class="link-card"><div class="link-title">FableAI App</div><div class="link-description">https://fableai.app</div></a>
+        <a href="https://www.showrunner.xyz" class="link-card"><div class="link-title">Showrunner</div><div class="link-description">https://www.showrunner.xyz</div></a>
+        <a href="https://gab.ai/landing" class="link-card"><div class="link-title">Gab AI Landing</div><div class="link-description">https://gab.ai/landing</div></a>
+      </div>
+	  	<div class="back-to-top">
+	  <a href="#top">⬆️ Retour en haut</a>
+	</div>
+    </div>
+
+    <!-- Hugging Face -->
+    <div class="category">
+      <div class="category-header">
+        <div class="category-icon color-hf">🤗</div>
+        <h2 class="category-title">Hugging Face</h2>
+      </div>
+      <div class="links-grid">
+        <a href="https://huggingface.co/spaces" class="link-card"><div class="link-title">Spaces</div><div class="link-description">https://huggingface.co/spaces</div></a>
+        <a href="https://huggingface.co/spaces/Wan-AI/Wan2.2-Animate" class="link-card"><div class="link-title">Wan2.2 Animate</div><div class="link-description">https://huggingface.co/spaces/Wan-AI/Wan2.2-Animate</div></a>
+        <a href="https://huggingface.co/spaces/Oysiyl/AI-QR-code-generator" class="link-card"><div class="link-title">AI QR Code Generator</div><div class="link-description">https://huggingface.co/spaces/Oysiyl/AI-QR-code-generator</div></a>
+      </div>
+	  	<div class="back-to-top">
+	  <a href="#top">⬆️ Retour en haut</a>
+	</div>
+    </div>
+
+    <!-- Outils -->
+    <div class="category">
+      <div class="category-header">
+        <div class="category-icon color-tools">🛠️</div>
+        <h2 class="category-title">Outils</h2>
+      </div>
+      <div class="links-grid">
+        <a href="https://html2pdf.com/fr" class="link-card"><div class="link-title">HTML2PDF FR</div><div class="link-description">https://html2pdf.com/fr</div></a>
+        <a href="https://vercel.com" class="link-card"><div class="link-title">Vercel</div><div class="link-description">https://vercel.com</div></a>
+        <a href="https://turso.tech" class="link-card"><div class="link-title">Turso</div><div class="link-description">https://turso.tech</div></a>
+        <a href="https://www.whitescreen.online" class="link-card"><div class="link-title">WhiteScreen</div><div class="link-description">https://www.whitescreen.online</div></a>
+        <a href="https://www.dcode.fr" class="link-card"><div class="link-title">dCode</div><div class="link-description">https://www.dcode.fr</div></a>
+        <a href="https://mostexclusivewebsite.com" class="link-card"><div class="link-title">Most Exclusive Website</div><div class="link-description">https://mostexclusivewebsite.com</div></a>
+        <a href="https://ephtracking.cdc.gov" class="link-card"><div class="link-title">CDC EPHT</div><div class="link-description">https://ephtracking.cdc.gov</div></a>
+        <a href="https://tineye.com" class="link-card"><div class="link-title">TinEye</div><div class="link-description">https://tineye.com</div></a>
+        <a href="https://www.gutenberg.org" class="link-card"><div class="link-title">Project Gutenberg</div><div class="link-description">https://www.gutenberg.org</div></a>
+        <a href="https://www.remove.bg/fr" class="link-card"><div class="link-title">Remove.bg FR</div><div class="link-description">https://www.remove.bg/fr</div></a>
+        <a href="https://coolors.co" class="link-card"><div class="link-title">Coolors</div><div class="link-description">https://coolors.co</div></a>
+        <a href="https://www.rome2rio.com/fr" class="link-card"><div class="link-title">Rome2Rio FR</div><div class="link-description">https://www.rome2rio.com/fr</div></a>
+        <a href="https://10minutemail.net/?lang=fr" class="link-card"><div class="link-title">10 Minute Mail FR</div><div class="link-description">https://10minutemail.net/?lang=fr</div></a>
+        <a href="https://haveibeenpwned.com" class="link-card"><div class="link-title">Have I Been Pwned</div><div class="link-description">https://haveibeenpwned.com</div></a>
+        <a href="https://www.isitdownrightnow.com" class="link-card"><div class="link-title">IsItDownRightNow</div><div class="link-description">https://www.isitdownrightnow.com</div></a>
+        <a href="https://downdetector.ca" class="link-card"><div class="link-title">Downdetector CA</div><div class="link-description">https://downdetector.ca</div></a>
+        <a href="https://downforeveryoneorjustme.com" class="link-card"><div class="link-title">Down For Everyone Or Just Me</div><div class="link-description">https://downforeveryoneorjustme.com</div></a>
+        <a href="https://neal.fun/deep-sea" class="link-card"><div class="link-title">Neal.fun Deep Sea</div><div class="link-description">https://neal.fun/deep-sea</div></a>
+        <a href="https://geocachen.be/fr/codes-secrets-les-plus-utilises" class="link-card"><div class="link-title">Geocachen Codes Secrets</div><div class="link-description">https://geocachen.be/fr/codes-secrets-les-plus-utilises</div></a>
+        <a href="https://www.gradio.app" class="link-card"><div class="link-title">Gradio</div><div class="link-description">https://www.gradio.app</div></a>
+        <a href="https://x-minus.pro/ai?locale=fr_FR" class="link-card"><div class="link-title">X-Minus AI FR</div><div class="link-description">https://x-minus.pro/ai?locale=fr_FR</div></a>
+        <a href="https://www.archivebuttons.com" class="link-card"><div class="link-title">Archive Buttons</div><div class="link-description">https://www.archivebuttons.com</div></a>
+        <a href="https://www.removepaywall.com" class="link-card"><div class="link-title">RemovePaywall</div><div class="link-description">https://www.removepaywall.com</div></a>
+        <a href="https://9xbuddy.site/fr" class="link-card"><div class="link-title">9xbuddy FR</div><div class="link-description">https://9xbuddy.site/fr</div></a>
+      </div>
+	  	<div class="back-to-top">
+	  <a href="#top">⬆️ Retour en haut</a>
+	</div>
+    </div>
+
+    <!-- Gamer -->
+    <div class="category">
+      <div class="category-header">
+        <div class="category-icon color-gamer">🎮</div>
+        <h2 class="category-title">Gamer</h2>
+      </div>
+      <div class="links-grid">
+        <a href="https://blog.dynamicslab.ai" class="link-card"><div class="link-title">DynamicsLab Blog</div><div class="link-description">https://blog.dynamicslab.ai</div></a>
+        <a href="https://lostgamer.io" class="link-card"><div class="link-title">Lostgamer</div><div class="link-description">https://lostgamer.io</div></a>
+        <a href="https://mapgenie.io" class="link-card"><div class="link-title">MapGenie</div><div class="link-description">https://mapgenie.io</div></a>
+        <a href="https://evilgiegue.itch.io/temporel-inc" class="link-card"><div class="link-title">Temporel Inc (itch.io)</div><div class="link-description">https://evilgiegue.itch.io/temporel-inc</div></a>
+        <a href="https://www.wemod.com/fr" class="link-card"><div class="link-title">WeMod FR</div><div class="link-description">https://www.wemod.com/fr</div></a>
+      </div>
+	  	<div class="back-to-top">
+	  <a href="#top">⬆️ Retour en haut</a>
+	</div>
+    </div>
+
+    <!-- Crypto -->
+    <div class="category">
+      <div class="category-header">
+        <div class="category-icon color-crypto">₿</div>
+        <h2 class="category-title">Crypto</h2>
+      </div>
+      <div class="links-grid">
+        <a href="https://keys.lol" class="link-card"><div class="link-title">Keys.lol</div><div class="link-description">https://keys.lol</div></a>
+        <a href="https://allprivatekeys.com/get-lucky" class="link-card"><div class="link-title">AllPrivateKeys Lucky</div><div class="link-description">https://allprivatekeys.com/get-lucky</div></a>
+        <a href="https://allprivatekeys.com" class="link-card"><div class="link-title">AllPrivateKeys</div><div class="link-description">https://allprivatekeys.com</div></a>
+        <a href="https://www.myetherwallet.com/wallet/access" class="link-card"><div class="link-title">MyEtherWallet Access</div><div class="link-description">https://www.myetherwallet.com/wallet/access</div></a>
+        <a href="https://coin360.com" class="link-card"><div class="link-title">Coin360</div><div class="link-description">https://coin360.com</div></a>
+        <a href="https://etherscan.io" class="link-card"><div class="link-title">Etherscan</div><div class="link-description">https://etherscan.io</div></a>
+        <a href="https://www.blockchain.com/explorer" class="link-card"><div class="link-title">Blockchain Explorer</div><div class="link-description">https://www.blockchain.com/explorer</div></a>
+        <a href="https://opensea.io" class="link-card"><div class="link-title">OpenSea</div><div class="link-description">https://opensea.io</div></a>
+        <a href="https://games.gala.com" class="link-card"><div class="link-title">Gala Games</div><div class="link-description">https://games.gala.com</div></a>
+        <a href="https://www.sandbox.game/en" class="link-card"><div class="link-title">The Sandbox</div><div class="link-description">https://www.sandbox.game/en</div></a>
+      </div>
+	  	<div class="back-to-top">
+	  <a href="#top">⬆️ Retour en haut</a>
+	</div>
+    </div>
+
+    <!-- APPZ -->
+    <div class="category">
+      <div class="category-header">
+        <div class="category-icon color-appz">⬇️</div>
+        <h2 class="category-title">Appz</h2>
+      </div>
+      <div class="links-grid">
+        <a href="https://telecharger-freeware.com" class="link-card"><div class="link-title">Télécharger Freeware</div><div class="link-description">https://telecharger-freeware.com</div></a>
+        <a href="https://www.gratuiciel.com" class="link-card"><div class="link-title">Gratuiciel</div><div class="link-description">https://www.gratuiciel.com</div></a>
+        <a href="https://www.nchsoftware.com" class="link-card"><div class="link-title">NCH Software</div><div class="link-description">https://www.nchsoftware.com</div></a>
+        <a href="https://filehippo.com" class="link-card"><div class="link-title">FileHippo</div><div class="link-description">https://filehippo.com</div></a>
+        <a href="https://www.softpedia.com" class="link-card"><div class="link-title">Softpedia</div><div class="link-description">https://www.softpedia.com</div></a>
+        <a href="https://www.clubic.com" class="link-card"><div class="link-title">Clubic</div><div class="link-description">https://www.clubic.com</div></a>
+        <a href="https://www.techspot.com" class="link-card"><div class="link-title">TechSpot</div><div class="link-description">https://www.techspot.com</div></a>
+        <a href="http://www.waretheque.com" class="link-card"><div class="link-title">Waretheque (HTTP)</div><div class="link-description">http://www.waretheque.com</div></a>
+        <a href="https://www.logitheque.com" class="link-card"><div class="link-title">Logithèque</div><div class="link-description">https://www.logitheque.com</div></a>
+        <a href="https://www.majorgeeks.com" class="link-card"><div class="link-title">MajorGeeks</div><div class="link-description">https://www.majorgeeks.com</div></a>
+        <a href="https://www.downloadcrew.com" class="link-card"><div class="link-title">DownloadCrew</div><div class="link-description">https://www.downloadcrew.com</div></a>
+        <a href="https://www.filehorse.com" class="link-card"><div class="link-title">FileHorse</div><div class="link-description">https://www.filehorse.com</div></a>
+        <a href="https://www.filepuma.com" class="link-card"><div class="link-title">FilePuma</div><div class="link-description">https://www.filepuma.com</div></a>
+        <a href="https://www.snapfiles.com" class="link-card"><div class="link-title">SnapFiles</div><div class="link-description">https://www.snapfiles.com</div></a>
+        <a href="https://apps.microsoft.com" class="link-card"><div class="link-title">Microsoft Apps</div><div class="link-description">https://apps.microsoft.com</div></a>
+        <a href="https://ninite.com" class="link-card"><div class="link-title">Ninite</div><div class="link-description">https://ninite.com</div></a>
+        <a href="https://animesalt.org/pc" class="link-card"><div class="link-title">AnimeSalt PC</div><div class="link-description">https://animesalt.org/pc</div></a>
+      </div>
+	  	<div class="back-to-top">
+	  <a href="#top">⬆️ Retour en haut</a>
+	</div>
+    </div>
+
+    <!-- MOBILE -->
+    <div class="category">
+      <div class="category-header">
+        <div class="category-icon color-mobile">📱</div>
+        <h2 class="category-title">Mobile</h2>
+      </div>
+      <div class="links-grid">
+        <a href="https://joinpeertube.org" class="link-card"><div class="link-title">Join PeerTube</div><div class="link-description">https://joinpeertube.org</div></a>
+        <a href="https://openai.com/fr-FR/sora" class="link-card"><div class="link-title">OpenAI Sora FR</div><div class="link-description">https://openai.com/fr-FR/sora</div></a>
+        <a href="https://clickup.com" class="link-card"><div class="link-title">ClickUp</div><div class="link-description">https://clickup.com</div></a>
+        <a href="https://www.trustedhousesitters.com" class="link-card"><div class="link-title">TrustedHousesitters</div><div class="link-description">https://www.trustedhousesitters.com</div></a>
+        <a href="https://www.geoguessr.com" class="link-card"><div class="link-title">GeoGuessr</div><div class="link-description">https://www.geoguessr.com</div></a>
+        <a href="https://animesalt.org" class="link-card"><div class="link-title">AnimeSalt</div><div class="link-description">https://animesalt.org</div></a>
+      </div>
+	  	<div class="back-to-top">
+	  <a href="#top">⬆️ Retour en haut</a>
+	</div>
+    </div>
+
+    <!-- Vidéo -->
+    <div class="category">
+      <div class="category-header">
+        <div class="category-icon color-video">🎬</div>
+        <h2 class="category-title">Vidéo</h2>
+      </div>
+      <div class="links-grid">
+        <a href="https://www.youtube.com/watch?v=9TwedVHohUc&t=1s" class="link-card"><div class="link-title">YouTube — 9TwedVHohUc</div><div class="link-description">https://www.youtube.com/watch?v=9TwedVHohUc&t=1s</div></a>
+      </div>
+	  	<div class="back-to-top">
+	  <a href="#top">⬆️ Retour en haut</a>
+	</div>
+    </div>
+
+    <!-- Stream -->
+    <div class="category">
+      <div class="category-header">
+        <div class="category-icon color-stream">📡</div>
+        <h2 class="category-title">Stream</h2>
+      </div>
+      <div class="links-grid">
+        <a href="https://french-stream.one" class="link-card"><div class="link-title">French-Stream</div><div class="link-description">https://french-stream.one</div></a>
+        <a href="https://hdtoday.cc/home" class="link-card"><div class="link-title">HDToday</div><div class="link-description">https://hdtoday.cc/home</div></a>
+        <a href="https://buzzmonclick.io" class="link-card"><div class="link-title">BuzzMonClick</div><div class="link-description">https://buzzmonclick.io</div></a>
+        <a href="https://tv.garden" class="link-card"><div class="link-title">TV Garden</div><div class="link-description">https://tv.garden</div></a>
+        <a href="https://www.myretrotvs.com" class="link-card"><div class="link-title">MyRetroTVs</div><div class="link-description">https://www.myretrotvs.com</div></a>
+        <a href="https://ihavenotv.com" class="link-card"><div class="link-title">IHaveNoTV</div><div class="link-description">https://ihavenotv.com</div></a>
+        <a href="https://www.whenjumpscare.com" class="link-card"><div class="link-title">When Jumpscare</div><div class="link-description">https://www.whenjumpscare.com</div></a>
+      </div>
+	  	<div class="back-to-top">
+	  <a href="#top">⬆️ Retour en haut</a>
+	</div>
+    </div>
+
+    <!-- Radio -->
+    <div class="category">
+      <div class="category-header">
+        <div class="category-icon color-radio">📻</div>
+        <h2 class="category-title">Radio</h2>
+      </div>
+      <div class="links-grid">
+        <a href="https://radio.garden" class="link-card"><div class="link-title">Radio.Garden</div><div class="link-description">https://radio.garden</div></a>
+        <a href="https://mynoise.net" class="link-card"><div class="link-title">MyNoise</div><div class="link-description">https://mynoise.net</div></a>
+      </div>
+	  	<div class="back-to-top">
+	  <a href="#top">⬆️ Retour en haut</a>
+	</div>
+    </div>
+
+    <!-- Tutoriaux -->
+    <div class="category">
+      <div class="category-header">
+        <div class="category-icon color-tuto">📚</div>
+        <h2 class="category-title">Tutoriaux</h2>
+      </div>
+      <div class="links-grid">
+        <a href="https://www.freecodecamp.org" class="link-card"><div class="link-title">freeCodeCamp</div><div class="link-description">https://www.freecodecamp.org</div></a>
+        <a href="https://www.mindluster.com" class="link-card"><div class="link-title">MindLuster</div><div class="link-description">https://www.mindluster.com</div></a>
+        <a href="https://www.wolframalpha.com" class="link-card"><div class="link-title">Wolfram|Alpha</div><div class="link-description">https://www.wolframalpha.com</div></a>
+      </div>
+	  	<div class="back-to-top">
+	  <a href="#top">⬆️ Retour en haut</a>
+	</div>
+    </div>
+
+    <!-- Actualité -->
+    <div class="category">
+      <div class="category-header">
+        <div class="category-icon color-news">📰</div>
+        <h2 class="category-title">Actualité</h2>
+      </div>
+      <div class="links-grid">
+        <a href="https://luxmedia.info" class="link-card"><div class="link-title">LuxMedia</div><div class="link-description">https://luxmedia.info</div></a>
+        <a href="https://les7duquebec.net" class="link-card"><div class="link-title">Les 7 du Québec</div><div class="link-description">https://les7duquebec.net</div></a>
+        <a href="https://www.conspiracywatch.info" class="link-card"><div class="link-title">ConspiracyWatch</div><div class="link-description">https://www.conspiracywatch.info</div></a>
+      </div>
+	  	<div class="back-to-top">
+	  <a href="#top">⬆️ Retour en haut</a>
+	</div>
+    </div>
+
+    <!-- Réseaux Sociaux -->
+    <div class="category">
+      <div class="category-header">
+        <div class="category-icon color-social">🌐</div>
+        <h2 class="category-title">Réseaux sociaux</h2>
+      </div>
+      <div class="links-grid">
+        <a href="https://gab.com/home" class="link-card"><div class="link-title">Gab</div><div class="link-description">https://gab.com/home</div></a>
+        <a href="https://www.facebook.com" class="link-card"><div class="link-title">Facebook</div><div class="link-description">https://www.facebook.com</div></a>
+        <a href="https://x.com" class="link-card"><div class="link-title">X (Twitter)</div><div class="link-description">https://x.com</div></a>
+      </div>
+	  	<div class="back-to-top">
+	  <a href="#top">⬆️ Retour en haut</a>
+	</div>
+    </div>
+
+    <!-- 69 meilleurs sites sur Internet -->
+    <div class="category">
+      <div class="category-header">
+        <div class="category-icon color-top69">★</div>
+        <h2 class="category-title">69 meilleurs sites sur Internet (liste incontournable)</h2>
+      </div>
+      <div class="links-grid">
+        <a href="https://500px.com" class="link-card"><div class="link-title">500px</div><div class="link-description">Plate-forme de partage photos</div></a>
+        <a href="https://alertful.com" class="link-card"><div class="link-title">Alertful</div><div class="link-description">Rappels par e-mail</div></a>
+        <a href="https://aviary.com" class="link-card"><div class="link-title">Aviary</div><div class="link-description">Éditeur photo en ligne</div></a>
+        <a href="https://bitly.com" class="link-card"><div class="link-title">Bitly</div><div class="link-description">Raccourcir des URL</div></a>
+        <a href="https://bubbl.us" class="link-card"><div class="link-title">Bubbl.us</div><div class="link-description">Brainstorming collaboratif</div></a>
+        <a href="https://copypastecharacter.com" class="link-card"><div class="link-title">CopyPasteCharacter</div><div class="link-description">Caractères spéciaux</div></a>
+        <a href="https://ctrlq.org/rss" class="link-card"><div class="link-title">CTRLQ RSS</div><div class="link-description">Recherche flux RSS</div></a>
+        <a href="https://ctrlq.org/screenshots" class="link-card"><div class="link-title">CTRLQ Screenshots</div><div class="link-description">Captures page Web</div></a>
+        <a href="https://www.dafont.com" class="link-card"><div class="link-title">DaFont</div><div class="link-description">Catalogue polices</div></a>
+        <a href="https://disposablewebpage.com" class="link-card"><div class="link-title">DisposableWebpage</div><div class="link-description">Page auto-détruite</div></a>
+        <a href="https://doodle.com" class="link-card"><div class="link-title">Doodle</div><div class="link-description">Planifier des réunions</div></a>
+        <a href="https://downforeveryoneorjustme.com" class="link-card"><div class="link-title">Down For Everyone Or Just Me</div><div class="link-description">Statut site</div></a>
+        <a href="https://www.dropbox.com" class="link-card"><div class="link-title">Dropbox</div><div class="link-description">Stockage et sync</div></a>
+        <a href="https://e.ggtimer.com" class="link-card"><div class="link-title">e.ggTimer</div><div class="link-description">Minuterie en ligne</div></a>
+        <a href="https://evernote.com" class="link-card"><div class="link-title">Evernote</div><div class="link-description">Notes multi-appareils</div></a>
+        <a href="https://everytimezone.com" class="link-card"><div class="link-title">Every Time Zone</div><div class="link-description">Fuseaux horaires</div></a>
+        <a href="https://faxzero.com" class="link-card"><div class="link-title">FaxZero</div><div class="link-description">Fax gratuit</div></a>
+        <a href="https://feedmyinbox.com" class="link-card"><div class="link-title">FeedMyInbox</div><div class="link-description">Flux RSS par e-mail</div></a>
+        <a href="https://www.flickr.com" class="link-card"><div class="link-title">Flickr</div><div class="link-description">Photos et vidéos</div></a>
+        <a href="https://www.followupthen.com" class="link-card"><div class="link-title">FollowUpThen</div><div class="link-description">Rappels e-mail</div></a>
+        <a href="https://ge.tt" class="link-card"><div class="link-title">Ge.tt</div><div class="link-description">Envoyer un fichier</div></a>
+        <a href="https://getpocket.com" class="link-card"><div class="link-title">Pocket</div><div class="link-description">Sauvegarder à lire plus tard</div></a>
+        <a href="https://drive.google.com" class="link-card"><div class="link-title">Google Drive</div><div class="link-description">Docs, feuilles, etc.</div></a>
+        <a href="https://gtmetrix.com" class="link-card"><div class="link-title">GTmetrix</div><div class="link-description">Perf de sites</div></a>
+        <a href="https://homestyler.com" class="link-card"><div class="link-title">Homestyler</div><div class="link-description">Maison 3D</div></a>
+        <a href="https://iconfinder.com" class="link-card"><div class="link-title">Iconfinder</div><div class="link-description">Icônes</div></a>
+        <a href="https://www.join.me" class="link-card"><div class="link-title">Join.me</div><div class="link-description">Partage d’écran</div></a>
+        <a href="https://jotti.org" class="link-card"><div class="link-title">Jotti</div><div class="link-description">Scan antivirus</div></a>
+        <a href="https://ifttt.com" class="link-card"><div class="link-title">IFTTT</div><div class="link-description">Automatisations</div></a>
+        <a href="https://imo.im" class="link-card"><div class="link-title">imo</div><div class="link-description">Chat multi-réseaux</div></a>
+        <a href="https://kleki.com" class="link-card"><div class="link-title">Kleki</div><div class="link-description">Dessins et croquis</div></a>
+        <a href="https://liveshare.com" class="link-card"><div class="link-title">Liveshare</div><div class="link-description">Partage instantané</div></a>
+        <a href="https://livestream.com" class="link-card"><div class="link-title">Livestream</div><div class="link-description">Événements en direct</div></a>
+        <a href="https://mailvu.com" class="link-card"><div class="link-title">Mailvu</div><div class="link-description">Vidéo par e-mail</div></a>
+        <a href="https://marker.to" class="link-card"><div class="link-title">Marker.to</div><div class="link-description">Surligner page web</div></a>
+        <a href="https://www.midomi.com" class="link-card"><div class="link-title">Midomi</div><div class="link-description">Trouver une chanson</div></a>
+        <a href="https://minutes.io" class="link-card"><div class="link-title">Minutes.io</div><div class="link-description">Notes réunion</div></a>
+        <a href="https://mixlr.com" class="link-card"><div class="link-title">Mixlr</div><div class="link-description">Audio en direct</div></a>
+        <a href="https://www.myfonts.com/WhatTheFont" class="link-card"><div class="link-title">WhatTheFont</div><div class="link-description">Identifier une police</div></a>
+        <a href="https://www.noteflight.com" class="link-card"><div class="link-title">Noteflight</div><div class="link-description">Partitions musicales</div></a>
+        <a href="https://notes.io" class="link-card"><div class="link-title">Notes.io</div><div class="link-description">Notes rapides</div></a>
+        <a href="https://oneload.com" class="link-card"><div class="link-title">Oneload</div><div class="link-description">Upload multi plateformes</div></a>
+        <a href="https://www.otixo.com" class="link-card"><div class="link-title">Otixo</div><div class="link-description">Gestion multi-cloud</div></a>
+        <a href="https://pancake.io" class="link-card"><div class="link-title">Pancake.io</div><div class="link-description">Site via Dropbox</div></a>
+        <a href="https://www.pdfescape.com" class="link-card"><div class="link-title">PDFescape</div><div class="link-description">Éditer PDF en ligne</div></a>
+        <a href="https://www.picmonkey.com" class="link-card"><div class="link-title">PicMonkey</div><div class="link-description">Retouche photo</div></a>
+        <a href="https://www.pipebytes.com" class="link-card"><div class="link-title">PipeBytes</div><div class="link-description">Transfert P2P fichiers</div></a>
+        <a href="https://www.printwhatyoulike.com" class="link-card"><div class="link-title">PrintWhatYouLike</div><div class="link-description">Impression ciblée</div></a>
+        <a href="https://privnote.com" class="link-card"><div class="link-title">Privnote</div><div class="link-description">Notes auto-détruites</div></a>
+        <a href="https://random.org" class="link-card"><div class="link-title">Random.org</div><div class="link-description">Tirages aléatoires</div></a>
+        <a href="https://rememberthemilk.com" class="link-card"><div class="link-title">Remember The Milk</div><div class="link-description">Liste de tâches</div></a>
+        <a href="https://safeweb.norton.com" class="link-card"><div class="link-title">Norton SafeWeb</div><div class="link-description">Analyse site</div></a>
+        <a href="https://screenr.com" class="link-card"><div class="link-title">Screenr</div><div class="link-description">Capture vidéo / YouTube</div></a>
+        <a href="https://www.scribblemaps.com" class="link-card"><div class="link-title">Scribble Maps</div><div class="link-description">Google Maps personnalisée</div></a>
+        <a href="https://scr.im" class="link-card"><div class="link-title">Scr.im</div><div class="link-description">Partager e-mail sans spam</div></a>
+        <a href="https://www.similarsites.com" class="link-card"><div class="link-title">SimilarSites</div><div class="link-description">Sites similaires</div></a>
+        <a href="https://www.stupeflix.com" class="link-card"><div class="link-title">Stupeflix</div><div class="link-description">Montage vidéo express</div></a>
+        <a href="https://www.sumopaint.com" class="link-card"><div class="link-title">SumoPaint</div><div class="link-description">Retouche photo en ligne</div></a>
+        <a href="https://www.freeimages.com" class="link-card"><div class="link-title">FreeImages (ex sxc.hu)</div><div class="link-description">Images libres de droit</div></a>
+        <a href="https://tagmydoc.com" class="link-card"><div class="link-title">TagMyDoc</div><div class="link-description">Accès instantané au doc</div></a>
+        <a href="https://talltweets.com" class="link-card"><div class="link-title">TallTweets</div><div class="link-description">Tweets > 140 caractères</div></a>
+        <a href="https://tinychat.com" class="link-card"><div class="link-title">Tinychat</div><div class="link-description">Forum discussion privé</div></a>
+        <a href="https://translate.google.com" class="link-card"><div class="link-title">Google Translate</div><div class="link-description">Traduction pages / docs</div></a>
+        <a href="https://www.typing.com" class="link-card"><div class="link-title">Typing (ex typingweb)</div><div class="link-description">Entraînement clavier</div></a>
+        <a href="https://wetransfer.com" class="link-card"><div class="link-title">WeTransfer</div><div class="link-description">Partage gros fichiers</div></a>
+        <a href="https://www.woorank.com" class="link-card"><div class="link-title">WooRank</div><div class="link-description">SEO site/blog</div></a>
+        <a href="https://www.wordle.net" class="link-card"><div class="link-title">Wordle.net</div><div class="link-description">Nuage de mots-clés</div></a>
+        <a href="https://www.youtube.com/disco" class="link-card"><div class="link-title">YouTube Disco</div><div class="link-description">Playlist artiste</div></a>
+        <a href="https://zoom.it" class="link-card"><div class="link-title">Zoom.it</div><div class="link-description">Zoom image HD</div></a>
+      </div>
+	  	<div class="back-to-top">
+	  <a href="#top">⬆️ Retour en haut</a>
+	</div>
+    </div>
+  </div>
+
+  <script>
+    function filterLinks() {
+      const q = document.getElementById('searchInput').value.trim().toLowerCase();
+      const cards = document.querySelectorAll('.link-card');
+      cards.forEach(card => {
+        const t = card.querySelector('.link-title').textContent.toLowerCase();
+        const d = card.querySelector('.link-description').textContent.toLowerCase();
+        const match = t.includes(q) || d.includes(q);
+        card.style.display = match ? '' : 'none';
+        if (match) card.style.animation = 'fadeIn .4s ease';
+      });
+    }
+    function toggleMode() {
+      document.body.classList.toggle('dark');
+    }
+  </script>
+<script>
+  document.querySelectorAll('a').forEach(link => {
+    // n’applique target="_blank" que si ce n’est PAS un lien interne
+    if (!link.getAttribute('href').startsWith('#')) {
+      link.setAttribute('target', '_blank');
+    }
+  });
+</script>
+
+</body>
+</html>

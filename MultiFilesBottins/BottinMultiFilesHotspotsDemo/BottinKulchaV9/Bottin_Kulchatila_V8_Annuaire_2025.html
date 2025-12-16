@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Bottin Annuaire Web Libre 2025</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="theme-dark">
+  <header class="header">
+    <div class="container">
+      <h1>Bottin Annuaire Web Libre 2025</h1>
+      <div class="controls">
+        <input id="searchInput" type="text" placeholder="Rechercher (organisation, description, catégorie)..." />
+        <button id="btnClearFilters" class="btn btn-secondary">Effacer filtres</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <div class="container two-columns">
+      <!-- Colonne gauche -->
+      <section class="left-column">
+        <h2>Organisations & Entreprises</h2>
+        <div class="stats">
+          <span id="filteredCount" class="badge">0 entrées</span>
+        </div>
+        <div id="entriesContainer" class="entries-grid"></div>
+      </section>
+
+      <!-- Colonne droite -->
+      <aside class="right-column">
+        <section>
+          <h2>Top 10 thématiques</h2>
+          <div id="themesTop10" class="themes-grid"></div>
+        </section>
+
+        <section>
+          <h2>Toutes les catégories</h2>
+          <div id="categoriesContainer" class="categories-grid"></div>
+        </section>
+
+        <section>
+          <h2>Toutes les thématiques</h2>
+          <div id="allThemesContainer" class="themes-grid"></div>
+        </section>
+
+        <section>
+          <h2>Exports</h2>
+          <div class="export-row">
+            <label for="datasFormatSelect"><strong>Format datas.js:</strong></label>
+            <select id="datasFormatSelect">
+              <option value="compact" selected>Compact (1 ligne/entrée)</option>
+              <option value="pretty">Lisible (multilignes)</option>
+            </select>
+          </div>
+          <div class="export-buttons">
+            <button id="btnExportJSON" class="btn">Export JSON</button>
+            <button id="btnExportDatasJS" class="btn">Export datas.js</button>
+            <button id="btnExportTopThemes" class="btn btn-secondary">Export toptheme.js (auto)</button>
+          </div>
+        </section>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>© 2025 - Bottin Annuaire Web Libre</p>
+    </div>
+  </footer>
+
+  <script src="datas.js"></script>
+  <script src="toptheme.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Annuaire des Hotspots Canadiens 2025</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: linear-gradient(90deg, #2c3e50, #4a6491);
+            color: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        h1 i {
+            color: #3498db;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .stats-bar {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .stat-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            flex: 1;
+            min-width: 200px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .stat-card h3 {
+            color: #2c3e50;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #2980b9;
+            margin: 10px 0;
+        }
+        
+        .content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-top: 20px;
+        }
+        
+        .sites-section, .themes-section {
+            flex: 1;
+            min-width: 300px;
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 12px;
+            margin-bottom: 25px;
+            font-size: 1.8rem;
+        }
+        
+        .site-card {
+            background: #f8f9fa;
+            border-left: 5px solid #3498db;
+            border-radius: 8px;
+            padding: 18px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .site-card:hover {
+            background: #edf5ff;
+            transform: translateX(5px);
+        }
+        
+        .site-name {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 8px;
+        }
+        
+        .site-name a {
+            color: #2c3e50;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .site-name a:hover {
+            color: #2980b9;
+            text-decoration: underline;
+        }
+        
+        .site-category {
+            display: inline-block;
+            background: #e3f2fd;
+            color: #1565c0;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 12px;
+        }
+        
+        .site-description {
+            color: #555;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+        
+        .theme-card {
+            display: flex;
+            align-items: center;
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .theme-card:hover {
+            background: #edf5ff;
+        }
+        
+        .theme-count {
+            font-size: 2.2rem;
+            font-weight: bold;
+            color: #2980b9;
+            min-width: 70px;
+            text-align: center;
+        }
+        
+        .theme-info {
+            flex: 1;
+        }
+        
+        .theme-name {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 8px;
+        }
+        
+        .theme-description {
+            color: #666;
+            font-size: 0.95rem;
+        }
+        
+        .search-filter {
+            margin-bottom: 30px;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        #searchInput {
+            flex: 1;
+            min-width: 250px;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        
+        #searchInput:focus {
+            border-color: #3498db;
+            outline: none;
+        }
+        
+        #categoryFilter {
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 1rem;
+            background: white;
+            cursor: pointer;
+        }
+        
+        .no-results {
+            text-align: center;
+            padding: 40px;
+            color: #7f8c8d;
+            font-size: 1.1rem;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            border-top: 1px solid #ddd;
+        }
+        
+        @media (max-width: 768px) {
+            .content {
+                flex-direction: column;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .stats-bar {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-wifi"></i> Annuaire des Hotspots Canadiens 2025</h1>
+            <p class="subtitle">Répertoire complet des réseaux Wi-Fi publics, espaces de coworking et hubs d'innovation à travers le Canada</p>
+        </header>
+        
+        <div class="stats-bar" id="statsBar">
+            <!-- Les statistiques seront chargées dynamiquement -->
+        </div>
+        
+        <div class="search-filter">
+            <input type="text" id="searchInput" placeholder="Rechercher un hotspot par nom, description ou catégorie...">
+            <select id="categoryFilter">
+                <option value="all">Toutes les catégories</option>
+                <!-- Les options de catégorie seront chargées dynamiquement -->
+            </select>
+        </div>
+        
+        <div class="content">
+            <section class="sites-section">
+                <h2 class="section-title"><i class="fas fa-map-marker-alt"></i> Liste des Hotspots</h2>
+                <div id="sitesContainer">
+                    <!-- Les sites seront chargés dynamiquement -->
+                </div>
+            </section>
+            
+            <section class="themes-section">
+                <h2 class="section-title"><i class="fas fa-chart-pie"></i> Thématiques Principales</h2>
+                <div id="themesContainer">
+                    <!-- Les thèmes seront chargés dynamiquement -->
+                </div>
+            </section>
+        </div>
+        
+        <footer>
+            <p>© 2025 - Annuaire des Hotspots Canadiens | Données mises à jour en temps réel</p>
+            <p><i class="fas fa-exclamation-circle"></i> Pour des hotspots spécifiques à votre position GPS, utilisez les applications des fournisseurs ou Google Maps.</p>
+        </footer>
+    </div>
+
+    <!-- Importation du fichier de données -->
+    <script src="./Datas.js"></script>
+    
+    <script>
+        // Attendre que le DOM soit chargé
+        document.addEventListener('DOMContentLoaded', function() {
+            // Vérifier que les données sont disponibles
+            if (typeof sites === 'undefined' || typeof topThemes === 'undefined') {
+                console.error("Les données n'ont pas été chargées correctement. Vérifiez le fichier Datas.js");
+                return;
+            }
+            
+            // Afficher les statistiques
+            displayStats();
+            
+            // Afficher les sites
+            displaySites(sites);
+            
+            // Afficher les thèmes
+            displayThemes(topThemes);
+            
+            // Configurer la recherche
+            setupSearchAndFilter();
+        });
+        
+        function displayStats() {
+            const statsBar = document.getElementById('statsBar');
+            const totalSites = sites.length;
+            const totalThemes = topThemes.length;
+            const totalWiFi = sites.filter(site => site.c.includes("Wi-Fi")).length;
+            const totalCoworking = sites.filter(site => site.c.includes("Coworking")).length;
+            
+            statsBar.innerHTML = `
+                <div class="stat-card">
+                    <h3><i class="fas fa-globe"></i> Total des Hotspots</h3>
+                    <div class="stat-number">${totalSites}</div>
+                    <p>Sites répertoriés</p>
+                </div>
+                <div class="stat-card">
+                    <h3><i class="fas fa-wifi"></i> Points Wi-Fi</h3>
+                    <div class="stat-number">${totalWiFi}</div>
+                    <p>Réseaux publics</p>
+                </div>
+                <div class="stat-card">
+                    <h3><i class="fas fa-briefcase"></i> Espaces Coworking</h3>
+                    <div class="stat-number">${totalCoworking}</div>
+                    <p>Lieux de travail</p>
+                </div>
+                <div class="stat-card">
+                    <h3><i class="fas fa-list"></i> Catégories</h3>
+                    <div class="stat-number">${totalThemes}</div>
+                    <p>Thématiques principales</p>
+                </div>
+            `;
+        }
+        
+        function displaySites(sitesToDisplay) {
+            const sitesContainer = document.getElementById('sitesContainer');
+            
+            if (sitesToDisplay.length === 0) {
+                sitesContainer.innerHTML = '<div class="no-results"><i class="fas fa-search fa-2x"></i><p>Aucun hotspot ne correspond à votre recherche.</p></div>';
+                return;
+            }
+            
+            let sitesHTML = '';
+            sitesToDisplay.forEach(site => {
+                sitesHTML += `
+                    <div class="site-card">
+                        <div class="site-name">
+                            <a href="${site.u}" target="_blank" title="Visiter le site">
+                                <i class="fas fa-external-link-alt"></i> ${site.n}
+                            </a>
+                        </div>
+                        <div class="site-category">${site.c}</div>
+                        <div class="site-description">${site.d}</div>
+                    </div>
+                `;
+            });
+            
+            sitesContainer.innerHTML = sitesHTML;
+            
+            // Mettre à jour le filtre de catégories
+            updateCategoryFilter(sitesToDisplay);
+        }
+        
+        function displayThemes(themesToDisplay) {
+            const themesContainer = document.getElementById('themesContainer');
+            
+            let themesHTML = '';
+            themesToDisplay.forEach(theme => {
+                themesHTML += `
+                    <div class="theme-card">
+                        <div class="theme-count">${theme.count}</div>
+                        <div class="theme-info">
+                            <div class="theme-name">${theme.theme}</div>
+                            <div class="theme-description">${theme.description}</div>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            themesContainer.innerHTML = themesHTML;
+        }
+        
+        function updateCategoryFilter(sitesToDisplay) {
+            const categoryFilter = document.getElementById('categoryFilter');
+            
+            // Récupérer toutes les catégories uniques
+            const categories = [...new Set(sitesToDisplay.map(site => site.c))];
+            
+            // Sauvegarder la sélection actuelle
+            const currentSelection = categoryFilter.value;
+            
+            // Vider les options (sauf "Toutes les catégories")
+            while (categoryFilter.options.length > 1) {
+                categoryFilter.remove(1);
+            }
+            
+            // Ajouter les nouvelles catégories
+            categories.forEach(category => {
+                const option = document.createElement('option');
+                option.value = category;
+                option.textContent = category;
+                categoryFilter.appendChild(option);
+            });
+            
+            // Restaurer la sélection si elle existe toujours
+            if (categories.includes(currentSelection)) {
+                categoryFilter.value = currentSelection;
+            }
+        }
+        
+        function setupSearchAndFilter() {
+            const searchInput = document.getElementById('searchInput');
+            const categoryFilter = document.getElementById('categoryFilter');
+            
+            function filterSites() {
+                const searchTerm = searchInput.value.toLowerCase();
+                const selectedCategory = categoryFilter.value;
+                
+                const filteredSites = sites.filter(site => {
+                    const matchesSearch = site.n.toLowerCase().includes(searchTerm) || 
+                                         site.d.toLowerCase().includes(searchTerm) ||
+                                         site.c.toLowerCase().includes(searchTerm);
+                    
+                    const matchesCategory = selectedCategory === 'all' || site.c === selectedCategory;
+                    
+                    return matchesSearch && matchesCategory;
+                });
+                
+                displaySites(filteredSites);
+            }
+            
+            searchInput.addEventListener('input', filterSites);
+            categoryFilter.addEventListener('change', filterSites);
+        }
+    </script>
+</body>
+</html>

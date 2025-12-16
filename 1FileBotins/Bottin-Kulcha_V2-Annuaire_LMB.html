@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mon Annuaire Web Complet</title>
+    <style>
+    * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+	}
+
+	body {
+		font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+		background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+		min-height: 100vh;
+		padding: 40px 20px;
+		color=blue	
+	    text-shadow: 
+        -1px -1px 0 #000000,  
+         1px -1px 0 #000000,
+        -1px  1px 0 #000000,
+         1px  1px 0 #000000; /* contour noir */	
+	}
+
+	.container {
+		max-width: 1200px;
+		margin: 0 auto;
+	}
+
+	h1 {
+		text-align: center;
+		color: white;
+		font-size: 3em;
+		margin-bottom: 20px;
+		text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+		animation: fadeInDown 1s ease;
+	}
+
+	.subtitle {
+		text-align: center;
+		color: rgba(255,255,255,0.9);
+		font-size: 1.2em;
+		margin-bottom: 50px;
+		animation: fadeInUp 1s ease;
+	}
+
+	.search-box {
+		text-align: center;
+		margin-bottom: 40px;
+		animation: fadeIn 1.5s ease;
+	}
+
+	.search-box input {
+		padding: 15px 25px;
+		width: 100%;
+		max-width: 500px;
+		border: none;
+		border-radius: 50px;
+		font-size: 1em;
+		box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+		transition: transform 0.3s ease, box-shadow 0.3s ease;
+	}
+
+	.search-box input:focus {
+		outline: none;
+		transform: scale(1.05);
+		box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+	}
+
+	.category {
+		background: rgba(255,255,255,0.95);
+		border-radius: 20px;
+		padding: 30px;
+		margin-bottom: 30px;
+		box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+		animation: slideIn 0.8s ease;
+		transition: transform 0.3s ease;
+	}
+
+	.category:hover {
+		transform: translateY(-5px);
+	}
+
+	.category-header {
+		display: flex;
+		align-items: center;
+		margin-bottom: 25px;
+		cursor: pointer;
+	}
+
+	.category-icon {
+		width: 50px;
+		height: 50px;
+		border-radius: 15px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 1.8em;
+		margin-right: 20px;
+		animation: pulse 2s infinite;
+	}
+
+	.category-title {
+		font-size: 1.8em;
+		font-weight: bold;
+		background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		background-clip: text;
+		color = blue
+		    text-shadow: 
+        -1px -1px 0 #000000,  
+         1px -1px 0 #000000,
+        -1px  1px 0 #000000,
+         1px  1px 0 #000000; /* contour noir */
+	}
+
+	.links-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+		gap: 20px;
+		text-shadow: 
+        -1px -1px 0 #000000,  
+         1px -1px 0 #000000,
+        -1px  1px 0 #000000,
+         1px  1px 0 #000000; /* contour noir */
+	}
+
+	.link-card {
+		background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+		padding: 20px;
+		border-radius: 15px;
+		text-decoration: none;
+		color: white;
+		transition: all 0.3s ease;
+		box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+		position: relative;
+		overflow: hidden;
+	}
+
+	.link-card::before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: -100%;
+		width: 100%;
+		height: 100%;
+		background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+		transition: left 0.5s ease;
+	}
+
+	.link-card:hover::before {
+		left: 100%;
+	}
+
+	.link-card:hover {
+		transform: translateY(-5px) scale(1.02);
+		box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+	}
+
+	.link-title {
+		font-size: 1.2em;
+		font-weight: bold;
+		margin-bottom: 8px;
+		    text-shadow: 
+        -1px -1px 0 #000000,  
+         1px -1px 0 #000000,
+        -1px  1px 0 #000000,
+         1px  1px 0 #000000; /* contour noir */
+	}
+
+	.link-description {
+		font-size: 0.9em;
+		opacity: 0.9;
+		    text-shadow: 
+        -1px -1px 0 #000000,  
+         1px -1px 0 #000000,
+        -1px  1px 0 #000000,
+         1px  1px 0 #000000; /* contour noir */
+	}
+
+/* 100 dégradés Pastel Neon Glow optimisés texte blanc – gauche vibrant → droite très pâle */
+.color-1 { background: linear-gradient(135deg, #ff2e63 0%, #f8e1ea 100%); }
+.color-2 { background: linear-gradient(135deg, #08f5d8 0%, #e5fffc 100%); }
+.color-3 { background: linear-gradient(135deg, #7b2cff 0%, #f0e8ff 100%); }
+.color-4 { background: linear-gradient(135deg, #00f5ff 0%, #e8fbff 100%); }
+.color-5 { background: linear-gradient(135deg, #ff9d00 0%, #fff4e8 100%); }
+.color-6 { background: linear-gradient(135deg, #ff2a6d 0%, #ffe6ef 100%); }
+.color-7 { background: linear-gradient(135deg, #1fddb7 0%, #e8fff9 100%); }
+.color-8 { background: linear-gradient(135deg, #ff006e 0%, #ffe6f0 100%); }
+.color-9 { background: linear-gradient(135deg, #3f8eff 0%, #ebf0ff 100%); }
+.color-10 { background: linear-gradient(135deg, #bd00ff 0%, #f5e8ff 100%); }
+.color-11 { background: linear-gradient(135deg, #00ff9d 0%, #e8fff5 100%); }
+.color-12 { background: linear-gradient(135deg, #ffcc00 0%, #fffbe8 100%); }
+.color-13 { background: linear-gradient(135deg, #ff3864 0%, #ffe8ed 100%); }
+.color-14 { background: linear-gradient(135deg, #00d1ff 0%, #e8f8ff 100%); }
+.color-15 { background: linear-gradient(135deg, #ff5e00 0%, #ffefea 100%); }
+.color-16 { background: linear-gradient(135deg, #e100ff 0%, #fbe8ff 100%); }
+.color-17 { background: linear-gradient(135deg, #00ff85 0%, #e8ffef 100%); }
+.color-18 { background: linear-gradient(135deg, #ff9500 0%, #fff5e8 100%); }
+.color-19 { background: linear-gradient(135deg, #ff008c 0%, #ffe8f3 100%); }
+.color-20 { background: linear-gradient(135deg, #2bffb6 0%, #e8fff7 100%); }
+.color-21 { background: linear-gradient(135deg, #8a2be2 0%, #f0e8ff 100%); }
+.color-22 { background: linear-gradient(135deg, #ff2af5 0%, #ffe8fd 100%); }
+.color-23 { background: linear-gradient(135deg, #00ffea 0%, #e8fffd 100%); }
+.color-24 { background: linear-gradient(135deg, #ff6b00 0%, #fff0e8 100%); }
+.color-25 { background: linear-gradient(135deg, #d900ff 0%, #fae8ff 100%); }
+.color-26 { background: linear-gradient(135deg, #00ff44 0%, #e8ffed 100%); }
+.color-27 { background: linear-gradient(135deg, #ffab00 0%, #fff8e8 100%); }
+.color-28 { background: linear-gradient(135deg, #ff007a 0%, #ffe8ef 100%); }
+.color-29 { background: linear-gradient(135deg, #00c3ff 0%, #e8f5ff 100%); }
+.color-30 { background: linear-gradient(135deg, #ff3300 0%, #ffede8 100%); }
+.color-31 { background: linear-gradient(135deg, #c300ff 0%, #f8e8ff 100%); }
+.color-32 { background: linear-gradient(135deg, #00ff6b 0%, #e8fff0 100%); }
+.color-33 { background: linear-gradient(135deg, #ffea00 0%, #fffde8 100%); }
+.color-34 { background: linear-gradient(135deg, #ff1493 0%, #ffe8f5 100%); }
+.color-35 { background: linear-gradient(135deg, #00aaff 0%, #e8f0ff 100%); }
+.color-36 { background: linear-gradient(135deg, #ff5c8a 0%, #ffeaef 100%); }
+.color-37 { background: linear-gradient(135deg, #6600ff 0%, #eee8ff 100%); }
+.color-38 { background: linear-gradient(135deg, #00ffaa 0%, #e8fff6 100%); }
+.color-39 { background: linear-gradient(135deg, #ffb800 0%, #fff9e8 100%); }
+.color-40 { background: linear-gradient(135deg, #ff0055 0%, #ffe8eb 100%); }
+.color-41 { background: linear-gradient(135deg, #1e90ff 0%, #e8f3ff 100%); }
+.color-42 { background: linear-gradient(135deg, #ff00bb 0%, #ffe8f9 100%); }
+.color-43 { background: linear-gradient(135deg, #00ff33 0%, #e8ffec 100%); }
+.color-44 { background: linear-gradient(135deg, #ff7733 0%, #fff0ea 100%); }
+.color-45 { background: linear-gradient(135deg, #ff00ff 0%, #ffe8ff 100%); }
+.color-46 { background: linear-gradient(135deg, #00eeff 0%, #e8fdff 100%); }
+.color-47 { background: linear-gradient(135deg, #ff4444 0%, #ffe8e8 100%); }
+.color-48 { background: linear-gradient(135deg, #9400ff 0%, #f2e8ff 100%); }
+.color-49 { background: linear-gradient(135deg, #00ffcc 0%, #e8fffb 100%); }
+.color-50 { background: linear-gradient(135deg, #ffdd00 0%, #fffce8 100%); }
+.color-51 { background: linear-gradient(135deg, #ff3366 0%, #ffe8eb 100%); }
+.color-52 { background: linear-gradient(135deg, #3366ff 0%, #ebeeff 100%); }
+.color-53 { background: linear-gradient(135deg, #ff00aa 0%, #ffe8f7 100%); }
+.color-54 { background: linear-gradient(135deg, #00ff7f 0%, #e8fff3 100%); }
+.color-55 { background: linear-gradient(135deg, #ff9900 0%, #fff6e8 100%); }
+.color-56 { background: linear-gradient(135deg, #ff1ece 0%, #ffe8fa 100%); }
+.color-57 { background: linear-gradient(135deg, #00b7ff 0%, #e8eeff 100%); }
+.color-58 { background: linear-gradient(135deg, #ff5500 0%, #ffeee8 100%); }
+.color-59 { background: linear-gradient(135deg, #a200ff 0%, #f3e8ff 100%); }
+.color-60 { background: linear-gradient(135deg, #00ff95 0%, #e8fff5 100%); }
+.color-61 { background: linear-gradient(135deg, #ffcc29 0%, #fffbe9 100%); }
+.color-62 { background: linear-gradient(135deg, #ff0080 0%, #ffe8f1 100%); }
+.color-63 { background: linear-gradient(135deg, #00ddff 0%, #e8faff 100%); }
+.color-64 { background: linear-gradient(135deg, #ff4d4d 0%, #ffeaea 100%); }
+.color-65 { background: linear-gradient(135deg, #8a00ff 0%, #f0e8ff 100%); }
+.color-66 { background: linear-gradient(135deg, #00ffb3 0%, #e8fff8 100%); }
+.color-67 { background: linear-gradient(135deg, #ffb347 0%, #fff8ee 100%); }
+.color-68 { background: linear-gradient(135deg, #ff2070 0%, #ffe8ed 100%); }
+.color-69 { background: linear-gradient(135deg, #2070ff 0%, #e8efff 100%); }
+.color-70 { background: linear-gradient(135deg, #ff00e6 0%, #ffe8fd 100%); }
+.color-71 { background: linear-gradient(135deg, #00ff6e 0%, #e8fff1 100%); }
+.color-72 { background: linear-gradient(135deg, #ffaa00 0%, #fff8e8 100%); }
+.color-73 { background: linear-gradient(135deg, #ff3399 0%, #ffe8f1 100%); }
+.color-74 { background: linear-gradient(135deg, #00ccff 0%, #e8f7ff 100%); }
+.color-75 { background: linear-gradient(135deg, #ff6666 0%, #ffefef 100%); }
+.color-76 { background: linear-gradient(135deg, #b300ff 0%, #f6e8ff 100%); }
+.color-77 { background: linear-gradient(135deg, #00ffaa 0%, #e8fff6 100%); }
+.color-78 { background: linear-gradient(135deg, #ff8800 0%, #fff3e8 100%); }
+.color-79 { background: linear-gradient(135deg, #ff00c8 0%, #ffe8fb 100%); }
+.color-80 { background: linear-gradient(135deg, #00ffff 0%, #e8ffff 100%); }
+.color-81 { background: linear-gradient(135deg, #ff5151 0%, #ffebec 100%); }
+.color-82 { background: linear-gradient(135deg, #7000ff 0%, #ece8ff 100%); }
+.color-83 { background: linear-gradient(135deg, #00ffbf 0%, #e8fff9 100%); }
+.color-84 { background: linear-gradient(135deg, #ffbf00 0%, #fffbe8 100%); }
+.color-85 { background: linear-gradient(135deg, #ff0066 0%, #ffe8ec 100%); }
+.color-86 { background: linear-gradient(135deg, #00aaff 0%, #e8f0ff 100%); }
+.color-87 { background: linear-gradient(135deg, #ff2b8c 0%, #ffe8f2 100%); }
+.color-88 { background: linear-gradient(135deg, #00ff50 0%, #e8ffee 100%); }
+.color-89 { background: linear-gradient(135deg, #ff7733 0%, #fff0ea 100%); }
+.color-90 { background: linear-gradient(135deg, #cc00ff 0%, #f9e8ff 100%); }
+.color-91 { background: linear-gradient(135deg, #00ffd1 0%, #e8fffc 100%); }
+.color-92 { background: linear-gradient(135deg, #ffdd33 0%, #fffceb 100%); }
+.color-93 { background: linear-gradient(135deg, #ff4d94 0%, #ffeaf0 100%); }
+.color-94 { background: linear-gradient(135deg, #00bbff 0%, #e8f4ff 100%); }
+.color-95 { background: linear-gradient(135deg, #ff3333 0%, #ffe8e8 100%); }
+.color-96 { background: linear-gradient(135deg, #9900ff 0%, #f1e8ff 100%); }
+.color-97 { background: linear-gradient(135deg, #00ff99 0%, #e8fff4 100%); }
+.color-98 { background: linear-gradient(135deg, #ffaa33 0%, #fff9ea 100%); }
+.color-99 { background: linear-gradient(135deg, #ff0077 0%, #ffe8ee 100%); }
+.color-100 { background: linear-gradient(135deg, #00eeff 0%, #e8fdff 100%); }
+
+	/* Animations */
+	@keyframes fadeInDown {
+		from {
+			opacity: 0;
+			transform: translateY(-30px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+
+	@keyframes fadeInUp {
+		from {
+			opacity: 0;
+			transform: translateY(30px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+
+	@keyframes fadeIn {
+		from { opacity: 0; }
+		to { opacity: 1; }
+	}
+
+	@keyframes slideIn {
+		from {
+			opacity: 0;
+			transform: translateX(-50px);
+		}
+		to {
+			opacity: 1;
+			transform: translateX(0);
+		}
+	}
+
+	@keyframes pulse {
+		0%, 100% { transform: scale(1); }
+		50% { transform: scale(1.1); }
+	}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🌟 Mon Annuaire Web</h1>
+        <p class="subtitle">Tous vos liens favoris organisés et stylisés</p>
+        
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="🔍 Rechercher un lien..." onkeyup="filterLinks()">
+        </div>
+
+        <!-- Catégorie 1 -->
+        <div class="category">
+            <div class="category-header">
+                <div class="category-icon color-1">🔍</div>
+                <h2 class="category-title">Moteurs de Recherche</h2>
+            </div>
+            <div class="links-grid">
+                <a href="https://www.google.com" class="link-card color-1" target="_blank">
+                    <div class="link-title">Google</div>
+                    <div class="link-description">Moteur de recherche #1 mondial</div>
+                </a>
+                <a href="https://duckduckgo.com" class="link-card color-2" target="_blank">
+                    <div class="link-title">DuckDuckGo</div>
+                    <div class="link-description">Recherche privée sans tracking</div>
+                </a>
+                <a href="https://www.bing.com" class="link-card color-3" target="_blank">
+                    <div class="link-title">Bing</div>
+                    <div class="link-description">Moteur de Microsoft</div>
+                </a>
+                <a href="https://search.brave.com" class="link-card color-4" target="_blank">
+                    <div class="link-title">Brave Search</div>
+                    <div class="link-description">Recherche indépendante et privée</div>
+                </a>
+                <a href="https://www.startpage.com" class="link-card color-5" target="_blank">
+                    <div class="link-title">Startpage</div>
+                    <div class="link-description">Résultats Google anonymisés</div>
+                </a>
+                <a href="https://www.ecosia.org" class="link-card color-6" target="_blank">
+                    <div class="link-title">Ecosia</div>
+                    <div class="link-description">Plante des arbres en cherchant</div>
+                </a>
+                <a href="https://www.qwant.com" class="link-card color-7" target="_blank">
+                    <div class="link-title">Qwant</div>
+                    <div class="link-description">Moteur français respectueux</div>
+                </a>
+                <a href="https://yandex.com" class="link-card color-8" target="_blank">
+                    <div class="link-title">Yandex</div>
+                    <div class="link-description">Moteur russe populaire</div>
+                </a>
+                <a href="https://www.baidu.com" class="link-card color-9" target="_blank">
+                    <div class="link-title">Baidu</div>
+                    <div class="link-description">Leader chinois de la recherche</div>
+                </a>
+                <a href="https://ca.yahoo.com" class="link-card color-10" target="_blank">
+                    <div class="link-title">Yahoo</div>
+                    <div class="link-description">Portail et moteur classique</div>
+                </a>
+            </div>
+        </div>
+
+        <!-- Catégorie 2 -->
+        <div class="category">
+            <div class="category-header">
+                <div class="category-icon color-11">🤖</div>
+                <h2 class="category-title">Intelligence Artificielle</h2>
+            </div>
+            <div class="links-grid">
+                <a href="https://chatgpt.com" class="link-card color-11" target="_blank">
+                    <div class="link-title">ChatGPT</div>
+                    <div class="link-description">Assistant IA conversationnel OpenAI</div>
+                </a>
+                <a href="https://claude.ai/new" class="link-card color-12" target="_blank">
+                    <div class="link-title">Claude</div>
+                    <div class="link-description">IA Anthropic avancée</div>
+                </a>
+                <a href="https://gemini.google.com/app" class="link-card color-13" target="_blank">
+                    <div class="link-title">Gemini</div>
+                    <div class="link-description">IA multimodale de Google</div>
+                </a>
+                <a href="https://copilot.microsoft.com" class="link-card color-14" target="_blank">
+                    <div class="link-title">Copilot</div>
+                    <div class="link-description">Assistant Microsoft IA</div>
+                </a>
+                <a href="https://www.perplexity.ai" class="link-card color-15" target="_blank">
+                    <div class="link-title">Perplexity</div>
+                    <div class="link-description">Moteur de recherche IA</div>
+                </a>
+                <a href="https://grok.com" class="link-card color-16" target="_blank">
+                    <div class="link-title">Grok</div>
+                    <div class="link-description">IA de X avec humour</div>
+                </a>
+                <a href="https://chat.deepseek.com" class="link-card color-17" target="_blank">
+                    <div class="link-title">DeepSeek</div>
+                    <div class="link-description">IA conversationnelle avancée</div>
+                </a>
+                <a href="https://www.genspark.ai" class="link-card color-18" target="_blank">
+                    <div class="link-title">GenSpark</div>
+                    <div class="link-description">Générateur de contenu IA</div>
+                </a>
+                <a href="https://manus.im/app" class="link-card color-19" target="_blank">
+                    <div class="link-title">Manus</div>
+                    <div class="link-description">Plateforme IA collaborative</div>
+                </a>
+                <a href="https://huggingface.co/spaces" class="link-card color-20" target="_blank">
+                    <div class="link-title">Hugging Face</div>
+                    <div class="link-description">Communauté IA et modèles</div>
+                </a>
+            </div>
+        </div>
+
+        <!-- Catégorie 3 -->
+        <div class="category">
+            <div class="category-header">
+                <div class="category-icon color-21">🗺️</div>
+                <h2 class="category-title">Cartes & Géolocalisation</h2>
+            </div>
+            <div class="links-grid">
+                <a href="https://www.google.ca/maps" class="link-card color-21" target="_blank">
+                    <div class="link-title">Google Maps</div>
+                    <div class="link-description">Navigation et cartes détaillées</div>
+                </a>
+                <a href="https://earth.google.com/web" class="link-card color-22" target="_blank">
+                    <div class="link-title">Google Earth</div>
+                    <div class="link-description">Exploration 3D du globe</div>
+                </a>
+                <a href="https://www.waze.com/fr/live-map" class="link-card color-23" target="_blank">
+                    <div class="link-title">Waze</div>
+                    <div class="link-description">Navigation temps réel communautaire</div>
+                </a>
+                <a href="https://www.bing.com/maps" class="link-card color-24" target="_blank">
+                    <div class="link-title">Bing Maps</div>
+                    <div class="link-description">Alternative Microsoft à Maps</div>
+                </a>
+                <a href="https://360earthview.com" class="link-card color-25" target="_blank">
+                    <div class="link-title">360 Earth View</div>
+                    <div class="link-description">Vues panoramiques mondiales</div>
+                </a>
+                <a href="https://zoom.earth/maps/satellite-hd" class="link-card color-26" target="_blank">
+                    <div class="link-title">Zoom Earth</div>
+                    <div class="link-description">Images satellite HD en direct</div>
+                </a>
+                <a href="https://satellite-map.gosur.com/fr" class="link-card color-27" target="_blank">
+                    <div class="link-title">Satellite Map</div>
+                    <div class="link-description">Cartes satellites détaillées</div>
+                </a>
+                <a href="https://fr.mappy.com/plan" class="link-card color-28" target="_blank">
+                    <div class="link-title">Mappy</div>
+                    <div class="link-description">Itinéraires et plans français</div>
+                </a>
+            </div>
+        </div>
+
+        <!-- Catégorie 4 -->
+        <div class="category">
+            <div class="category-header">
+                <div class="category-icon color-29">🛠️</div>
+                <h2 class="category-title">Outils en Ligne</h2>
+            </div>
+            <div class="links-grid">
+                <a href="https://github.com" class="link-card color-29" target="_blank">
+                    <div class="link-title">GitHub</div>
+                    <div class="link-description">Plateforme de développement collaboratif</div>
+                </a>
+                <a href="https://vercel.com" class="link-card color-30" target="_blank">
+                    <div class="link-title">Vercel</div>
+                    <div class="link-description">Déploiement web moderne</div>
+                </a>
+                <a href="https://www.remove.bg/fr" class="link-card color-31" target="_blank">
+                    <div class="link-title">Remove.bg</div>
+                    <div class="link-description">Suppression arrière-plan automatique</div>
+                </a>
+                <a href="https://coolors.co" class="link-card color-32" target="_blank">
+                    <div class="link-title">Coolors</div>
+                    <div class="link-description">Générateur de palettes de couleurs</div>
+                </a>
+                <a href="https://html2pdf.com/fr" class="link-card color-33" target="_blank">
+                    <div class="link-title">HTML2PDF</div>
+                    <div class="link-description">Conversion HTML vers PDF</div>
+                </a>
+                <a href="https://tineye.com" class="link-card color-34" target="_blank">
+                    <div class="link-title">TinEye</div>
+                    <div class="link-description">Recherche inversée d'images</div>
+                </a>
+                <a href="https://10minutemail.net/?lang=fr" class="link-card color-35" target="_blank">
+                    <div class="link-title">10 Minute Mail</div>
+                    <div class="link-description">Email temporaire jetable</div>
+                </a>
+                <a href="https://www.deepl.com/fr/translator" class="link-card color-36" target="_blank">
+                    <div class="link-title">DeepL</div>
+                    <div class="link-description">Traduction IA de qualité</div>
+                </a>
+                <a href="https://www.dcode.fr" class="link-card color-37" target="_blank">
+                    <div class="link-title">dCode</div>
+                    <div class="link-description">Outils de cryptographie</div>
+                </a>
+                <a href="https://stackedit.io" class="link-card color-38" target="_blank">
+                    <div class="link-title">StackEdit</div>
+                    <div class="link-description">Éditeur Markdown en ligne</div>
+                </a>
+            </div>
+        </div>
+
+        <!-- Catégorie 5 -->
+        <div class="category">
+            <div class="category-header">
+                <div class="category-icon color-39">📺</div>
+                <h2 class="category-title">Streaming & Vidéo</h2>
+            </div>
+            <div class="links-grid">
+                <a href="https://www.youtube.com" class="link-card color-39" target="_blank">
+                    <div class="link-title">YouTube</div>
+                    <div class="link-description">Plateforme vidéo mondiale #1</div>
+                </a>
+                <a href="https://www.tiktok.com/fr" class="link-card color-40" target="_blank">
+                    <div class="link-title">TikTok</div>
+                    <div class="link-description">Vidéos courtes virales</div>
+                </a>
+                <a href="https://www.dailymotion.com/ca" class="link-card color-41" target="_blank">
+                    <div class="link-title">Dailymotion</div>
+                    <div class="link-description">Alternative française à YouTube</div>
+                </a>
+                <a href="https://peertube.tv" class="link-card color-42" target="_blank">
+                    <div class="link-title">PeerTube</div>
+                    <div class="link-description">Plateforme vidéo décentralisée</div>
+                </a>
+                <a href="https://french-stream.one" class="link-card color-43" target="_blank">
+                    <div class="link-title">French Stream</div>
+                    <div class="link-description">Films et séries en streaming</div>
+                </a>
+                <a href="https://hdtoday.cc/home" class="link-card color-44" target="_blank">
+                    <div class="link-title">HDToday</div>
+                    <div class="link-description">Contenu HD en streaming</div>
+                </a>
+                <a href="https://tv.garden" class="link-card color-45" target="_blank">
+                    <div class="link-title">TV Garden</div>
+                    <div class="link-description">Chaînes TV en direct</div>
+                </a>
+                <a href="https://ihavenotv.com" class="link-card color-46" target="_blank">
+                    <div class="link-title">I Have No TV</div>
+                    <div class="link-description">Documentaires gratuits</div>
+                </a>
+            </div>
+        </div>
+
+        <!-- Catégorie 6 -->
+        <div class="category">
+            <div class="category-header">
+                <div class="category-icon color-47">🎵</div>
+                <h2 class="category-title">Audio & Musique</h2>
+            </div>
+            <div class="links-grid">
+                <a href="https://radio.garden" class="link-card color-47" target="_blank">
+                    <div class="link-title">Radio Garden</div>
+                    <div class="link-description">Radios du monde en 3D</div>
+                </a>
+                <a href="https://mynoise.net" class="link-card color-48" target="_blank">
+                    <div class="link-title">myNoise</div>
+                    <div class="link-description">Générateur ambiances sonores</div>
+                </a>
+                <a href="https://suno.com/home" class="link-card color-49" target="_blank">
+                    <div class="link-title">Suno</div>
+                    <div class="link-description">Création musicale IA</div>
+                </a>
+                <a href="https://elevenlabs.io/fr" class="link-card color-50" target="_blank">
+                    <div class="link-title">ElevenLabs</div>
+                    <div class="link-description">Synthèse vocale IA réaliste</div>
+                </a>
+                <a href="https://luvvoice.com/fr" class="link-card color-51" target="_blank">
+                    <div class="link-title">LuvVoice</div>
+                    <div class="link-description">Conversion texte en parole</div>
+                </a>
+                <a href="https://www.musiccreator.ai/fr/ai-music-generator" class="link-card color-52" target="_blank">
+                    <div class="link-title">Music Creator AI</div>
+                    <div class="link-description">Générateur de musique IA</div>
+                </a>
+            </div>
+        </div>
+
+        <!-- Catégorie 7 -->
+        <div class="category">
+            <div class="category-header">
+                <div class="category-icon color-53">🎮</div>
+                <h2 class="category-title">Gaming</h2>
+            </div>
+            <div class="links-grid">
+                <a href="https://lostgamer.io" class="link-card color-53" target="_blank">
+                    <div class="link-title">Lost Gamer</div>
+                    <div class="link-description">Communauté de gamers</div>
+                </a>
+                <a href="https://mapgenie.io" class="link-card color-54" target="_blank">
+                    <div class="link-title">Map Genie</div>
+                    <div class="link-description">Cartes interactives de jeux</div>
+                </a>
+                <a href="https://www.wemod.com/fr" class="link-card color-55" target="_blank">
+                    <div class="link-title">WeMod</div>
+                    <div class="link-description">Mods et trainers PC</div>
+                </a>
+                <a href="https://www.geoguessr.com" class="link-card color-56" target="_blank">
+                    <div class="link-title">GeoGuessr</div>
+                    <div class="link-description">Jeu de géographie mondial</div>
+                </a>
+            </div>
+        </div>
+
+        <!-- Catégorie 8 -->
+        <div class="category">
+            <div class="category-header">
+                <div class="category-icon color-57">₿</div>
+                <h2 class="category-title">Crypto & Blockchain</h2>
+            </div>
+            <div class="links-grid">
+                <a href="https://coin360.com" class="link-card color-57" target="_blank">
+                    <div class="link-title">Coin360</div>
+                    <div class="link-description">Carte thermique des cryptos</div>
+                </a>
+                <a href="https://etherscan.io" class="link-card color-58" target="_blank">
+                    <div class="link-title">Etherscan</div>
+                    <div class="link-description">Explorateur Ethereum</div>
+                </a>
+                <a href="https://www.blockchain.com/explorer" class="link-card color-59" target="_blank">
+                    <div class="link-title">Blockchain Explorer</div>
+                    <div class="link-description">Explorateur multi-chaînes</div>
+                </a>
+                <a href="https://opensea.io" class="link-card color-60" target="_blank">
+                    <div class="link-title">OpenSea</div>
+                    <div class="link-description">Marketplace NFT leader</div>
+                </a>
+                <a href="https://www.myetherwallet.com/wallet/access" class="link-card color-61" target="_blank">
+                    <div class="link-title">MyEtherWallet</div>
+                    <div class="link-description">Portefeuille Ethereum sécurisé</div>
+                </a>
+            </div>
+        </div>
+
+        <!-- Catégorie 9 -->
+        <div class="category">
+            <div class="category-header">
+                <div class="category-icon color-62">📚</div>
+                <h2 class="category-title">Éducation & Références</h2>
+            </div>
+            <div class="links-grid">
+                <a href="https://fr.wikipedia.org" class="link-card color-62" target="_blank">
+                    <div class="link-title">Wikipedia</div>
+                    <div class="link-description">Encyclopédie libre mondiale</div>
+                </a>
+                <a href="https://www.larousse.fr" class="link-card color-63" target="_blank">
+                    <div class="link-title">Larousse</div>
+                    <div class="link-description">Dictionnaire et encyclopédie</div>
+                </a>
+                <a href="https://www.freecodecamp.org" class="link-card color-64" target="_blank">
+                    <div class="link-title">freeCodeCamp</div>
+                    <div class="link-description">Apprendre le code gratuitement</div>
+                </a>
+                <a href="https://www.wolframalpha.com" class="link-card color-65" target="_blank">
+                    <div class="link-title">Wolfram Alpha</div>
+                    <div class="link-description">Moteur de connaissances computationnel</div>
+                </a>
+                <a href="https://www.gutenberg.org" class="link-card color-66" target="_blank">
+                    <div class="link-title">Project Gutenberg</div>
+                    <div class="link-description">Livres gratuits du domaine public</div>
+                </a>
+                <a href="https://archive.org" class="link-card color-67" target="_blank">
+                    <div class="link-title">Internet Archive</div>
+                    <div class="link-description">Bibliothèque numérique universelle</div>
+                </a>
+            </div>
+        </div>
+
+        <!-- Catégorie 10 -->
+        <div class="category">
+            <div class="category-header">
+                <div class="category-icon color-68">👥</div>
+                <h2 class="category-title">Réseaux Sociaux</h2>
+            </div>
+            <div class="links-grid">
+                <a href="https://www.facebook.com" class="link-card color-68" target="_blank">
+                    <div class="link-title">Facebook</div>
+                    <div class="link-description">Réseau social le plus populaire</div>
+                </a>
+                <a href="https://x.com" class="link-card color-69" target="_blank">
+                    <div class="link-title">X (Twitter)</div>
+                    <div class="link-description">Microblogging en temps réel</div>
+                </a>
+                <a href="https://gab.com/home" class="link-card color-70" target="_blank">
+                    <div class="link-title">Gab</div>
+                    <div class="link-description">Plateforme sociale alternative</div>
+                </a>
+            </div>
+        </div>
+
+        <!-- Catégorie 11 -->
+        <div class="category">
+            <div class="category-header">
+                <div class="category-icon color-71">💾</div>
+                <h2 class="category-title">Téléchargements</h2>
+            </div>
+            <div class="links-grid">
+                <a href="https://ninite.com" class="link-card color-71" target="_blank">
+                    <div class="link-title">Ninite</div>
+                    <div class="link-description">Installation multiple automatique</div>
+                </a>
+                <a href="https://www.clubic.com" class="link-card color-72" target="_blank">
+                    <div class="link-title">Clubic</div>
+                    <div class="link-description">Téléchargements et actualités tech</div>
+                </a>
+                <a href="https://filehippo.com" class="link-card color-73" target="_blank">
+                    <div class="link-title">FileHippo</div>
+                    <div class="link-description">Logiciels sécurisés et testés</div>
+                </a>
+                <a href="https://www.softpedia.com" class="link-card color-74" target="_blank">
+                    <div class="link-title">Softpedia</div>
+                    <div class="link-description">Grande bibliothèque de logiciels</div>
+                </a>
+                <a href="https://www.majorgeeks.com" class="link-card color-75" target="_blank">
+                    <div class="link-title">MajorGeeks</div>
+                    <div class="link-description">Téléchargements pour experts</div>
+                </a>
+            </div>
+        </div>
+
+        <!-- Catégorie 12 -->
+        <div class="category">
+            <div class="category-header">
+                <div class="category-icon color-76">🖼️</div>
+                <h2 class="category-title">Création & Design</h2>
+            </div>
+            <div class="links-grid">
+                <a href="https://dezgo.com" class="link-card color-76" target="_blank">
+                    <div class="link-title">Dezgo</div>
+                    <div class="link-description">Génération d'images IA</div>
+                </a>
+                <a href="https://www.artguru.ai/fr" class="link-card color-77" target="_blank">
+                    <div class="link-title">ArtGuru</div>
+                    <div class="link-description">Art génératif IA</div>
+                </a>
+                <a href="https://openai.com/fr-FR/index/dall-e-3" class="link-card color-78" target="_blank">
+                    <div class="link-title">DALL-E 3</div>
+                    <div class="link-description">Générateur d'images OpenAI</div>
+                </a>
+                <a href="https://app.immersity.ai/upload" class="link-card color-79" target="_blank">
+                    <div class="link-title">Immersity AI</div>
+                    <div class="link-description">Conversion 2D vers 3D</div>
+                </a>
+                <a href="https://klingai.com/global" class="link-card color-80" target="_blank">
+                    <div class="link-title">Kling AI</div>
+                    <div class="link-description">Création vidéo IA avancée</div>
+                </a>
+            </div>
+        </div>
+
+        <!-- Catégorie 13 -->
+        <div class="category">
+            <div class="category-header">
+                <div class="category-icon color-81">📰</div>
+                <h2 class="category-title">Actualités & Médias</h2>
+            </div>
+            <div class="links-grid">
+                <a href="https://www.nationalgeographic.fr" class="link-card color-81" target="_blank">
+                    <div class="link-title">National Geographic</div>
+                    <div class="link-description">Science, nature et cultures</div>
+                </a>
+                <a href="https://luxmedia.info" class="link-card color-82" target="_blank">
+                    <div class="link-title">LuxMedia</div>
+                    <div class="link-description">Actualités alternatives</div>
+                </a>
+                <a href="https://les7duquebec.net" class="link-card color-83" target="_blank">
+                    <div class="link-title">Les 7 du Québec</div>
+                    <div class="link-description">Média québécois indépendant</div>
+                </a>
+            </div>
+        </div>
+
+        <!-- Catégorie 14 -->
+        <div class="category">
+            <div class="category-header">
+                <div class="category-icon color-84">🔍</div>
+                <h2 class="category-title">Recherche Spécialisée</h2>
+            </div>
+            <div class="links-grid">
+                <a href="https://www.shodan.io" class="link-card color-84" target="_blank">
+                    <div class="link-title">Shodan</div>
+                    <div class="link-description">Moteur de recherche IoT</div>
+                </a>
+                <a href="https://hunter.io/fr/email-finder" class="link-card color-85" target="_blank">
+                    <div class="link-title">Hunter</div>
+                    <div class="link-description">Recherche d'emails professionnels</div>
+                </a>
+                <a href="https://www.zoomeye.ai" class="link-card color-86" target="_blank">
+                    <div class="link-title">ZoomEye</div>
+                    <div class="link-description">Recherche de périphériques réseau</div>
+                </a>
+                <a href="https://fr.canada411.ca" class="link-card color-87" target="_blank">
+                    <div class="link-title">Canada411</div>
+                    <div class="link-description">Annuaire canadien</div>
+                </a>
+                <a href="https://www.pagesjaunes.ca" class="link-card color-88" target="_blank">
+                    <div class="link-title">Pages Jaunes</div>
+                    <div class="link-description">Annuaire d'entreprises Canada</div>
+                </a>
+            </div>
+        </div>
+
+        <!-- Catégorie 15 -->
+        <div class="category">
+            <div class="category-header">
+                <div class="category-icon color-89">🌐</div>
+                <h2 class="category-title">Utilitaires Web</h2>
+            </div>
+            <div class="links-grid">
+                <a href="https://haveibeenpwned.com" class="link-card color-89" target="_blank">
+                    <div class="link-title">Have I Been Pwned</div>
+                    <div class="link-description">Vérification de fuites de données</div>
+                </a>
+                <a href="https://downdetector.ca" class="link-card color-90" target="_blank">
+                    <div class="link-title">Down Detector</div>
+                    <div class="link-description">Statut des services en ligne</div>
+
+</a>
+                <a href="https://www.isitdownrightnow.com" class="link-card color-91" target="_blank">
+                    <div class="link-title">Is It Down Right Now</div>
+                    <div class="link-description">Vérification disponibilité sites</div>
+                </a>
+                <a href="https://tosdr.org/fr" class="link-card color-92" target="_blank">
+                    <div class="link-title">ToS;DR</div>
+                    <div class="link-description">Conditions d'utilisation simplifiées</div>
+                </a>
+                <a href="https://www.removepaywall.com" class="link-card color-93" target="_blank">
+                    <div class="link-title">Remove Paywall</div>
+                    <div class="link-description">Contourne les murs payants</div>
+                </a>
+                <a href="https://9xbuddy.site/fr" class="link-card color-94" target="_blank">
+                    <div class="link-title">9xBuddy</div>
+                    <div class="link-description">Téléchargeur de vidéos</div>
+                </a>
+                <a href="https://www.whitescreen.online" class="link-card color-95" target="_blank">
+                    <div class="link-title">White Screen</div>
+                    <div class="link-description">Écran blanc/coloré plein écran</div>
+                </a>
+                <a href="https://neal.fun/deep-sea" class="link-card color-96" target="_blank">
+                    <div class="link-title">Deep Sea</div>
+                    <div class="link-description">Exploration des profondeurs marines</div>
+                </a>
+                <a href="https://www.rome2rio.com/fr" class="link-card color-97" target="_blank">
+                    <div class="link-title">Rome2Rio</div>
+                    <div class="link-description">Planification d'itinéraires multimodaux</div>
+                </a>
+                <a href="https://www.gradio.app" class="link-card color-98" target="_blank">
+                    <div class="link-title">Gradio</div>
+                    <div class="link-description">Interfaces ML rapides</div>
+                </a>
+            </div>
+        </div>
+	</div>
+
+<script>
+    function filterLinks() {
+        const input = document.getElementById('searchInput');
+        const filter = input.value.toLowerCase();
+        const cards = document.querySelectorAll('.link-card');
+        
+        cards.forEach(card => {
+            const title = card.querySelector('.link-title').textContent.toLowerCase();
+            const desc = card.querySelector('.link-description').textContent.toLowerCase();
+            
+            if (title.includes(filter) || desc.includes(filter)) {
+                card.style.display = '';
+                card.style.animation = 'fadeIn 0.5s ease';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    }
+</script>
+</body>
+</html>

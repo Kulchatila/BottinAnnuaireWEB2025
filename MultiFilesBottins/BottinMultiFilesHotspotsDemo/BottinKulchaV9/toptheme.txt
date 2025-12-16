@@ -1,0 +1,184 @@
+const topThemes = [
+    {
+        theme: "Éducation & Formation",
+        count: 92,
+        description: "Universités, écoles françaises, programmes d'échanges, formations linguistiques, lycées français en Asie, campus universitaires"
+    },
+    {
+        theme: "Commerce & Entreprises",
+        count: 88,
+        description: "Entreprises françaises en Asie, chambres de commerce, réseaux d'affaires, import-export, partenariats économiques"
+    },
+    {
+        theme: "Culture & Arts",
+        count: 76,
+        description: "Instituts culturels, musées, festivals, échanges artistiques, expositions, patrimoine culturel"
+    },
+    {
+        theme: "Technologie & Innovation",
+        count: 71,
+        description: "Startups, recherche technologique, intelligence artificielle, French Tech, innovation numérique"
+    },
+    {
+        theme: "Diplomatie & Relations Internationales",
+        count: 65,
+        description: "Ambassades, consulats, coopération gouvernementale, organisations internationales, relations bilatérales"
+    },
+    {
+        theme: "Médias & Communication",
+        count: 58,
+        description: "Médias francophones, presse, radio, télévision, blogs, agences de presse, communication"
+    },
+    {
+        theme: "Santé & Médecine",
+        count: 54,
+        description: "Hôpitaux, cliniques, recherche médicale, coopération sanitaire, hôpitaux francophones"
+    },
+    {
+        theme: "Tourisme & Hôtellerie",
+        count: 52,
+        description: "Offices de tourisme, hôtellerie, agences de voyage, patrimoine, guides touristiques"
+    },
+    {
+        theme: "Finance & Économie",
+        count: 49,
+        description: "Banques, assurances, investissements, analyse économique, services financiers"
+    },
+    {
+        theme: "Recherche & Développement",
+        count: 46,
+        description: "Centres de recherche, laboratoires, innovation scientifique, coopération académique"
+    },
+    {
+        theme: "Transport & Logistique",
+        count: 42,
+        description: "Compagnies aériennes, ferroviaires, maritime, services de transport, logistique"
+    },
+    {
+        theme: "Mode & Luxe",
+        count: 38,
+        description: "Maisons de couture, marques de luxe, joaillerie, horlogerie, cosmétiques de luxe"
+    },
+    {
+        theme: "Agriculture & Agroalimentaire",
+        count: 35,
+        description: "Coopératives agricoles, agroalimentaire, produits du terroir, vins et spiritueux"
+    },
+    {
+        theme: "Écologie & Développement Durable",
+        count: 32,
+        description: "Organisations environnementales, développement durable, énergies vertes, protection de la nature"
+    },
+    {
+        theme: "Industrie & Ingénierie",
+        count: 30,
+        description: "Industries manufacturières, ingénierie, construction, BTP, aéronautique"
+    },
+    {
+        theme: "Humanitaire & Solidarité",
+        count: 28,
+        description: "ONG, associations caritatives, aide au développement, solidarité internationale"
+    },
+    {
+        theme: "Arts Culinaires & Gastronomie",
+        count: 26,
+        description: "Restaurants, écoles de cuisine, guides gastronomiques, produits alimentaires français"
+    },
+    {
+        theme: "Sport & Loisirs",
+        count: 24,
+        description: "Clubs sportifs, équipements, événements sportifs, loisirs, tourisme sportif"
+    },
+    {
+        theme: "Édition & Librairie",
+        count: 22,
+        description: "Maisons d'édition, librairies, publications, livres, presse écrite"
+    },
+    {
+        theme: "Architecture & Design",
+        count: 20,
+        description: "Architectes, designers, bureaux d'études, design industriel, urbanisme"
+    },
+    {
+        theme: "Droit & Conseil",
+        count: 18,
+        description: "Cabinets d'avocats, services juridiques, conseil, audit, expertise comptable"
+    },
+    {
+        theme: "Artisanat & Métiers d'Art",
+        count: 16,
+        description: "Artisans, métiers d'art, savoir-faire traditionnels, céramique, verrerie"
+    },
+    {
+        theme: "Jeux & Divertissement",
+        count: 14,
+        description: "Jeux vidéo, jouets, divertissement numérique, parcs d'attraction"
+    },
+    {
+        theme: "Nautisme & Marine",
+        count: 12,
+        description: "Construction navale, yachting, ports, sports nautiques, navigation"
+    },
+    {
+        theme: "Spatial & Aéronautique",
+        count: 10,
+        description: "Industrie spatiale, aéronautique, satellites, recherche aérospatiale"
+    }
+];
+
+// ============================================
+// THÈMES SPÉCIALISÉS (SUPPLEMENTAIRES)
+// ============================================
+
+const specializedThemes = [
+    {
+        theme: "Enseignement Supérieur Français",
+        count: 45,
+        description: "Universités françaises avec programmes asiatiques, doubles diplômes, échanges étudiants"
+    },
+    {
+        theme: "French Tech en Asie",
+        count: 38,
+        description: "Startups françaises en Asie, incubateurs, accélérateurs, écosystème tech"
+    },
+    {
+        theme: "Santé Francophone",
+        count: 32,
+        description: "Hôpitaux francophones, médecins français, soins de santé en français"
+    },
+    {
+        theme: "Vins & Spiritueux Français",
+        count: 28,
+        description: "Vins français, champagne, cognac, armagnac, distribution en Asie"
+    },
+    {
+        theme: "Luxe Français",
+        count: 42,
+        description: "Marques de luxe françaises, haute couture, joaillerie, maroquinerie"
+    },
+    {
+        theme: "Cosmétiques & Parfums",
+        count: 36,
+        description: "Cosmétiques français, parfums, soins de la peau, maquillage"
+    },
+    {
+        theme: "Automobile Française",
+        count: 24,
+        description: "Constructeurs automobiles français, concessions, services après-vente"
+    },
+    {
+        theme: "Énergie & Environnement",
+        count: 29,
+        description: "Entreprises énergétiques françaises, transition écologique, énergies renouvelables"
+    },
+    {
+        theme: "BTP & Construction",
+        count: 26,
+        description: "Bâtiment et travaux publics français en Asie, grands projets"
+    },
+    {
+        theme: "Assurances & Services Financiers",
+        count: 22,
+        description: "Assureurs français, banques, services financiers, investissements"
+    }
+];

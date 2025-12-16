@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>CyberLinks</title>
+<style>
+/* ========== RESET ========== */
+* {
+  margin: 0; padding: 0; box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+/* ========== VARIABLES ========== */
+:root {
+  --bg-dark: #02040a;
+  --bg-darker: #000207;
+  --text: #e6ffff;
+  --text-dim: #8eeeff;
+  --accent-blue: #00aaff;
+  --accent-green: #00ff9d;
+  --accent-green-dark: #006634; /* Texte catégories */
+  --card: #03111f;
+  --glow-blue: 0 0 15px #00aaff, 0 0 30px #0090ff;
+  --glow-green: 0 0 15px #00ff00, 0 0 30px #00ff9d;
+}
+
+/* MODE CLAIR */
+body.light {
+  --bg-dark: #d8ecff;
+  --bg-darker: #c6e2ff;
+  --text: #001422;
+  --text-dim: #00314f;
+  --accent-blue: #005b96;
+  --accent-green: #009c5b;
+  --accent-green-dark: #004527;
+  --card: #ffffff;
+}
+
+/* ========== GLOBAL ========== */
+body {
+  background: var(--bg-dark);
+  color: var(--text);
+  transition: background 0.5s, color 0.5s;
+  padding-top: 120px;
+}
+
+/* HEADER FIXE */
+header {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  background: var(--bg-darker);
+  box-shadow: 0 0 15px #00ff9d;
+  padding: 20px;
+  z-index: 20;
+}
+
+header h1 {
+  font-size: 32px;
+  text-align: center;
+  margin-bottom: 15px;
+  text-shadow: var(--glow-blue);
+}
+
+/* BARRE HAUT */
+.top-controls {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+input[type="text"] {
+  padding: 12px;
+  width: 280px;
+  border: none;
+  border-radius: 8px;
+  outline: none;
+  background: var(--card);
+  color: var(--text);
+  box-shadow: var(--glow-green);
+}
+
+button {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  color: #fff;
+  background: var(--accent-blue);
+  font-weight: bold;
+  box-shadow: var(--glow-blue);
+  transition: transform 0.2s;
+}
+button:hover {
+  transform: scale(1.05);
+}
+
+/* COMPTEUR */
+#counter {
+  text-align: center;
+  margin-top: 10px;
+  color: var(--text-dim);
+  font-size: 14px;
+}
+
+/* ========== CARDS ========== */
+.category-title {
+  margin: 40px 0 10px 10px;
+  color: var(--accent-green-dark);
+  font-size: 32px;
+  text-shadow: 0 0 2px #00ff9d;
+}
+
+.card {
+  background: var(--card);
+  margin: 12px;
+  padding: 15px;
+  border-radius: 12px;
+  border: 1px solid var(--accent-blue);
+  box-shadow: var(--glow-blue);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--glow-green);
+}
+
+.card a {
+  font-size: 20px;
+  font-weight: bold;
+  color: var(--accent-blue);
+  text-decoration: none;
+  text-shadow: var(--glow-blue);
+}
+
+.card p {
+  margin-top: 5px;
+  color: var(--text-dim);
+  font-size: 15px;
+}
+
+/* ANIMATION CYBERPUNK */
+@keyframes pulseGlow {
+  0% { box-shadow: var(--glow-blue); }
+  50% { box-shadow: var(--glow-green); }
+  100% { box-shadow: var(--glow-blue); }
+}
+header {
+  animation: pulseGlow 4s infinite ease-in-out;
+}
+</style>
+</head>
+<body class="dark">
+
+<header>
+  <h1>Portail Cyberpunk</h1>
+
+  <div class="top-controls">
+    <input type="text" id="search" placeholder="Rechercher..." />
+    <button id="toggleTheme">Mode Clair / Sombre</button>
+    <button id="exportJSON">Exporter JSON</button>
+  </div>
+
+  <div id="counter"></div>
+</header>
+
+<div id="container"></div>
+
+<script>
+/* =============== DONNÉES (avec descriptions restaurées) ================= */
+const sitesRaw = [
+  // ≡≡≡ MOTEURS ALTERNATIFS & PRIVACY ≡≡≡
+  {n:"0x0.st", u:"https://0x0.st", c:"Hébergement Libre", d:"Service de partage de fichiers temporaire et hébergement web minimaliste, gratuit et libre."},
+  {n:"4get.ca", u:"https://4get.ca", c:"Moteurs Alternatifs", d:"Moteur de recherche axé sur la vie privée, ne conservant ni logs ni données personnelles."},
+  {n:"LibreSol (Onion LMB)", u:"https://libresol2-5jaz4b32.manus.space", c:"Moteurs Alternatifs", d:"Moteur de recherche privé et décentralisé, partie du réseau LibreSol pour l'accès libre à l'information."},
+  {n:"SearXNG public list", u:"https://searx.space", c:"Moteurs Alternatifs", d:"Annuaire des instances publiques de SearXNG, méta-moteur de recherche respectueux de la vie privée."},
+  {n:"Whoogle (Google sans tracking)", u:"https://search.ahwx.org", c:"Moteurs Alternatifs", d:"Instance publique de Whoogle, moteur de recherche alternatif à Google sans publicités ni tracking."},
+  {n:"Librecherche.warriordudimanche.net", u:"https://recherche.warriordudimanche.net", c:"Moteurs Alternatifs", d:"Instance SearXNG auto-hébergée offrant une recherche privée sans collecte de données."},
+
+  // ≡≡≡ LOGICIELS LIBRES ≡≡≡
+  {n:"7-Zip", u:"https://www.7-zip.org", c:"Logiciels Libres", d:"Logiciel de compression et d'archivage gratuit et open-source avec chiffrement AES-256."},
+  {n:"Blender 3D", u:"https://www.blender.org", c:"Logiciels Libres", d:"Suite complète de création 3D open-source : modélisation, animation, rendu, VFX et jeu vidéo."},
+  {n:"Cryptomator", u:"https://cryptomator.org", c:"Logiciels Libres", d:"Solution de chiffrement client-side transparent pour fichiers cloud, open-source et multiplateforme."},
+  {n:"GIMP", u:"https://www.gimp.org", c:"Logiciels Libres", d:"Éditeur d'images bitmap puissant et gratuit, alternative libre à Photoshop."},
+  {n:"Godot Engine (jeu vidéo)", u:"https://godotengine.org", c:"Logiciels Libres", d:"Moteur de jeu 2D/3D open-source avec éditeur intégré et langage de script GDScript."},
+  {n:"Inkscape", u:"https://inkscape.org/fr", c:"Logiciels Libres", d:"Logiciel d'édition de graphiques vectoriels open-source, équivalent libre d'Illustrator."},
+  {n:"Joplin (notes chiffrées)", u:"https://joplinapp.org", c:"Logiciels Libres", d:"Application de prise de notes open-source avec synchronisation chiffrée et support Markdown."},
+  {n:"Kdenlive (montage vidéo)", u:"https://kdenlive.org", c:"Logiciels Libres", d:"Éditeur vidéo non-linéaire open-source avec multi-pistes et nombreux effets."},
+  {n:"LibreOffice", u:"https://fr.libreoffice.org", c:"Logiciels Libres", d:"Suite bureautique libre et gratuite comprenant traitement de texte, tableur, présentation, etc."},
+  {n:"OnlyOffice", u:"https://www.onlyoffice.com", c:"Logiciels Libres", d:"Suite bureautique open-source avec collaboration en temps réel et intégration cloud."},
+  {n:"qBittorrent", u:"https://www.qbittorrent.org", c:"Logiciels Libres", d:"Client BitTorrent open-source léger, sans publicité, avec recherche intégrée et contrôle à distance."},
+  {n:"VLC", u:"https://www.videolan.org", c:"Logiciels Libres", d:"Lecteur multimédia universel open-source supportant presque tous les formats audio/vidéo."},
+
+  // ≡≡≡ OS & DISTROS ≡≡≡
+  {n:"Arch Linux", u:"https://archlinux.org", c:"OS Libres", d:"Distribution Linux légère et flexible avec système de paquets rolling release et communauté active."},
+  {n:"Debian", u:"https://www.debian.org", c:"OS Libres", d:"Distribution Linux stable et fiable, l'une des plus anciennes, avec engagement envers le logiciel libre."},
+  {n:"Fedora", u:"https://getfedora.org", c:"OS Libres", d:"Distribution Linux innovante sponsorisée par Red Hat avec technologies récentes et sécurité renforcée."},
+  {n:"Linux Mint", u:"https://linuxmint.com", c:"OS Libres", d:"Distribution Linux conviviale basée sur Ubuntu, idéale pour les débutants, avec interface Cinnamon."},
+  {n:"Manjaro", u:"https://manjaro.org", c:"OS Libres", d:"Distribution Linux basée sur Arch avec installation facilitée et gestionnaire graphique de paquets."},
+  {n:"Qubes OS", u:"https://www.qubes-os.org", c:"OS Libres", d:"Système d'exploitation axé sur la sécurité par isolation, utilisant la virtualisation Xen."},
+  {n:"Tails (anonymat)", u:"https://tails.net", c:"OS Libres", d:"Système live axé sur la vie privée et l'anonymat, route tout le trafic via Tor par défaut."},
+
+  // ≡≡≡ IA LOCALE & OPEN-SOURCE ≡≡≡
+  {n:"ComfyUI", u:"https://github.com/comfyanonymous/ComfyUI", c:"IA Libres", d:"Interface utilisateur graphique modulaire et puissante pour Stable Diffusion avec workflow nodal."},
+  {n:"InvokeAI", u:"https://invoke.ai", c:"IA Libres", d:"Suite d'outils open-source pour la génération d'images par IA avec interface web et nombreuses fonctionnalités."},
+  {n:"LM Studio", u:"https://lmstudio.ai", c:"IA Libres", d:"Application desktop pour exécuter des modèles de langage localement avec interface intuitive et gestion des modèles."},
+  {n:"LocalAI", u:"https://localai.io", c:"IA Libres", d:"Framework pour exécuter localement des modèles d'IA compatibles OpenAI, sans connexion internet."},
+  {n:"Ollama (LLMs locaux)", u:"https://ollama.com", c:"IA Libres", d:"Outil pour exécuter, créer et partager des modèles de langage localement via ligne de commande."},
+  {n:"Stable Diffusion WebUI", u:"https://github.com/AUTOMATIC1111/stable-diffusion-webui", c:"IA Libres", d:"Interface web avancée pour Stable Diffusion avec nombreuses extensions et personnalisations."},
+  {n:"Text Generation WebUI", u:"https://github.com/oobabooga/text-generation-webui", c:"IA Libres", d:"Interface web pour exécuter des modèles de langage localement avec support de nombreux formats."},
+
+  // ≡≡≡ HÉBERGEMENT GRATUIT & LIBRE ≡≡≡
+  {n:"Codeberg (alternative GitHub)", u:"https://codeberg.org", c:"Hébergement Libre", d:"Plateforme de collaboration pour logiciels libres basée en Europe, utilisant Git avec instance Forgejo."},
+  {n:"GitLab.com (100% gratuit)", u:"https://gitlab.com", c:"Hébergement Libre", d:"Plateforme DevOps complète avec gestion de code, CI/CD, et nombreuses fonctionnalités gratuites."},
+  {n:"Neocities", u:"https://neocities.org", c:"Hébergement Libre", d:"Service d'hébergement web gratuit pour sites statiques, inspiré de Geocities, avec 1 Go d'espace."},
+  {n:"Netlify", u:"https://netlify.com", c:"Hébergement Libre", d:"Plateforme d'hébergement et déploiement continu pour sites web statiques avec CDN et fonctions serverless."},
+  {n:"Pages.github.io", u:"https://pages.github.com", c:"Hébergement Libre", d:"Hébergement gratuit de sites web statiques directement depuis un dépôt GitHub."},
+  {n:"Vercel (static gratuit)", u:"https://vercel.com", c:"Hébergement Libre", d:"Plateforme de déploiement et d'hébergement pour sites web et applications frontend avec CDN global."},
+
+  // ≡≡≡ VIDÉO DÉCENTRALISÉE ≡≡≡
+  {n:"Invidious (YouTube sans tracking)", u:"https://yewtu.be", c:"Vidéo Libre", d:"Alternative frontend à YouTube sans publicités, JavaScript, ni tracking, respectant la vie privée."},
+  {n:"NewPipe (Android)", u:"https://newpipe.net", c:"Vidéo Libre", d:"Application Android légère pour YouTube et autres plateformes, sans Google Services ni publicités."},
+  {n:"PeerTube (décentralisé)", u:"https://joinpeertube.org", c:"Vidéo Libre", d:"Plateforme de vidéo décentralisée et fédérée utilisant l'ActivityPub, alternative à YouTube."},
+  {n:"Piped", u:"https://piped.video", c:"Vidéo Libre", d:"Alternative frontend à YouTube avec interface propre, sans publicités et respectueuse de la vie privée."},
+
+  // ≡≡≡ MUSIQUE LIBRE ≡≡≡
+  {n:"AudioNaute (québécois)", u:"https://audionaute.bandcamp.com", c:"Musique Libre", d:"Musique libre et indépendante québécoise disponible sous licences Creative Commons."},
+  {n:"ccMixter", u:"http://ccmixter.org", c:"Musique Libre", d:"Communauté de musique sous licence Creative Commons avec samples, a cappella et pistes instrumentales."},
+  {n:"Free Music Archive", u:"https://freemusicarchive.org", c:"Musique Libre", d:"Bibliothèque de musique libre et légale de haute qualité, classée par genre et licence."},
+  {n:"Funkwhale", u:"https://funkwhale.audio", c:"Musique Libre", d:"Plateforme de streaming musical décentralisée et fédérée, alternative à Spotify."},
+  {n:"Jamendo (CC)", u:"https://jamendo.com", c:"Musique Libre", d:"Plateforme de musique libre sous licence Creative Commons avec plus de 600 000 titres."},
+
+  // ≡≡≡ LIVRES & CONNAISSANCE ≡≡≡
+  {n:"Anna's Archive", u:"https://annas-archive.org", c:"Livres Libres", d:"Moteur de recherche de livres et articles académiques, agrégeant plusieurs bibliothèques numériques."},
+  {n:"Gallica (BNF)", u:"https://gallica.bnf.fr", c:"Livres Libres", d:"Bibliothèque numérique de la Bibliothèque nationale de France avec millions de documents patrimoniaux."},
+  {n:"Internet Archive Books", u:"https://archive.org/details/texts", c:"Livres Libres", d:"Collection massive de livres numérisés, documents historiques et médias préservés."},
+  {n:"Open Library", u:"https://openlibrary.org", c:"Livres Libres", d:"Projet visant à créer une page web pour chaque livre jamais publié, avec prêt numérique."},
+  {n:"Project Gutenberg", u:"https://gutenberg.org", c:"Livres Libres", d:"Première bibliothèque numérique offrant plus de 70 000 livres électroniques du domaine public."},
+  {n:"Sci-Hub", u:"https://sci-hub.ru", c:"Livres Libres", d:"Base de données d'articles scientifiques fournissant un accès libre à la connaissance académique."},
+  {n:"Standard Ebooks", u:"https://standardebooks.org", c:"Livres Libres", d:"Collection d'ebooks du domaine public soigneusement formatés et corrigés, de haute qualité."},
+  {n:"Wikisource", u:"https://wikisource.org", c:"Livres Libres", d:"Bibliothèque de textes sources libres, disponibles dans leur langue originale avec vérification."},
+  {n:"Z-Library mirror", u:"https://singlelogin.re", c:"Livres Libres", d:"Vaste bibliothèque numérique avec millions de livres et articles académiques."},
+
+  // ≡≡≡ LIVRES AUDIO ≡≡≡
+  {n:"Abook", u:"https://abook.ws", c:"Livres audio", d:"Plateforme de partage de livres audio avec vaste catalogue couvrant divers genres et langues."},
+  {n:"AudiobookBay", u:"https://audiobookbay.is", c:"Livres audio", d:"Site de téléchargement de livres audio avec catalogue organisé par catégorie et auteur."},
+  {n:"Audiobooks Lab", u:"https://audiobookslab.com", c:"Livres audio", d:"Bibliothèque de livres audio gratuits avec interface moderne et système de recommandations."},
+  {n:"AudioBB", u:"https://audiobb.com", c:"Livres audio", d:"Communauté de partage de livres audio avec système de requêtes et collection organisée."},
+  {n:"Golden Audiobooks", u:"https://goldenaudiobooks.com", c:"Livres audio", d:"Collection de livres audio de qualité, principalement en anglais, avec focus sur les classiques."},
+  {n:"HD Audiobooks", u:"https://hdaudiobooks.com", c:"Livres audio", d:"Site proposant des livres audio en haute qualité avec différentes options de téléchargement."},
+  {n:"Librivox", u:"https://librivox.org", c:"Livres audio", d:"Bibliothèque de livres audio du domaine public lus par des bénévoles, entièrement gratuite."},
+  {n:"Tokybook", u:"https://tokybook.com", c:"Livres audio", d:"Plateforme de streaming de livres audio gratuits avec application mobile et catégories variées."},
+
+  // ≡≡≡ FICTION EN LIGNE ≡≡≡
+  {n:"AO3 (fanfics)", u:"https://archiveofourown.org", c:"Fiction en ligne", d:"Archive of Our Own - plateforme de fanfiction à but non lucratif gérée par l'OTW avec système de tags avancé."},
+  {n:"FanFiction.net", u:"https://fanfiction.net", c:"Fiction en ligne", d:"Une des plus grandes communautés de fanfiction avec millions d'histoires couvrant tous les fandoms."},
+  {n:"Royal Road", u:"https://royalroad.com", c:"Fiction en ligne", d:"Plateforme pour auteurs de fiction web avec focus sur fantasy, science-fiction et progression/litRPG."},
+  {n:"Scribble Hub", u:"https://scribblehub.com", c:"Fiction en ligne", d:"Communauté d'auteurs de fiction web avec système de suivi et lecture hors ligne."},
+  {n:"Tapas", u:"https://tapas.io", c:"Fiction en ligne", d:"Plateforme pour histoires sérialisées, webcomics et romans avec modèle freemium et support aux créateurs."},
+  {n:"Wattpad", u:"https://wattpad.com", c:"Fiction en ligne", d:"Communauté mondiale de lecteurs et écrivains avec millions d'histoires originales et fanfictions."},
+  {n:"WebNovel", u:"https://webnovel.com", c:"Fiction en ligne", d:"Plateforme de romans web avec traduction de œuvres asiatiques et système de paiement par chapitre."},
+
+  // ≡≡≡ CARTES & GÉO LIBRES ≡≡≡
+  {n:"OpenStreetMap", u:"https://openstreetmap.org", c:"Cartes Libres", d:"Projet collaboratif pour créer une carte du monde libre et modifiable, alternative à Google Maps."},
+  {n:"Organic Maps (Android/iOS)", u:"https://organicmaps.app", c:"Cartes Libres", d:"Application mobile de cartographie hors ligne rapide, respectueuse de la vie privée, basée sur OpenStreetMap."},
+  {n:"OsmAnd", u:"https://osmand.net", c:"Cartes Libres", d:"Application de navigation et cartographie puissante avec cartes hors ligne basées sur OpenStreetMap."},
+  {n:"uMap (cartes perso)", u:"https://umap.openstreetmap.fr", c:"Cartes Libres", d:"Outil pour créer des cartes personnalisées avec calques OpenStreetMap, points d'intérêt et partage facile."},
+
+  // ≡≡≡ POLICES & DESIGN LIBRE ≡≡≡
+  {n:"Font Awesome Free", u:"https://fontawesome.com", c:"Icônes libres", d:"Bibliothèque d'icônes vectorielles la plus populaire au monde, avec version gratuite incluant 2000+ icônes."},
+  {n:"Font Squirrel", u:"https://fontsquirrel.com", c:"Polices libres", d:"Collection de polices de caractères gratuites de haute qualité, triées par licence commerciale."},
+  {n:"Fontshare", u:"https://www.fontshare.com", c:"Design Libre", d:"Service gratuit de polices de caractères avec collections thématiques et licences libres."},
+  {n:"Google Fonts (libres)", u:"https://fonts.google.com", c:"Design Libre", d:"Bibliothèque de plus de 1500 familles de polices open-source optimisées pour le web."},
+  {n:"Open Font Library", u:"https://openfontlibrary.org", c:"Design Libre", d:"Collection collaborative de polices libres sous licence SIL Open Font License."},
+  {n:"Remix Icon", u:"https://remixicon.com", c:"Icônes libres", d:"Bibliothèque d'icônes open-source avec plus de 2500 icônes dans un style cohérent."},
+  {n:"Tabler Icons", u:"https://tabler-icons.io", c:"Icônes libres", d:"Ensemble de plus de 4800 icônes SVG gratuites et open-source, parfaites pour interfaces web."},
+  {n:"Velvetyne (fontes françaises libres)", u:"https://velvetyne.fr", c:"Design Libre", d:"Fonderie typographique libre française proposant des polices expérimentales et innovantes."},
+
+  // ≡≡≡ OUTILS EN LIGNE LIBRES ≡≡≡
+  {n:"Cryptpad", u:"https://cryptpad.fr", c:"Outils en ligne", d:"Suite collaborative chiffrée de bout en bout avec éditeur de texte, tableur, présentation, etc."},
+  {n:"Draw.io", u:"https://app.diagrams.net", c:"Outils en ligne", d:"Application de diagrammes en ligne gratuite pour organigrammes, UML, réseaux, etc. avec export multiple."},
+  {n:"Excalidraw", u:"https://excalidraw.com", c:"Outils en ligne", d:"Outil de dessin à main levée virtuel, collaboratif, avec style sketch et chiffrement de bout en bout."},
+  {n:"Photopea", u:"https://photopea.com", c:"Outils en ligne", d:"Éditeur d'images en ligne avancé compatible PSD, gratuit, fonctionnant directement dans le navigateur."},
+  {n:"OnlyOffice", u:"https://onlyoffice.com", c:"Outils en ligne", d:"Suite bureautique en ligne collaborative avec traitement de texte, tableur et présentation."},
+
+  // ≡≡≡ OUTILS DÉVELOPPEMENT ≡≡≡
+  {n:"CodePen", u:"https://codepen.io", c:"Outils dev", d:"Environnement de développement frontend social avec éditeur HTML/CSS/JS en ligne et prévisualisation en direct."},
+  {n:"GitHub1s (VSCode)", u:"https://github1s.com", c:"Outils dev", d:"Interface Visual Studio Code pour GitHub permettant de naviguer le code directement dans le navigateur."},
+  {n:"Glitch", u:"https://glitch.com", c:"Outils dev", d:"Plateforme pour créer et déployer des applications web avec éditeur collaboratif et hébergement instantané."},
+  {n:"JSFiddle", u:"https://jsfiddle.net", c:"Outils dev", d:"Environnement de test en ligne pour code HTML, CSS et JavaScript avec prévisualisation immédiate."},
+  {n:"Replit", u:"https://replit.com", c:"Outils dev", d:"Environnement de développement intégré en ligne avec support 50+ langages et déploiement automatique."},
+
+  // ≡≡≡ RESSOURCES GRAPHIQUES ≡≡≡
+  {n:"AmbientCG", u:"https://ambientcg.com", c:"Images/Textures CC0", d:"Bibliothèque de matériaux, textures et modèles 3D en haute résolution sous licence CC0."},
+  {n:"OpenGameArt", u:"https://opengameart.org", c:"Images/Textures CC0", d:"Communauté de partage de ressources graphiques 2D/3D libres pour jeux vidéo."},
+  {n:"Poly Haven", u:"https://polyhaven.com", c:"Images/Textures CC0", d:"Bibliothèque de ressources 3D gratuites (HDRI, textures, modèles) sous licence CC0."},
+  {n:"Texture Haven", u:"https://texturehaven.com", c:"Images/Textures CC0", d:"Textures PBR gratuites et de haute qualité pour le rendu 3D, sous licence CC0."},
+
+  // ≡≡≡ MODÈLES 3D ≡≡≡
+  {n:"Sketchfab Free", u:"https://sketchfab.com/features/free-3d-models", c:"Modèles 3D", d:"Plateforme avec milliers de modèles 3D gratuits sous licence Creative Commons, visualisables en ligne."},
+
+  // ≡≡≡ SON & BRUITAGES ≡≡≡
+  {n:"Freesound", u:"https://freesound.org", c:"Son & Bruitages", d:"Base de données collaborative de sons et échantillons audio sous licences Creative Commons."},
+  {n:"Zapsplat", u:"https://zapsplat.com", c:"Son & Bruitages", d:"Bibliothèque de sons et effets sonores gratuits de haute qualité pour projets multimédias."},
+
+  // ≡≡≡ RADIO LIBRE ≡≡≡
+  {n:"Internet Archive Radio", u:"https://archive.org/details/radioprograms", c:"Radio libre", d:"Archive de programmes radio historiques, émissions et podcasts préservés numériquement."},
+  {n:"Radio Garden", u:"https://radio.garden", c:"Radio libre", d:"Globe interactif permettant d'écouter des milliers de stations radio en direct du monde entier."},
+  {n:"Radiooooo", u:"https://radiooooo.com", c:"Radio libre", d:"Radio musicale interactive par décennies et pays, avec interface visuelle unique et découvertes."},
+  {n:"myNoise", u:"https://mynoise.net", c:"Radio libre", d:"Générateur de bruits de fond et ambiances sonores personnalisables pour concentration, relaxation ou sommeil."},
+
+  // ≡≡≡ MÉTÉO ≡≡≡
+  {n:"Ventusky", u:"https://ventusky.com", c:"Météo", d:"Visualisation météorologique interactive avec cartes animées de vents, températures, précipitations en temps réel."},
+  {n:"Windy", u:"https://windy.com", c:"Météo", d:"Application météo avec cartes interactives détaillées, prévisions précises et nombreuses couches de données."},
+
+  // ≡≡≡ TRANSPORT ≡≡≡
+  {n:"FlightAware", u:"https://flightaware.com", c:"Transport", d:"Service de suivi de vols en temps réel avec statut des vols, cartes de trajet et données historiques."},
+  {n:"Flightradar24", u:"https://flightradar24.com", c:"Transport", d:"Service de suivi de vols utilisant les données ADS-B avec visualisation 3D et application mobile."},
+  {n:"MarineTraffic", u:"https://marinetraffic.com", c:"Transport", d:"Service de suivi de navires en temps réel avec positions AIS, photos et informations portuaires."},
+  {n:"Rome2Rio", u:"https://rome2rio.com", c:"Transport", d:"Moteur de recherche de voyages comparant toutes les options de transport entre deux lieux."},
+  {n:"VesselFinder", u:"https://vesselfinder.com", c:"Transport", d:"Service de suivi de navires avec cartes interactives, positions AIS et informations techniques."},
+
+  // ≡≡≡ ESPACE & SATELLITES ≡≡≡
+  {n:"KeepTrack.space", u:"https://keeptrack.space", c:"Espace", d:"Visualisation 3D des satellites en orbite terrestre avec informations techniques et prédictions de passages."},
+  {n:"LeoLabs Visualization", u:"https://platform.leolabs.space/visualization", c:"Espace", d:"Plateforme de visualisation des débris spatiaux et satellites en orbite basse terrestre."},
+  {n:"N2YO", u:"https://n2yo.com", c:"Espace", d:"Site de suivi de satellites avec prévisions de passages visibles, station spatiale et télescope Hubble."},
+  {n:"SatNOGS", u:"https://satnogs.org", c:"Espace", d:"Réseau mondial de stations terrestres open-source pour la réception de données satellites."},
+  {n:"Stuff in Space", u:"http://stuffin.space", c:"Espace", d:"Visualisation en temps réel 3D de tous les objets artificiels en orbite autour de la Terre."},
+
+  // ≡≡≡ RADIO AMATEUR ≡≡≡
+  {n:"APRS", u:"http://aprs.fi", c:"Radio amateur", d:"Service de localisation et messagerie par paquets pour radioamateurs avec cartes de stations en temps réel."},
+  {n:"KiwiSDR map", u:"https://rx.linkfanel.net", c:"Radio amateur", d:"Carte des récepteurs radio KiwiSDR accessibles à distance dans le monde entier."},
+  {n:"WebSDR", u:"http://websdr.org", c:"Radio amateur", d:"Liste des récepteurs radio logiciels accessibles via internet, permettant d'écouter les ondes courtes."},
+
+  // ≡≡≡ COURS GRATUITS ≡≡≡
+  {n:"freeCodeCamp", u:"https://freecodecamp.org", c:"Cours gratuits", d:"Plateforme d'apprentissage du développement web avec certifications gratuites et projets pratiques."},
+  {n:"MIT OpenCourseWare", u:"https://ocw.mit.edu", c:"Cours gratuits", d:"Initiative du MIT offrant gratuitement les supports de cours de presque tous ses enseignements."},
+  {n:"The Odin Project", d:"https://theodinproject.com", c:"Cours gratuits", d:"Curriculum open-source pour apprendre le développement web full-stack avec projets concrets."},
+
+  // ≡≡≡ ANONYMAT & VIE PRIVÉE ≡≡≡
+  {n:"ProtonMail", u:"https://proton.me/mail", c:"Anonymat", d:"Service de messagerie chiffrée de bout en bout basé en Suisse, avec chiffrement zero-access."},
+  {n:"Tor Browser", u:"https://torproject.org", c:"Anonymat", d:"Navigateur web protégeant la vie privée et permettant l'accès au réseau Tor pour navigation anonyme."},
+  {n:"Tutanota", u:"https://tutanota.com", c:"Anonymat", d:"Service de messagerie chiffrée avec chiffrement automatique des emails et agenda intégré."},
+
+  // ≡≡≡ VPN GRATUIT ≡≡≡
+  {n:"ProtonVPN Free", u:"https://protonvpn.com/free-vpn", c:"VPN gratuit", d:"Service VPN gratuit sans limites de données ni publicités, avec serveurs dans 3 pays."},
+  {n:"Windscribe 10Go/mois", u:"https://windscribe.com", c:"VPN gratuit", d:"VPN avec 10 Go de données gratuites par mois, blocage de publicités et politique stricte de non-log."},
+
+  // ≡≡≡ CHIFFREMENT ≡≡≡
+  {n:"Age Encryption", u:"https://age-encryption.org", c:"Chiffrement", d:"Outil de chiffrement simple, moderne et sécurisé pour fichiers, avec clés SSH compatibles."},
+  {n:"VeraCrypt", u:"https://veracrypt.fr", c:"Chiffrement", d:"Logiciel de chiffrement à la volée pour disques, partitions et conteneurs, successeur de TrueCrypt."},
+
+  // ≡≡≡ STEGANOGRAPHIE ≡≡≡
+  {n:"OpenStego", u:"https://openstego.com", c:"Steganographie", d:"Outil open-source de stéganographie pour cacher des données dans des fichiers et filigrane numérique."},
+  {n:"Steghide", u:"http://steghide.sourceforge.net", c:"Steganographie", d:"Logiciel de stéganographie permettant de cacher des données dans des fichiers image ou audio."},
+
+  // ≡≡≡ PASSWORD MANAGER ≡≡≡
+  {n:"Bitwarden", u:"https://bitwarden.com", c:"Password manager", d:"Gestionnaire de mots de passe open-source avec synchronisation chiffrée et applications multiplateformes."},
+  {n:"KeePassXC", u:"https://keepassxc.org", c:"Password manager", d:"Gestionnaire de mots de passe hors ligne et open-source avec chiffrement fort et plugins."},
+
+  // ≡≡≡ 2FA ≡≡≡
+  {n:"Aegis (Android)", u:"https://getaegis.app", c:"2FA", d:"Application Android open-source pour authentification à deux facteurs (2FA) avec chiffrement local et export."},
+  {n:"andOTP", u:"https://github.com/andOTP/andOTP", c:"2FA", d:"Application Android open-source pour codes d'authentification à deux facteurs avec chiffrement et thèmes."},
+
+  // ≡≡≡ NAVIGATEURS ≡≡≡
+  {n:"Brave", u:"https://brave.com", c:"Navigateur", d:"Navigateur web axé sur la vie privée avec blocage intégré des publicités et récompenses BAT."},
+  {n:"LibreWolf", u:"https://librewolf.net", c:"Navigateur", d:"Fork de Firefox optimisé pour la vie privée avec protection renforcée contre le tracking et télémetry désactivée."},
+  {n:"Mullvad Browser", u:"https://mullvad.net/en/browser", c:"Navigateur", d:"Navigateur basé sur Tor Browser pour une navigation privée sans utiliser le réseau Tor."},
+  {n:"Ungoogled Chromium", u:"https://ungoogled-software.org", c:"Navigateur", d:"Version de Chromium sans intégration Google, optimisée pour la vie privée et le contrôle."},
+
+  // ≡≡≡ BLOQUEUR PUB ≡≡≡
+  {n:"AdGuard", u:"https://adguard.com", c:"Bloqueur pub", d:"Solution complète de blocage de publicités avec applications, DNS et extension navigateur."},
+  {n:"Pi-hole", u:"https://pi-hole.net", c:"Bloqueur pub", d:"Bloqueur de publicités et traqueurs au niveau DNS pour réseau entier, fonctionnant sur Raspberry Pi."},
+  {n:"uBlock Origin", u:"https://github.com/gorhill/uBlock", c:"Bloqueur pub", d:"Extension navigateur efficace et légère pour bloquer les publicités, trackers et malware."},
+
+  // ≡≡≡ DNS PRIVACY ≡≡≡
+  {n:"Control D", u:"https://controld.com", c:"DNS privacy", d:"Service DNS personnalisable avec filtrage, protection vie privée et analyse en temps réel."},
+  {n:"Mullvad DNS", u:"https://mullvad.net/en/help/dns-over-https-and-dns-over-tls", c:"DNS privacy", d:"Service DNS chiffré de Mullvad respectant la vie privée avec filtrage optionnel."},
+  {n:"NextDNS", u:"https://nextdns.io", c:"DNS privacy", d:"Service DNS personnalisable avec protection vie privée, filtrage de contenu et analytics."},
+  {n:"Quad9", u:"https://quad9.net", c:"DNS privacy", d:"Service DNS gratuit bloquant les domaines malveillants et protégeant la vie privée."},
+
+  // ≡≡≡ CHAT CHIFFRÉ ≡≡≡
+  {n:"Briar (Android)", u:"https://briarproject.org", c:"Chat chiffré", d:"Application de messagerie décentralisée fonctionnant sans internet via Bluetooth/WiFi direct, chiffrée."},
+  {n:"Matrix/Element", u:"https://element.io", c:"Chat chiffré", d:"Protocole de communication ouvert et décentralisé avec client Element pour messagerie chiffrée."},
+  {n:"Session", u:"https://getsession.org", c:"Chat chiffré", d:"Application de messagerie décentralisée sans numéro de téléphone ni email, basée sur le réseau Loki."},
+  {n:"Signal", u:"https://signal.org", c:"Chat chiffré", d:"Application de messagerie chiffrée de bout en bout open-source avec appels vocaux/vidéo sécurisés."},
+
+  // ≡≡≡ CLOUD LIBRE ≡≡≡
+  {n:"Filen", u:"https://filen.io", c:"Cloud libre", d:"Service cloud chiffré de bout en bout avec synchronisation de fichiers et politique de non-log."},
+  {n:"Nextcloud", u:"https://nextcloud.com/providers", c:"Cloud libre", d:"Plateforme open-source de collaboration et stockage cloud auto-hébergée ou via fournisseurs."},
+  {n:"Seafile", u:"https://seafile.com", c:"Cloud libre", d:"Solution de stockage cloud et synchronisation open-source avec chiffrement et partage d'équipes."},
+  {n:"Syncthing", u:"https://syncthing.net", c:"Cloud libre", d:"Outil de synchronisation de fichiers continu et décentralisé entre appareils, sans serveur central."},
+
+  // ≡≡≡ NOTES LIBRES ≡≡≡
+  {n:"Obsidian", u:"https://obsidian.md", c:"Notes libres", d:"Application de prise de notes basée sur Markdown avec fonctionnalités de linking et graph view."},
+  {n:"Standard Notes", u:"https://standardnotes.com", c:"Notes libres", d:"Application de prise de notes chiffrée avec extensions, synchronisation et accès permanents."},
+  {n:"Trilium", u:"https://github.com/zadam/trilium", c:"Notes libres", d:"Application de prise de notes hiérarchique avec support Markdown et base de données intégrée."},
+
+  // ≡≡≡ RSS ≡≡≡
+  {n:"FreshRSS", u:"https://freshrss.org", c:"RSS", d:"Agrégateur RSS auto-hébergeable puissant avec interface web, extensions et API."},
+  {n:"Miniflux", u:"https://miniflux.app", c:"RSS", d:"Agrégateur RSS minimaliste et rapide, écrit en Go, avec interface web propre et API."},
+
+  // ≡≡≡ MANGAS & COMICS ≡≡≡
+  {n:"Comick", u:"https://comick.io", c:"Manga & Comics", d:"Plateforme de lecture de mangas en ligne avec vaste catalogue et interface utilisateur moderne."},
+  {n:"FlameScans", u:"https://flamescans.org", c:"Manga & Comics", d:"Groupe de scanlation proposant des traductions de webtoons et manhwa populaires."},
+  {n:"MangaDex", u:"https://mangadex.org", c:"Manga & Comics", d:"Plateforme communautaire de manga avec lectures en ligne, suivi et groupes de scanlation."},
+  {n:"Mihon (fork)", u:"https://mihon.app", c:"Manga & Comics", d:"Fork de Tachiyomi, application Android pour lire des mangas depuis diverses sources en ligne."},
+  {n:"Tachiyomi (Android)", u:"https://tachiyomi.org", c:"Manga & Comics", d:"Application Android open-source pour lire des mangas hors ligne depuis diverses sources."},
+  {n:"XKCD", u:"https://xkcd.com", c:"Manga & Comics", d:"Webcomic de romance, sarcasme, mathématiques et langage par Randall Munroe, sous licence Creative Commons."},
+
+  // ≡≡≡ BYPASS TOOLS ≡≡≡
+  {n:"Bypass.city", u:"https://bypass.city", c:"Bypass", d:"Service pour contourner les redirections de liens raccourcis et éviter les pages intermédiaires."},
+  {n:"FastForward", u:"https://fastforward.team", c:"Bypass", d:"Extension navigateur open-source pour contourner automatiquement les sites de raccourcissement d'URL."},
+  {n:"Universal Bypass", u:"https://universal-bypass.org", c:"Bypass", d:"Extension navigateur pour contourner les liens raccourcis et les sites intermédiaires indésirables."},
+
+  // ≡≡≡ STREAMING (LÉGAL/OPEN-SOURCE) ≡≡≡
+  {n:"Jellyfin", u:"https://jellyfin.org", c:"Streaming", d:"Solution de média center auto-hébergée open-source, alternative à Plex et Emby."},
+  {n:"Kodi", u:"https://kodi.tv", c:"Streaming", d:"Logiciel media center open-source avec support de nombreux formats et extensions."},
+  {n:"Plex", u:"https://plex.tv", c:"Streaming", d:"Plateforme de streaming média avec serveur personnel et applications client pour tous les appareils."},
+  {n:"Stremio + Torrentio", u:"https://stremio.com", c:"Streaming", d:"Application de streaming agrégant contenus avec addons comme Torrentio pour accès à diverses sources."},
+
+  // ≡≡≡ ANIME ≡≡≡
+  {n:"9anime", u:"https://9anime.to", c:"Anime", d:"Site de streaming d'anime avec vaste catalogue, sous-titres multiples et qualité ajustable."},
+  {n:"Anilist", u:"https://anilist.co", c:"Anime", d:"Plateforme sociale pour suivre, découvrir et discuter d'anime et manga avec système de recommandations."},
+  {n:"MyAnimeList", u:"https://myanimelist.net", c:"Anime", d:"Base de données communautaire d'anime et manga avec suivi, notations et forums."},
+
+  // ≡≡≡ DESSINS ANIMÉS ≡≡≡
+  {n:"KimCartoon", u:"https://kimcartoon.li", c:"Dessins animés", d:"Site de streaming spécialisé dans les dessins animés et séries animées avec catalogue étendu."},
+
+  // ≡≡≡ JEUX OPEN-SOURCE ≡≡≡
+  {n:"itch.io free games", u:"https://itch.io/games/free/html5", c:"Jeux open-source", d:"Plateforme de distribution de jeux indépendants avec nombreux jeux gratuits et open-source."},
+  {n:"OpenGameArt", u:"https://opengameart.org", c:"Jeux open-source", d:"Communauté de partage de ressources graphiques 2D/3D libres pour jeux vidéo."},
+
+  // ≡≡≡ JEUX RÉTRO ≡≡≡
+  {n:"Classic Reload", u:"https://classicreload.com", c:"Jeux rétro", d:"Collection de jeux rétro jouables directement dans le navigateur via émulation."},
+  {n:"Internet Archive ROMs", u:"https://archive.org/details/softwarelibrary", c:"Jeux rétro", d:"Archive de logiciels historiques incluant jeux rétro jouables dans le navigateur."},
+  {n:"My Abandonware", u:"https://myabandonware.com", c:"Jeux rétro", d:"Bibliothèque de jeux anciens (abandonware) disponibles au téléchargement légal."},
+  {n:"Vimm's Lair", u:"https://vimm.net", c:"Jeux rétro", d:"Site de préservation de jeux vidéo rétro avec ROMs et ISO pour émulateurs."},
+
+  // ≡≡≡ ARCHIVAGE WEB ≡≡≡
+  {n:"Archive.is", u:"https://archive.is", c:"Web Archive", d:"Service d'archivage web créant des copies pérennes de pages web avec URL stable."},
+  {n:"Archive.org Wayback Machine", u:"https://web.archive.org", c:"Web Archive", d:"Archive numérique de pages web permettant de consulter l'historique des sites."},
+  {n:"Archive.ph", u:"https://archive.ph", c:"Web Archive", d:"Service d'archivage de pages web avec capture d'écran et sauvegarde du contenu."},
+  {n:"Remove Paywall", u:"https://removepaywall.com", c:"Web Archive", d:"Outil pour contourner les paywalls de journaux et sites d'information."},
+
+  // ≡≡≡ TÉLÉCHARGEMENT VIDÉO ≡≡≡
+  {n:"Cobalt.tools", u:"https://cobalt.tools", c:"Téléchargement", d:"Service web pour télécharger vidéos et audio depuis YouTube, TikTok, etc. avec choix de qualité."},
+  {n:"SaveFrom", u:"https://savefrom.net", c:"Téléchargement", d:"Service en ligne pour télécharger vidéos depuis YouTube, Facebook, Instagram et autres plateformes."},
+  {n:"yt-dlp", u:"https://github.com/yt-dlp/yt-dlp", c:"Téléchargement", d:"Successeur de youtube-dl, outil en ligne de commande pour télécharger vidéos depuis 1000+ sites."},
+
+  // ≡≡≡ TÉLÉCHARGEMENT AUDIO ≡≡≡
+  {n:"Deemix", u:"https://notabug.org/deemix/deemix-gui", c:"Téléchargement audio", d:"Application pour télécharger musique depuis Deezer avec qualité Hi-Fi et métadonnées."},
+  {n:"Nicotine+", u:"https://nicotine-plus.org", c:"Téléchargement audio", d:"Client graphique pour le réseau Soulseek, réseau P2P dédié au partage de musique."},
+  {n:"SoulseekQT", u:"https://slsknet.org", c:"Téléchargement audio", d:"Réseau P2P spécialisé dans le partage de fichiers audio, particulièrement musique rare."},
+  {n:"SpotDL", u:"https://github.com/spotDL/spotify-downloader", c:"Téléchargement audio", d:"Outil en ligne de commande pour télécharger des chansons et playlists depuis Spotify."},
+
+  // ≡≡≡ TRANSPORT AÉRIEN ≡≡≡
+  {n:"FlightAware", u:"https://flightaware.com", c:"Transport", d:"Service de suivi de vols en temps réel avec statut des vols, cartes de trajet et données historiques."},
+  {n:"Flightradar24", u:"https://flightradar24.com", c:"Transport", d:"Service de suivi de vols utilisant les données ADS-B avec visualisation 3D et application mobile."},
+  {n:"OpenSky Network", u:"https://opensky-network.org", c:"Transport", d:"Réseau collaboratif fournissant données de trafic aérien en temps réel à des fins de recherche."},
+
+  // ≡≡≡ FILMS LIBRES ≡≡≡
+  {n:"Internet Archive Movies", u:"https://archive.org/details/movies", c:"Films libres", d:"Collection de films du domaine public, films indépendants et contenus historiques archivés."},
+  {n:"Public Domain Torrents", u:"http://publicdomaintorrents.info", c:"Films libres", d:"Collection de torrents de films, musique et livres tombés dans le domaine public."},
+
+  // ≡≡≡ ÉDUCATION & SCIENCES ≡≡≡
+  {n:"Europeana", u:"https://europeana.eu", c:"Livres & Science", d:"Plateforme numérique du patrimoine culturel européen avec millions d'œuvres numérisées."},
+  {n:"HathiTrust", u:"https://hathitrust.org", c:"Livres & Science", d:"Partnership de bibliothèques académiques fournissant accès à millions de livres numérisés."},
+  {n:"Open Culture", u:"https://openculture.com", c:"Livres & Science", d:"Portail culturel proposant gratuitement livres audio, cours, films, manuels et livres électroniques."}
+];
+
+/* =============== NORMALISATION CATÉGORIE =============== */
+function normalizeCat(x) { return x.trim().toLowerCase(); }
+
+/* Fusion et tri */
+const grouped = {};
+sitesRaw.forEach(s => {
+  const key = normalizeCat(s.c);
+  if (!grouped[key]) grouped[key] = { name: s.c.trim(), items: [] };
+  grouped[key].items.push(s);
+});
+
+Object.values(grouped).forEach(g => g.items.sort((a,b)=>a.n.localeCompare(b.n)));
+const categories = Object.values(grouped).sort((a,b)=>a.name.localeCompare(b.name));
+
+
+/* =============== AFFICHAGE =============== */
+const container = document.getElementById("container");
+const counter = document.getElementById("counter");
+
+function render(filter="") {
+  filter = filter.trim().toLowerCase();
+  container.innerHTML = "";
+  let totalShown = 0;
+
+  categories.forEach(cat => {
+    const matched = cat.items.filter(s =>
+      s.n.toLowerCase().includes(filter) ||
+      s.u.toLowerCase().includes(filter) ||
+      cat.name.toLowerCase().includes(filter)
+    );
+
+    if (matched.length === 0) return;
+
+    const h = document.createElement("div");
+    h.className = "category-title";
+    h.textContent = cat.name;
+    container.appendChild(h);
+
+    matched.forEach(site => {
+      const c = document.createElement("div");
+      c.className = "card";
+      c.innerHTML = `
+        <a href="${site.u}" target="_blank">${site.n}</a>
+        <p>${site.d}</p>
+      `;
+      container.appendChild(c);
+      totalShown++;
+    });
+  });
+
+  counter.textContent = totalShown + " / " + sitesRaw.length + " entrées visibles";
+}
+
+render();
+
+/* =============== RECHERCHE INSTANTANÉE =============== */
+document.getElementById("search").addEventListener("input", e => {
+  render(e.target.value);
+});
+
+/* =============== EXPORT JSON DES RÉSULTATS VISIBLES =============== */
+document.getElementById("exportJSON").addEventListener("click", () => {
+  const filter = document.getElementById("search").value.trim().toLowerCase();
+  const result = [];
+
+  categories.forEach(cat => {
+    cat.items.forEach(s => {
+      if (
+        s.n.toLowerCase().includes(filter) ||
+        s.u.toLowerCase().includes(filter) ||
+        cat.name.toLowerCase().includes(filter)
+      ) result.push(s);
+    });
+  });
+
+  const blob = new Blob([JSON.stringify(result, null, 2)], { type:"application/json" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "export.json";
+  a.click();
+});
+
+/* =============== THÈME =============== */
+document.getElementById("toggleTheme").addEventListener("click", () => {
+  document.body.classList.toggle("light");
+});
+</script>
+
+</body>
+</html>
